@@ -18,7 +18,7 @@
     <item
         android:id="@+id/personal_navigation"
         android:enabled="true"
-        android:icon="@drawable/person_48px"
+        android:icon="@drawable/settings_48px"
         android:title="@string/tai_khoan"/>
 
 </menu>

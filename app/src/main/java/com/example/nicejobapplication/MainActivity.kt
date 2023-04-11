@@ -2,10 +2,11 @@ package com.example.nicejobapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.ui.setupWithNavController
 import com.example.nicejobapplication.databinding.ActivityMainBinding
-import com.example.nicejobapplication.fragment.HomeFragment
-import com.example.nicejobapplication.fragment.SearchFragment
+import com.example.nicejobapplication.fragment.JobsFragment
+import com.example.nicejobapplication.fragment.CVFragment
+import com.example.nicejobapplication.fragment.ProfileFragment
+import com.example.nicejobapplication.fragment.CorpFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
 
         supportFragmentManager.beginTransaction().replace(
-            R.id.fragment_container, HomeFragment()
+            R.id.fragment_container, JobsFragment()
         ).commit()
 
 
@@ -28,24 +29,30 @@ class MainActivity : AppCompatActivity() {
                 R.id.home_navigation -> {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.fragment_container,
-                        HomeFragment()
+                        JobsFragment()
                     ).commit()
                     true
                 }
                 R.id.search_navigation -> {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.fragment_container,
-                        SearchFragment()
+                        CorpFragment()
                     ).commit()
                     true
                 }
-//                R.id.notification_navigation -> {
-//                    supportFragmentManager.beginTransaction().replace(
-//                        R.id.fragment_container,
-////                        NotificationsFragment()
-//                    ).commit()
-//                    true
-//                }
+                R.id.notification_navigation -> {
+                    supportFragmentManager.beginTransaction().replace(
+                        R.id.fragment_container,
+                        CVFragment()
+                    ).commit()
+                    true
+                }
+                R.id.personal_navigation -> {
+                    supportFragmentManager.beginTransaction().replace(
+                        R.id.fragment_container, ProfileFragment()
+                    ).commit()
+                    true
+                }
                 else -> false
             }
         }

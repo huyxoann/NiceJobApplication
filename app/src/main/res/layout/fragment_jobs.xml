@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragment.JobsFragment"
+    android:background="@color/md_theme_light_background"
+    >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        >
+
+        <ImageButton
+            android:id="@+id/profileButton"
+            style="@style/AppTheme"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/avatar_1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingTop="8dp"
+            android:text="Chào {Tên User}"
+            android:layout_toRightOf="@id/profileButton"
+            android:layout_alignParentTop="true"
+            android:textColor="@color/md_theme_dark_onPrimary"
+            android:textSize="15sp" />
+
+        <ImageButton
+            android:id="@+id/notificationsButton"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerCrop"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/notifications_48px"
+            />
+    </RelativeLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/background_gradient"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+
+        >
+
+        <TextView
+            android:id="@+id/textJobForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Hãy tìm kiếm công việc phụ hợp với bạn"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/md_theme_dark_onPrimaryContainer"
+            android:padding="10dp"
+            />
+
+        <Button
+            android:id="@+id/elevatedButton"
+            style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Từ khóa bạn đang tìm kiếm"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textJobForm"
+            app:icon="@drawable/search_48px"
+            android:textAlignment="viewStart"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>

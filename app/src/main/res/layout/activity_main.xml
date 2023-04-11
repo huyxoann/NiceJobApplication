@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".MainActivity">
     <FrameLayout
         android:layout_width="match_parent"
@@ -13,10 +14,10 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_container"
-            android:name="com.example.nicejobapplication.fragment.HomeFragment"
+            android:name="com.example.nicejobapplication.fragment.JobsFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:layout="@layout/fragment_home"
+            tools:layout="@layout/fragment_jobs"
             >
 
         </androidx.fragment.app.FragmentContainerView>
