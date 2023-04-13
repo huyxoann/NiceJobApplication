@@ -36,7 +36,9 @@
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_email" />
+        app:layout_constraintTop_toBottomOf="@id/login_email"
+        android:autofillHints="password"
+        />
 
     <Button
         android:id="@+id/btn_login"
@@ -85,8 +87,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_login" />
 
-    <ImageView
-        android:id="@+id/img_google"
+    <ImageButton
+        android:id="@+id/btn_google"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
@@ -99,8 +101,8 @@
         app:layout_constraintTop_toBottomOf="@+id/textView111" />
     " />
 
-    <ImageView
-        android:id="@+id/img_fb"
+    <ImageButton
+        android:id="@+id/btn_fb"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="96dp"
@@ -109,9 +111,8 @@
         android:layout_weight="1"
         android:src="@drawable/fb_icon"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/img_google"
+        app:layout_constraintStart_toEndOf="@+id/btn_google"
         app:layout_constraintTop_toBottomOf="@+id/textView111" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

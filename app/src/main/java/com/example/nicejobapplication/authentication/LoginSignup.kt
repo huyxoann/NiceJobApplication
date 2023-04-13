@@ -1,15 +1,11 @@
 package com.example.nicejobapplication.authentication
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
-import com.example.nicejobapplication.R
 import com.example.nicejobapplication.databinding.ActivityLoginSignupBinding
-import com.example.nicejobapplication.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayout
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 
 class LoginSignup : AppCompatActivity() {
     private lateinit var binding: ActivityLoginSignupBinding
@@ -17,14 +13,13 @@ class LoginSignup : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_login_signup)
         binding = ActivityLoginSignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-       binding.tabLayout.addTab(binding.tabLayout.newTab().setText("LOGIN"))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("LOGIN"))
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("SIGNUP"))
 
-        val fragmentManager : FragmentManager =supportFragmentManager
+        val fragmentManager : FragmentManager = supportFragmentManager
         viewPagerAdapter = ViewPageAdapter(fragmentManager,lifecycle)
         binding.viewPager.adapter = viewPagerAdapter
 

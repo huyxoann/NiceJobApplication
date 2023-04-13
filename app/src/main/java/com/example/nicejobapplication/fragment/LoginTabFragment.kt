@@ -2,28 +2,33 @@ package com.example.nicejobapplication.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.nicejobapplication.MainActivity
 import com.example.nicejobapplication.R
-import com.example.nicejobapplication.authentication.LoginSignup
-import com.example.nicejobapplication.authentication.Users
+import com.example.nicejobapplication.databinding.FragmentLoginTabBinding
+import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.google.android.gms.auth.api.identity.Identity
+import com.google.android.gms.auth.api.identity.SignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 
 
 class LoginTabFragment : Fragment() {
     // create Firebase authentication object
     private lateinit var auth: FirebaseAuth
+    private lateinit var binding: FragmentLoginTabBinding
 
-    private lateinit var btn_login: Button
-    private lateinit var login_email: EditText
-    private lateinit var login_password: EditText
+    private lateinit var oneTapClient: SignInClient
+    private lateinit var signInRequest: BeginSignInRequest
+
+    private lateinit var mGoogleSignInClient: GoogleSignIn
+    private lateinit var gso: GoogleSignInOptions
+
 
     private var emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
 
@@ -32,44 +37,58 @@ class LoginTabFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_login_tab, container, false)
-
+        binding = FragmentLoginTabBinding.inflate(layoutInflater)
         auth = FirebaseAuth.getInstance()
 
-        login_email = view.findViewById(R.id.login_email)
-        login_password = view.findViewById(R.id.login_password)
-        btn_login = view.findViewById(R.id.btn_login)
 
-        btn_login.setOnClickListener {
+
+
+
+
+
+
+
+        //Hiện đăng nhập tự điền nếu người dùng đã đang nhập
+        binding.loginPassword.setAutofillHints(View.AUTOFILL_HINT_PASSWORD)
+
+
+
+
+        binding.btnLogin.setOnClickListener {
             ValidationInfor()
         }
 
+        //Đăng nhập Google bằng Google OneTap
+        binding.btnGoogle.setOnClickListener{
+        }
 
-        return view
+
+        return binding.root
     }
 
+
     private fun ValidationInfor() {
-        val email = login_email.text.toString()
-        val password = login_password.text.toString()
+        val email = binding.loginEmail.text.toString().trim()
+        val password = binding.loginPassword.text.toString().trim()
 
         //validation
         if ( email.isEmpty() && password.isEmpty() ) {
             if (email.isEmpty()) {
-                login_email.error = "Enter your email address"
+                binding.loginEmail.error = "Enter your email address"
             }
             if (password.isEmpty()) {
-                login_password.error = "Enter your password"
+                binding.loginPassword.error = "Enter your password"
             }
             Toast.makeText(activity,"Please enter valid details", Toast.LENGTH_SHORT).show()
         }else if (!email.matches(emailPattern.toRegex())){
-            login_email.error = "Enter valid email address"
+            binding.loginEmail.error = "Enter valid email address"
             Toast.makeText(
                 activity,
                 "Please enter valid email address",
                 Toast.LENGTH_SHORT
             ).show()
         }else if (password.length <6){
-            login_password.error = "Enter password more than 6 characters"
+            binding.loginPassword.error = "Enter password more than 6 characters"
             Toast.makeText(
                 activity,
                 "Please enter password more than 6 characters",
