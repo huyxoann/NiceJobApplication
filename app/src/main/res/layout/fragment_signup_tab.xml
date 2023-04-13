@@ -39,7 +39,7 @@
 
 
     <EditText
-        android:id="@+id/login_password"
+        android:id="@+id/signup_password"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@id/signup_email" />
 
     <EditText
-        android:id="@+id/login_confirm_password"
+        android:id="@+id/signup_confirm_password"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
@@ -67,7 +67,7 @@
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_password" />
+        app:layout_constraintTop_toBottomOf="@id/signup_password" />
 
     <Button
         android:id="@+id/btn_signup"
@@ -81,7 +81,7 @@
         app:cornerRadius="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_confirm_password" />
+        app:layout_constraintTop_toBottomOf="@+id/signup_confirm_password" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
