@@ -5,11 +5,48 @@
     android:layout_height="match_parent"
     tools:context=".fragment.ProfileFragment">
 
-    <Button
-        android:id="@+id/btn_Account_Login"
-        android:layout_width="135dp"
-        android:layout_height="66dp"
-        android:layout_gravity="center"
-        android:text="Đăng nhập" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="horizontal">
+
+    <ImageButton
+        android:id="@+id/profileButton"
+        style="@style/AppTheme"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/avatar_1" />
+
+        <RelativeLayout
+            android:layout_toRightOf="@id/profileButton"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/emailTest1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:paddingTop="8dp"
+                android:text="Xin Chào {Tên User}"
+                android:textColor="@color/md_theme_dark_onPrimary"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/btn_Account_Login"
+                android:layout_width="100dp"
+                android:layout_height="66dp"
+                android:layout_gravity="center"
+                android:layout_toRightOf="@id/emailTest1"
+                android:text="Đăng nhập" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+
 
 </FrameLayout>

@@ -20,11 +20,12 @@ import com.google.firebase.database.FirebaseDatabase
 class LoginTabFragment : Fragment() {
     // create Firebase authentication object
     private lateinit var auth: FirebaseAuth
-    private lateinit var database: FirebaseDatabase
 
     private lateinit var btn_login: Button
     private lateinit var login_email: EditText
     private lateinit var login_password: EditText
+
+    private var emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +33,8 @@ class LoginTabFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_login_tab, container, false)
+
+        auth = FirebaseAuth.getInstance()
 
         login_email = view.findViewById(R.id.login_email)
         login_password = view.findViewById(R.id.login_password)
@@ -58,6 +61,13 @@ class LoginTabFragment : Fragment() {
                 login_password.error = "Enter your password"
             }
             Toast.makeText(activity,"Please enter valid details", Toast.LENGTH_SHORT).show()
+        }else if (!email.matches(emailPattern.toRegex())){
+            login_email.error = "Enter valid email address"
+            Toast.makeText(
+                activity,
+                "Please enter valid email address",
+                Toast.LENGTH_SHORT
+            ).show()
         }else if (password.length <6){
             login_password.error = "Enter password more than 6 characters"
             Toast.makeText(
@@ -68,15 +78,15 @@ class LoginTabFragment : Fragment() {
         } else{
             // calling signInWithEmailAndPassword(email, pass) function using Firebase auth object
             auth.signInWithEmailAndPassword(email,password).addOnCompleteListener {
-                        if (it.isSuccessful){
-                            //chuyển đến fragment main
-                            val i = Intent(activity, MainActivity::class.java)
-                            startActivity(i)
-                            Toast.makeText(activity,"Login successfully !", Toast.LENGTH_SHORT).show()
-                        }else{
-                            Toast.makeText(activity,"Something went wrong, try again", Toast.LENGTH_SHORT).show()
-                        }
-                    }
+                if (it.isSuccessful){
+                    //chuyển đến fragment main
+                    val i = Intent(activity, MainActivity::class.java)
+                    startActivity(i)
+                    Toast.makeText(activity,"Login successfully !", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(activity,"Something went wrong, try again", Toast.LENGTH_SHORT).show()
                 }
             }
         }
+    }
+}

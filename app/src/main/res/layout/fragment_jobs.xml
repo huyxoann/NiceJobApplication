@@ -26,11 +26,12 @@
             android:src="@drawable/avatar_1" />
 
         <TextView
+            android:id="@+id/emailTest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_bold"
             android:paddingTop="8dp"
-            android:text="Chào {Tên User}"
+            android:text="Xin Chào {Tên User}"
             android:layout_toRightOf="@id/profileButton"
             android:layout_alignParentTop="true"
             android:textColor="@color/md_theme_dark_onPrimary"
