@@ -3,13 +3,13 @@
     <item
         android:id="@+id/home_navigation"
         android:enabled="true"
-        android:icon="@drawable/home_48px"
-        android:title="@string/trang_chu"/>
+        android:icon="@drawable/work_48px"
+        android:title="@string/viec_lam"/>
     <item
         android:id="@+id/search_navigation"
         android:enabled="true"
-        android:icon="@drawable/search_48px"
-        android:title="@string/tim_viec"/>
+        android:icon="@drawable/apartment_48px"
+        android:title="@string/cong_ty"/>
     <item
         android:id="@+id/notification_navigation"
         android:enabled="true"
@@ -18,7 +18,7 @@
     <item
         android:id="@+id/personal_navigation"
         android:enabled="true"
-        android:icon="@drawable/settings_48px"
+        android:icon="@drawable/person_48px"
         android:title="@string/tai_khoan"/>
 
 </menu>
