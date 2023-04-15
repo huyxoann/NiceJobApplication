@@ -3,14 +3,13 @@ package com.example.nicejobapplication
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.nicejobapplication.databinding.ActivityMainBinding
-import com.example.nicejobapplication.fragment.JobsFragment
-import com.example.nicejobapplication.fragment.CVFragment
-import com.example.nicejobapplication.fragment.ProfileFragment
-import com.example.nicejobapplication.fragment.CorpFragment
+import com.example.nicejobapplication.fragment.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+    private lateinit var firebaseAuth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -18,6 +17,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
+
+        firebaseAuth = FirebaseAuth.getInstance()
+
+        val firebaseUser = firebaseAuth.currentUser
 
         supportFragmentManager.beginTransaction().replace(
             R.id.fragment_container, JobsFragment()
@@ -48,9 +51,15 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.personal_navigation -> {
-                    supportFragmentManager.beginTransaction().replace(
-                        R.id.fragment_container, ProfileFragment()
-                    ).commit()
+                    if (firebaseUser==null){
+                        supportFragmentManager.beginTransaction().replace(
+                            R.id.fragment_container, ProfileFragment()
+                        ).commit()
+                    }else{
+                        supportFragmentManager.beginTransaction().replace(
+                            R.id.fragment_container, LoginProfileFragment()
+                        ).commit()
+                    }
                     true
                 }
                 else -> false

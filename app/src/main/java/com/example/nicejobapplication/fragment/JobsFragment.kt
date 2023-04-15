@@ -8,13 +8,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import com.example.nicejobapplication.MainActivity
 import com.example.nicejobapplication.R
+import com.example.nicejobapplication.databinding.FragmentJobsBinding
+import com.example.nicejobapplication.databinding.FragmentLoginProfileBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class JobsFragment : Fragment() {
+    private lateinit var binding:FragmentJobsBinding
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var emailTest: TextView
+    private lateinit var dbRef: DatabaseReference
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
@@ -22,28 +29,34 @@ class JobsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_jobs, container, false)
+        binding = FragmentJobsBinding.inflate(layoutInflater)
 
-        emailTest = view.findViewById(R.id.emailTest)
-
-            //init firebase Auth
+        //init firebase Auth
         firebaseAuth = FirebaseAuth.getInstance()
-        checkUser()
-        return view
-    }
 
-    private fun checkUser() {
-        //get current user
+        dbRef = Firebase.database.reference
+
         val firebaseUser = firebaseAuth.currentUser
         if (firebaseUser==null){
             //not logged in , user can stay in user dashboard without login too
             //chưa đăng nhập, người dùng cũng có thể ở trong bảng điều khiển người dùng mà không cần đăng nhập
-            emailTest.text = "Not logged In"
+            binding.txtNameHome.text = "Not logged In"
         }else{
             //logged in , get and show user info
-            val email = firebaseUser.email
-            emailTest.text = email
+            val userId = FirebaseAuth.getInstance().currentUser!!.uid
+            dbRef.child("users").child(userId).get().addOnSuccessListener {
+
+                val name = it.child("name").value.toString()
+
+                binding.txtNameHome.text = "Xin chào $name"
+
+            }.addOnFailureListener {
+                Toast.makeText(activity,it.toString(), Toast.LENGTH_SHORT).show()
+            }
 
         }
+
+        return binding.root
     }
+
 }

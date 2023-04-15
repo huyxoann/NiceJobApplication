@@ -34,7 +34,13 @@ class ProfileFragment : Fragment() {
 
         //init firebase Auth
         firebaseAuth = FirebaseAuth.getInstance()
-        checkUser()
+//        checkUser()
+
+        btnAccountLogin.setOnClickListener {
+//            checkUser()
+            val i = Intent(activity, LoginSignup::class.java)
+            startActivity(i)
+        }
 
         // Inflate the layout for this fragment
         return view

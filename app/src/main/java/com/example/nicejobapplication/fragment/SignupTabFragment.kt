@@ -106,26 +106,35 @@ class SignupTabFragment : Fragment() {
             //call createUserWithEmailAndPassword using auth object and pass the email and pass in it.
             auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener {
                 if (it.isSuccessful){
-                    //databaseRef : reference to a location in the Firebase Realtime Database.
-                    //database.reference  : gets a reference to the ROOT NODE of the database.
-                    //child("users") : creates a child node UNDER the root node called "users".
-                    //child(auth.currentUser!!.uid) creates a child node under the "users" node with the current user's unique ID as its name.
-                    // auth appears to be an instance of Firebase Authentication that is being used to get the current user's ID.
-                    //The resulting databaseRef variable can be used to read from or write to the location in the Firebase Realtime Database that corresponds to the current user's node under the "users" node.
-                    val databaseRef = database.reference.child("users").child(auth.currentUser!!.uid)
-                    val users :Users = Users(name,email, auth.currentUser!!.uid)
+                    //signup success -> email verification
+                      auth.currentUser?.sendEmailVerification()
+                        ?.addOnSuccessListener {
 
-                    //setValue(users) : sets the value of the location referred to by databaseRef to the value of the users object
-                    databaseRef.setValue(users).addOnCompleteListener {
-                        if (it.isSuccessful){
-                            //chuyển đến fragment login
-                            val i = Intent(activity, LoginSignup::class.java)
-                            startActivity(i)
-                            Toast.makeText(activity,"Signup successfully , Please login !",Toast.LENGTH_SHORT).show()
-                        }else{
-                            Toast.makeText(activity,"Something went wrong, try again",Toast.LENGTH_SHORT).show()
+                            //save data in realtime database
+                                //databaseRef : reference to a location in the Firebase Realtime Database.
+                                //database.reference  : gets a reference to the ROOT NODE of the database.
+                                //child("users") : creates a child node UNDER the root node called "users".
+                                //child(auth.currentUser!!.uid) creates a child node under the "users" node with the current user's unique ID as its name.
+                                // auth appears to be an instance of Firebase Authentication that is being used to get the current user's ID.
+                                //The resulting databaseRef variable can be used to read from or write to the location in the Firebase Realtime Database that corresponds to the current user's node under the "users" node.
+                            val databaseRef = database.reference.child("users").child(auth.currentUser!!.uid)
+                            val users :Users = Users(name,email, auth.currentUser!!.uid)
+
+                            //setValue(users) : sets the value of the location referred to by databaseRef to the value of the users object
+                            databaseRef.setValue(users).addOnCompleteListener {
+                                if (it.isSuccessful){
+                                    //chuyển đến fragment login
+                                    val i = Intent(activity, LoginSignup::class.java)
+                                    startActivity(i)
+                                    Toast.makeText(activity,"Signup successfully, Please verify your Email !",Toast.LENGTH_SHORT).show()
+                                }else{
+                                    Toast.makeText(activity,"Something went wrong, try again",Toast.LENGTH_SHORT).show()
+                                }
+                            }
                         }
-                    }
+                        ?.addOnFailureListener {
+                            Toast.makeText(activity,it.toString(),Toast.LENGTH_SHORT).show()
+                        }
                 }else{
                     //failed
                     Toast.makeText(activity,"Something went wrong, try again",Toast.LENGTH_SHORT).show()
@@ -135,4 +144,6 @@ class SignupTabFragment : Fragment() {
             }
         }
     }
+
+
 }
