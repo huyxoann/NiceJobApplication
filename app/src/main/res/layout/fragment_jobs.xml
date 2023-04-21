@@ -14,16 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-
+        android:padding="8dp"
         >
-
         <ImageButton
             android:id="@+id/profileButtonHome"
             style="@style/AppTheme"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/avatar_1" />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/avatar_1"/>
 
         <TextView
             android:id="@+id/txtName_home"
@@ -32,7 +31,7 @@
             android:fontFamily="@font/roboto_bold"
             android:paddingTop="8dp"
             android:text="Xin Chào {Tên User}"
-            android:layout_toRightOf="@id/profileButtonHome"
+            android:layout_toEndOf="@id/profileButtonHome"
             android:layout_alignParentTop="true"
             android:textColor="@color/md_theme_dark_onPrimary"
             android:textSize="15sp" />

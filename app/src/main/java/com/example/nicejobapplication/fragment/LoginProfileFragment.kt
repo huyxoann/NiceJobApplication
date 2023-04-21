@@ -92,7 +92,7 @@ class LoginProfileFragment : Fragment() {
 
         dbRef = Firebase.database.reference
 
-        val userId = FirebaseAuth.getInstance().currentUser!!.uid
+        val userId = auth.currentUser!!.uid
 
         dbRef.child("users").child(userId).get().addOnSuccessListener {
 
@@ -103,6 +103,7 @@ class LoginProfileFragment : Fragment() {
 
             binding.txtName.text = name
 
+            //view image
             Glide.with(requireActivity()).load(img).into(binding.profileButton)
 
 
