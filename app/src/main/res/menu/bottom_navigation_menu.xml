@@ -13,8 +13,8 @@
     <item
         android:id="@+id/notification_navigation"
         android:enabled="true"
-        android:icon="@drawable/notifications_48px"
-        android:title="@string/thong_bao"/>
+        android:icon="@drawable/cv_48px"
+        android:title="@string/cv"/>
     <item
         android:id="@+id/personal_navigation"
         android:enabled="true"

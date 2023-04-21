@@ -4,12 +4,20 @@ import com.google.firebase.Timestamp
 
 class Jobs(jobID: String,
            jobName: String,
+           corpID: String,
+
            numOfRecruit: Int,
            genderJob: Int,
-           corpID: String,
            workAddress: Array<String>,
            jobDescription: JobDescription,
-           employerID: Int,
+
+           careerId: Int,
+           expId: Int,
+           provinceId: Int,
+           wayToWorkId: Int,
+           salaryId: Int,
+           levelId: Int,
+
            state: Int,
            createdAt: Timestamp,
            expertDay: Timestamp
