@@ -17,6 +17,7 @@ import com.example.nicejobapplication.authentication.LoginSignup
 import com.example.nicejobapplication.authentication.Users
 import com.google.android.gms.dynamic.SupportFragmentWrapper
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
@@ -109,6 +110,11 @@ class SignupTabFragment : Fragment() {
                     //signup success -> email verification
                       auth.currentUser?.sendEmailVerification()
                         ?.addOnSuccessListener {
+                            val userProfileChangeRequest = UserProfileChangeRequest.Builder()
+                                .setDisplayName(name)
+                                .build()
+
+
 
                             //save data in realtime database
                                 //databaseRef : reference to a location in the Firebase Realtime Database.
