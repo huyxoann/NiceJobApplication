@@ -69,10 +69,10 @@ class JobsFragment : Fragment() {
 
         }else{
 
-//            if (firebaseUser!=null){
+            if (firebaseUser!=null){
 
                 //logged in , get and show user info
-                val userId = firebaseUser!!.uid
+                val userId = firebaseUser.uid
                 dbRef.child("users").child(userId).get().addOnSuccessListener {
 
                     val name = it.child("name").value.toString()
@@ -88,11 +88,11 @@ class JobsFragment : Fragment() {
                     Toast.makeText(activity,it.toString(), Toast.LENGTH_SHORT).show()
                 }
 
-//            }else{
+            }else{
                 //not logged in , user can stay in user dashboard without login too
                 //chưa đăng nhập, người dùng cũng có thể ở trong bảng điều khiển người dùng mà không cần đăng nhập
                 binding.txtNameHome.text = "Not logged In"
-//            }
+            }
         }
 
 
