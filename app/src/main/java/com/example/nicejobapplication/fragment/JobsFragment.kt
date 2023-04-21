@@ -9,10 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.example.nicejobapplication.MainActivity
 import com.example.nicejobapplication.R
 import com.example.nicejobapplication.databinding.FragmentJobsBinding
-import com.example.nicejobapplication.databinding.FragmentLoginProfileBinding
+import com.example.nicejobapplication.databinding.FragmentLoginTabBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
@@ -27,7 +28,7 @@ class JobsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentJobsBinding.inflate(layoutInflater)
 
@@ -46,9 +47,13 @@ class JobsFragment : Fragment() {
             val userId = FirebaseAuth.getInstance().currentUser!!.uid
             dbRef.child("users").child(userId).get().addOnSuccessListener {
 
+                val img = it.child("imgUrl").value.toString()
+
                 val name = it.child("name").value.toString()
 
                 binding.txtNameHome.text = "Xin chào $name"
+
+                Glide.with(requireActivity()).load(img).into(binding.profileButtonHome)
 
             }.addOnFailureListener {
                 Toast.makeText(activity,it.toString(), Toast.LENGTH_SHORT).show()

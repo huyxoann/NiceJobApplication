@@ -18,7 +18,7 @@
         >
 
         <ImageButton
-            android:id="@+id/profileButton"
+            android:id="@+id/profileButtonHome"
             style="@style/AppTheme"
             android:layout_width="70dp"
             android:layout_height="70dp"
@@ -32,7 +32,7 @@
             android:fontFamily="@font/roboto_bold"
             android:paddingTop="8dp"
             android:text="Xin Chào {Tên User}"
-            android:layout_toRightOf="@id/profileButton"
+            android:layout_toRightOf="@id/profileButtonHome"
             android:layout_alignParentTop="true"
             android:textColor="@color/md_theme_dark_onPrimary"
             android:textSize="15sp" />

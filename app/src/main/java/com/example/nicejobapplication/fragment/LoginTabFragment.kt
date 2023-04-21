@@ -1,9 +1,11 @@
 package com.example.nicejobapplication.fragment
 
 import android.app.AlertDialog
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.nicejobapplication.LoginFacebook
 import com.example.nicejobapplication.MainActivity
 import com.example.nicejobapplication.R
 import com.example.nicejobapplication.databinding.FragmentLoginTabBinding
@@ -22,22 +25,19 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.dynamic.SupportFragmentWrapper
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
 
 
 class LoginTabFragment : Fragment() {
+
     // create Firebase authentication object
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: FragmentLoginTabBinding
-
-//    private lateinit var oneTapClient: SignInClient
-//    private lateinit var signInRequest: BeginSignInRequest
-//
-//    private lateinit var mGoogleSignInClient: GoogleSignIn
-    private lateinit var gso: GoogleSignInOptions
-
-    private lateinit var gsc:GoogleSignInClient
 
 
     private var emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
@@ -45,41 +45,32 @@ class LoginTabFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentLoginTabBinding.inflate(layoutInflater)
+
+        // Initialize firebase auth
         auth = FirebaseAuth.getInstance()
+
+        //login google
+        binding.imgBtnLoginGoogle.setOnClickListener {
+
+        }
+
+        //login fb
+        binding.imgBtnLoginFB.setOnClickListener {
+            startActivity(Intent(activity,LoginFacebook::class.java))
+        }
 
         //Hiện đăng nhập tự điền nếu người dùng đã đang nhập
         binding.loginPassword.setAutofillHints(View.AUTOFILL_HINT_PASSWORD)
 
+        //login with gmail and password
         binding.btnLogin.setOnClickListener {
             ValidationInfor()
         }
 
-        //login google
-        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-//====================================================================
-//        gsc = activity?.let { GoogleSignIn.getClient(it,gso) }!!
-        gsc = GoogleSignIn.getClient(requireActivity(),gso)
-//====================================================================
-
-        val account:GoogleSignInAccount? = GoogleSignIn
-            .getLastSignedInAccount(requireActivity())
-
-        if (account!=null){
-            goToHome()
-        }
-
-        binding.imgBtnLoginGoogle.setOnClickListener {
-            goToSignIn()
-        }
-
-
-
+    //forgot password
         binding.txtForgotPass.setOnClickListener {
             val builder = AlertDialog.Builder(activity)
             val view = layoutInflater.inflate(R.layout.dialog_forgot,null)
@@ -95,44 +86,13 @@ class LoginTabFragment : Fragment() {
             view.findViewById<Button>(R.id.btnCancel).setOnClickListener {
                 dialog.dismiss()
             }
-            if(dialog.window!=null){
-                dialog.window!!.setBackgroundDrawable(ColorDrawable(0))
-            }
+//            if(dialog.window!=null){
+//                dialog.window!!.setBackgroundDrawable(ColorDrawable(0))
+//            }
             dialog.show()
-
         }
-
-        //Đăng nhập Google bằng Google OneTap
-//        binding.btnGoogle.setOnClickListener{
-//        }
 
         return binding.root
-    }
-
-    private fun goToSignIn() {
-        val signInIntent = gsc.signInIntent
-
-        startActivityForResult(signInIntent,1000)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        val task:Task<GoogleSignInAccount> = GoogleSignIn
-            .getSignedInAccountFromIntent(data)
-
-        try {
-                task.getResult(ApiException::class.java)
-                goToHome()
-        }
-        catch (e:java.lang.Exception){
-            Toast.makeText(activity,e.message, Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun goToHome() {
-//        val intent = Intent(activity,MainActivity::class.java)
-//        startActivity(intent)
     }
 
     private fun compareEmail(email:EditText) {
@@ -150,7 +110,6 @@ class LoginTabFragment : Fragment() {
 
     }
 
-
     private fun ValidationInfor() {
         val email = binding.loginEmail.text.toString().trim()
         val password = binding.loginPassword.text.toString().trim()
@@ -165,14 +124,14 @@ class LoginTabFragment : Fragment() {
             }
             Toast.makeText(activity,"Please enter valid details", Toast.LENGTH_SHORT).show()
         }else if (!email.matches(emailPattern.toRegex())){
-            binding.loginEmail.error = "Enter valid email address"
+//            binding.loginEmail.error = "Enter valid email address"
             Toast.makeText(
                 activity,
                 "Please enter valid email address",
                 Toast.LENGTH_SHORT
             ).show()
         }else if (password.length <6){
-            binding.loginPassword.error = "Enter password more than 6 characters"
+//            binding.loginPassword.error = "Enter password more than 6 characters"
             Toast.makeText(
                 activity,
                 "Please enter password more than 6 characters",

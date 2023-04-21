@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.nicejobapplication.databinding.ActivityMainBinding
 import com.example.nicejobapplication.fragment.*
+import com.facebook.AccessToken
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private lateinit var firebaseAuth: FirebaseAuth
+
+    private val accessToken = AccessToken.getCurrentAccessToken()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -51,21 +54,62 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.personal_navigation -> {
-                    if (firebaseUser==null){
+
+                    if (accessToken!=null && !accessToken.isExpired){
+//
+//                        //login fb -> view profile fb
                         supportFragmentManager.beginTransaction().replace(
-                            R.id.fragment_container, ProfileFragment()
+                            R.id.fragment_container, LoginFacbookProfileFragment()
                         ).commit()
-                    }else{
-                        supportFragmentManager.beginTransaction().replace(
-                            R.id.fragment_container, LoginProfileFragment()
-                        ).commit()
+                    }else {
+                        //test account not login
+//                        supportFragmentManager.beginTransaction().replace(
+//                            R.id.fragment_container, ProfileFragment()
+//                        ).commit()
+                        //
+                        if (firebaseUser==null){
+                            supportFragmentManager.beginTransaction().replace(
+                                R.id.fragment_container, ProfileFragment()
+                            ).commit()
+                        }else{
+                            supportFragmentManager.beginTransaction().replace(
+                                R.id.fragment_container, LoginProfileFragment()
+                            ).commit()
+                        }
                     }
-                    true
-                }
-                else -> false
-            }
+//                    if (firebaseUser==null){
+//                        supportFragmentManager.beginTransaction().replace(
+//                            R.id.fragment_container, ProfileFragment()
+//                        ).commit()
+//                    }else{
+//                        supportFragmentManager.beginTransaction().replace(
+//                            R.id.fragment_container, LoginProfileFragment()
+//                        ).commit()
+//                    }
+//                            supportFragmentManager.beginTransaction().replace(
+//                            R.id.fragment_container, LoginProfileFragment()
+//                        ).commit()
+//                        }
+//                        login basic
+//                        supportFragmentManager.beginTransaction().replace(
+//                            R.id.fragment_container, LoginProfileFragment()
+//                        ).commit()
+
+                        ////login google
+//                        supportFragmentManager.beginTransaction().replace(
+//                            R.id.fragment_container, LoginGoogleProfileFragment()
+//                        ).commit()
+
+
+                        ////login facebook
+//                        supportFragmentManager.beginTransaction().replace(
+//                            R.id.fragment_container, LoginFacbookProfileFragment()
+//                        ).commit()
+
+            true
         }
+        else -> false
     }
-
-
+}
+}
 }
