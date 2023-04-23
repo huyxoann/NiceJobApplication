@@ -1,11 +1,11 @@
-package com.example.nicejobapplication.authentication
+package com.example.nicejobapplication.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.nicejobapplication.fragment.LoginTabFragment
-import com.example.nicejobapplication.fragment.SignupTabFragment
+import com.example.nicejobapplication.TabFragment.LoginTabFragment
+import com.example.nicejobapplication.TabFragment.SignupTabFragment
 
 class ViewPageAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {

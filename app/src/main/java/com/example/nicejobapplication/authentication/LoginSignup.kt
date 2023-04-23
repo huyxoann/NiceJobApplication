@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
+import com.example.nicejobapplication.adapter.ViewPageAdapter
 import com.example.nicejobapplication.databinding.ActivityLoginSignupBinding
 import com.google.android.material.tabs.TabLayout
 

@@ -1,7 +1,13 @@
 package com.example.nicejobapplication
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
+import com.example.nicejobapplication.DetailFragment.CorporationDetail
 import com.example.nicejobapplication.databinding.ActivityMainBinding
 import com.example.nicejobapplication.fragment.*
 import com.facebook.AccessToken
@@ -13,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
 
     private val accessToken = AccessToken.getCurrentAccessToken()
+    private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -25,12 +32,14 @@ class MainActivity : AppCompatActivity() {
 
         val firebaseUser = firebaseAuth.currentUser
 
+
         supportFragmentManager.beginTransaction().replace(
             R.id.fragment_container, JobsFragment()
         ).commit()
 
 
-        bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
+
+        bottomNavigation.setOnNavigationItemSelectedListener   { menuItem ->
             when (menuItem.itemId) {
                 R.id.home_navigation -> {
                     supportFragmentManager.beginTransaction().replace(
@@ -38,6 +47,7 @@ class MainActivity : AppCompatActivity() {
                         JobsFragment()
                     ).commit()
                     true
+
                 }
                 R.id.search_navigation -> {
                     supportFragmentManager.beginTransaction().replace(
@@ -49,67 +59,36 @@ class MainActivity : AppCompatActivity() {
                 R.id.notification_navigation -> {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.fragment_container,
-                        CVFragment()
+                        CorporationDetail()
                     ).commit()
                     true
                 }
                 R.id.personal_navigation -> {
 
-                    if (accessToken!=null && !accessToken.isExpired){
-//
-//                        //login fb -> view profile fb
+                    if (accessToken != null && !accessToken.isExpired) {
                         supportFragmentManager.beginTransaction().replace(
                             R.id.fragment_container, LoginFacbookProfileFragment()
                         ).commit()
-                    }else {
-                        //test account not login
-//                        supportFragmentManager.beginTransaction().replace(
-//                            R.id.fragment_container, ProfileFragment()
-//                        ).commit()
-                        //
-                        if (firebaseUser==null){
+                    } else {
+                        if (firebaseUser == null) {
                             supportFragmentManager.beginTransaction().replace(
                                 R.id.fragment_container, ProfileFragment()
                             ).commit()
-                        }else{
+                        } else {
                             supportFragmentManager.beginTransaction().replace(
                                 R.id.fragment_container, LoginProfileFragment()
                             ).commit()
                         }
                     }
-//                    if (firebaseUser==null){
-//                        supportFragmentManager.beginTransaction().replace(
-//                            R.id.fragment_container, ProfileFragment()
-//                        ).commit()
-//                    }else{
-//                        supportFragmentManager.beginTransaction().replace(
-//                            R.id.fragment_container, LoginProfileFragment()
-//                        ).commit()
-//                    }
-//                            supportFragmentManager.beginTransaction().replace(
-//                            R.id.fragment_container, LoginProfileFragment()
-//                        ).commit()
-//                        }
-//                        login basic
-//                        supportFragmentManager.beginTransaction().replace(
-//                            R.id.fragment_container, LoginProfileFragment()
-//                        ).commit()
 
-                        ////login google
-//                        supportFragmentManager.beginTransaction().replace(
-//                            R.id.fragment_container, LoginGoogleProfileFragment()
-//                        ).commit()
-
-
-                        ////login facebook
-//                        supportFragmentManager.beginTransaction().replace(
-//                            R.id.fragment_container, LoginFacbookProfileFragment()
-//                        ).commit()
-
-            true
+                    true
+                }
+                else -> false
+            }
         }
-        else -> false
     }
-}
-}
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
 }

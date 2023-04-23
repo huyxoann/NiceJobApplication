@@ -14,8 +14,9 @@ class Corporation(
     employerID: String
 )
 {
-    constructor(corpName: String, corpDescription: String) : this("", corpName, "", corpDescription, "", "", 0, "")
+    constructor(corpName: String, corpDescription: String, corpLogo: String) : this("", corpName, corpLogo, corpDescription, "", "", 0, "")
 
     var corpName = corpName
     var corpDescription = corpDescription
+    var corpLogo = corpLogo
 }

@@ -1,9 +1,6 @@
-package com.example.nicejobapplication.fragment
+package com.example.nicejobapplication.TabFragment
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
-import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,10 +12,8 @@ import android.widget.Toast
 import com.example.nicejobapplication.R
 import com.example.nicejobapplication.authentication.LoginSignup
 import com.example.nicejobapplication.authentication.Users
-import com.google.android.gms.dynamic.SupportFragmentWrapper
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 

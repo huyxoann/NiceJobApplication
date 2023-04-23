@@ -6,24 +6,33 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.nicejobapplication.R
 import com.example.nicejobapplication.modal.Corporation
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 
-class CorpAdapter(private val context: Context, private val corpArrayList: ArrayList<Corporation>): RecyclerView.Adapter<CorpAdapter.CorpViewHolder>() {
+class CorpAdapter(private val context: Context, private val corpArrayList: ArrayList<Corporation>, private val listener: OnItemClickListener): RecyclerView.Adapter<CorpAdapter.CorpViewHolder>() {
 
     inner class CorpViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         val corpTitle: TextView =
             itemView.findViewById(R.id.corpTitle)
-         val corpDes: TextView =
+        val corpDes: TextView =
             itemView.findViewById(R.id.corpDes)
-        fun bind(corp: Corporation) {
-        }
+        val corpLogo: ImageView =
+            itemView.findViewById(R.id.corpImage)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CorpViewHolder {
-        val adapterLayout = LayoutInflater.from(parent.context).inflate(R.layout.corp_item, parent, false)
+        val adapterLayout =
+            LayoutInflater.from(parent.context).inflate(R.layout.corp_item, parent, false)
+
         return CorpViewHolder(adapterLayout)
     }
 
@@ -33,5 +42,16 @@ class CorpAdapter(private val context: Context, private val corpArrayList: Array
         val item: Corporation = corpArrayList[position]
         holder.corpTitle.text = item.corpName
         holder.corpDes.text = item.corpDescription
+        val storageRef = Firebase.storage.getReferenceFromUrl(item.corpLogo)
+        storageRef.downloadUrl.addOnSuccessListener { uri ->
+            Glide.with(holder.itemView.context)
+                .load(uri)
+                .into(holder.corpLogo)
+        }
+
+        holder.itemView.setOnClickListener {
+            listener.onItemClick(position)
+        }
+
     }
 }

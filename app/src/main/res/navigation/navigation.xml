@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/mainActivity">
+
+    <fragment
+        android:id="@+id/corpFragment"
+        android:name="com.example.nicejobapplication.fragment.CorpFragment"
+        android:label="fragment_corp"
+        tools:layout="@layout/fragment_corp" >
+        <action
+            android:id="@+id/action_corpFragment_to_corporationDetail"
+            app:destination="@id/corporationDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/corporationDetail"
+        android:name="com.example.nicejobapplication.DetailFragment.CorporationDetail"
+        android:label="fragment_corporation_detail"
+        tools:layout="@layout/fragment_corporation_detail" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.nicejobapplication.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+
+</navigation>

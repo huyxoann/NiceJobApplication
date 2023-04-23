@@ -7,9 +7,13 @@
 
     tools:context=".MainActivity">
     <FrameLayout
+        android:id="@+id/nav_host_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_navigation"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost = "true"
+        app:navGraph = "@navigation/navigation"
         >
 
         <androidx.fragment.app.FragmentContainerView
@@ -18,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout="@layout/fragment_jobs"
+
             >
 
         </androidx.fragment.app.FragmentContainerView>
@@ -31,7 +36,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         style="@style/AppTheme"
-
         app:menu="@menu/bottom_navigation_menu" />
 
 
