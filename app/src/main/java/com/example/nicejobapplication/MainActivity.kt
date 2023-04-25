@@ -1,6 +1,7 @@
 package com.example.nicejobapplication
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -38,10 +39,15 @@ class MainActivity : AppCompatActivity() {
         val firebaseUser = firebaseAuth.currentUser
 
 
-        supportFragmentManager.beginTransaction().replace(
-            R.id.fragment_container, JobsFragment()
-        ).commit()
 
+//        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.corporationDetail) {
+                bottomNavigation.visibility = View.GONE
+            } else {
+                bottomNavigation.visibility = View.VISIBLE
+            }
+        }
 
 
 //        bottomNavigation.setOnNavigationItemSelectedListener   { menuItem ->

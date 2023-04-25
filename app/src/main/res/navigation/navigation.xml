@@ -17,7 +17,8 @@
         tools:layout="@layout/fragment_corp" >
         <action
             android:id="@+id/action_corpFragment_to_corporationDetail"
-            app:destination="@id/corporationDetail" />
+            app:destination="@id/corporationDetail"
+            app:popUpTo="@id/corpFragment" />
     </fragment>
     <fragment
         android:id="@+id/CVFragment"
