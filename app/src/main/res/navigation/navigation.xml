@@ -3,8 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/mainActivity">
+    app:startDestination="@id/jobsFragment">
 
+    <fragment
+        android:id="@+id/jobsFragment"
+        android:name="com.example.nicejobapplication.fragment.JobsFragment"
+        android:label="fragment_jobs"
+        tools:layout="@layout/fragment_jobs" />
     <fragment
         android:id="@+id/corpFragment"
         android:name="com.example.nicejobapplication.fragment.CorpFragment"
@@ -15,14 +20,19 @@
             app:destination="@id/corporationDetail" />
     </fragment>
     <fragment
+        android:id="@+id/CVFragment"
+        android:name="com.example.nicejobapplication.fragment.CVFragment"
+        android:label="fragment_cv"
+        tools:layout="@layout/fragment_cv" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.nicejobapplication.fragment.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
         android:id="@+id/corporationDetail"
         android:name="com.example.nicejobapplication.DetailFragment.CorporationDetail"
         android:label="fragment_corporation_detail"
         tools:layout="@layout/fragment_corporation_detail" />
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.example.nicejobapplication.MainActivity"
-        android:label="activity_main"
-        tools:layout="@layout/activity_main" />
 
 </navigation>

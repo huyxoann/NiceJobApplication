@@ -1,5 +1,6 @@
 package com.example.nicejobapplication.modal
 
+import android.location.Address
 import com.google.android.gms.common.internal.safeparcel.SafeParcelable.Constructor
 
 
@@ -14,9 +15,10 @@ class Corporation(
     employerID: String
 )
 {
-    constructor(corpName: String, corpDescription: String, corpLogo: String) : this("", corpName, corpLogo, corpDescription, "", "", 0, "")
-
+    constructor(corpID: String, corpName: String, corpDescription: String, corpLogo: String) : this(corpID, corpName, corpLogo, corpDescription, "", "", 0, "")
+    var corpID = corpID
     var corpName = corpName
     var corpDescription = corpDescription
     var corpLogo = corpLogo
+
 }

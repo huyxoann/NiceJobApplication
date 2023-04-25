@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".DetailFragment.CorporationDetail">
+
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:context=".DetailFragment.CorporationDetail"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +32,9 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:background="@color/md_theme_light_background"
+            >
 
             <!-- Scrollable content -->
 
@@ -46,29 +46,48 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
+
+
+                    <androidx.constraintlayout.utils.widget.ImageFilterView
+                        android:id="@+id/corpLogo"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_weight="1"
                         android:layout_gravity="center"
-                        tools:src="@drawable/person_48px" />
+                        android:src="@drawable/person_48px"
+
+                        />
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/corpName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        android:textColor="@color/material_on_background_emphasis_medium"
                         android:layout_weight="1"
                         android:text="TextView"
                         android:textAlignment="center"/>
-
                 </LinearLayout>
-<!--                <com.google.android.material.tabs.TabLayout-->
-<!--                    android:id="@+id/tab_layout"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    app:tabMode="scrollable"-->
-<!--                    app:tabGravity="fill" />-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:tabGravity="start"
+                    app:tabMode="scrollable">
+                </com.google.android.material.tabs.TabLayout>
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="9999dp" />
+
+            </LinearLayout>
+
 
 
 
@@ -81,5 +100,3 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
