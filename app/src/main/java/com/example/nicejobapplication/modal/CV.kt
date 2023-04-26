@@ -1,26 +1,34 @@
 package com.example.nicejobapplication.modal
 
-import com.google.firebase.Timestamp
+data class CV(
+    var cvId: String,
+    var cvName: String,
+    var avatar: String,
+    var employerName: String,
+    var jobPosition: String,
+    var email: String,
+    var phoneNumber: String,
+    var gentle: String,
+    var address: String,
 
-open class CV(
-    cvId: String,
-    employerName: String,
+    //need edit----------------------
+//    dayOfBirth: Timestamp,
+    var dayOfBirth: String,
 
-    dayOfBirth: Timestamp,
-    skill: Array<String>,
-    email: String,
-    phoneNumber: String,
-    hobby: Array<String>, //nếu có
-    avatar: String,
-    careerGoal: String,
-    academicLevel: Array<String>,
-    workExperience: Array<String>,
-    activity: Array<String>, //nếu có
+//    skill: Array<String>,
+    var careerGoal: String,
+    var salary: String,
+    var introduceYourself: String,
+//    hobby: Array<String>, //nếu có
+//    workExperience: Array<String>,
+//    academicLevel: Array<String>,
+    var workExperience: String,
+    var academicLevel: String,
+//    activity: Array<String>, //nếu có
 
-    cvName: String,
-    careerId: Int,
-    expId: Int,
-    employeeId: String,
-    createdAt: Timestamp
+//    careerId: Int,
+//    expId: Int,
+//    employeeId: String,
+//    createdAt: Timestamp
 ) {
 }
