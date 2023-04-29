@@ -9,66 +9,74 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.FragmentTransaction
 import com.example.nicejobapplication.MainActivity
 import com.example.nicejobapplication.R
 import com.example.nicejobapplication.authentication.LoginSignup
+import com.example.nicejobapplication.databinding.FragmentCvBinding
+import com.example.nicejobapplication.databinding.FragmentProfileBinding
+import com.facebook.AccessToken
 import com.google.firebase.auth.FirebaseAuth
 
 
 class ProfileFragment : Fragment() {
-    private lateinit var btnAccountLogin: Button
-    private lateinit var emailTest1: TextView
+//    private lateinit var btnAccountLogin: Button
+//    private lateinit var emailTest1: TextView
+    private lateinit var binding:FragmentProfileBinding
 
     private lateinit var firebaseAuth: FirebaseAuth
-    @SuppressLint("MissingInflatedId")
+
+    private val accessToken = AccessToken.getCurrentAccessToken()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_profile, container, false)
-        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+        binding = FragmentProfileBinding.inflate(layoutInflater)
 
-        btnAccountLogin = view.findViewById(R.id.btn_Account_Login)
-        emailTest1 = view.findViewById(R.id.emailTest1)
+//        btnAccountLogin = view.findViewById(R.id.btn_Account_Login)
+//        emailTest1 = view.findViewById(R.id.emailTest1)
 
         //init firebase Auth
         firebaseAuth = FirebaseAuth.getInstance()
-//        checkUser()
+        val firebaseUser = firebaseAuth.currentUser
 
-        btnAccountLogin.setOnClickListener {
-//            checkUser()
-            val i = Intent(activity, LoginSignup::class.java)
-            startActivity(i)
-        }
-
-        // Inflate the layout for this fragment
-        return view
-    }
-        private fun checkUser() {
-            //get current user
-            val firebaseUser = firebaseAuth.currentUser
+        if (accessToken!=null && !accessToken.isExpired){
+//
+//            //login fb -> view profile fb
+            val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
+            transaction.replace( R.id.fragment_container, LoginFacbookProfileFragment()
+            ).commit()
+        }else {
+            // not login
             if (firebaseUser==null){
-                //not logged in , user can stay in user dashboard without login too
-                //chưa đăng nhập, người dùng cũng có thể ở trong bảng điều khiển người dùng mà không cần đăng nhập
-                emailTest1.text = "Not logged In"
-                btnAccountLogin.text = "Đăng nhập"
-                btnAccountLogin.setOnClickListener {
-                    checkUser()
+//                    val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
+//                    transaction.replace( R.id.fragment_container, ProfileFragment()
+//                    ).commit()
+                binding.btnAccountLogin.setOnClickListener {
+//            checkUsers()
                     val i = Intent(activity, LoginSignup::class.java)
                     startActivity(i)
                 }
-
+                //login with email and pass
             }else{
-                //logged in , get and show user info
-                val email = firebaseUser.email
-                emailTest1.text = email
-                btnAccountLogin.text = "Đăng xuất"
-                btnAccountLogin.setOnClickListener {
-                    firebaseAuth.signOut()
-                    startActivity(Intent(activity,MainActivity::class.java))
-                }
+                val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
+                transaction.replace( R.id.fragment_container, LoginProfileFragment()
+                ).commit()
 
             }
         }
+
+
+
+//        btnAccountLogin.setOnClickListener {
+////            checkUsers()
+//            val i = Intent(activity, LoginSignup::class.java)
+//            startActivity(i)
+//        }
+
+        // Inflate the layout for this fragment
+        return binding.root
+    }
+
     }

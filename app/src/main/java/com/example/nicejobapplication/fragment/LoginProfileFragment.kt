@@ -116,12 +116,6 @@ class LoginProfileFragment : Fragment() {
         return binding.root
     }
 
-//    private fun selectImgFromGallery() {
-//        val intent = Intent()
-//        intent.action = Intent.ACTION_GET_CONTENT
-//        intent.type = "image/*"
-//        startActivityForResult(intent,1)
-//    }
 
     private fun uploadData() {
         val reference = storage.reference.child("Profile").child(Date().time.toString())
