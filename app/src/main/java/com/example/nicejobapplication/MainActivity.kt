@@ -6,12 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
-import com.example.nicejobapplication.DetailFragment.CorporationDetail
 import com.example.nicejobapplication.databinding.ActivityMainBinding
-import com.example.nicejobapplication.fragment.*
 import com.facebook.AccessToken
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth

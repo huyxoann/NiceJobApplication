@@ -21,6 +21,7 @@
                 android:id="@+id/topAppBar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                style="@style/Widget.Material3.AppBarLayout"
                 app:menu="@menu/corp_top_appbar"
                 app:navigationIcon="@drawable/arrow_back_48px"
                 app:title="Chi tiết công ty"

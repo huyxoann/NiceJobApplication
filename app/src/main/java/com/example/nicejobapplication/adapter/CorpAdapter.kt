@@ -42,6 +42,7 @@ class CorpAdapter(private val context: Context, private val corpArrayList: Array
         val item: Corporation = corpArrayList[position]
         holder.corpTitle.text = item.corpName
         holder.corpDes.text = item.corpDescription
+
         val storageRef = Firebase.storage.getReferenceFromUrl(item.corpLogo)
         storageRef.downloadUrl.addOnSuccessListener { uri ->
             Glide.with(holder.itemView.context)
