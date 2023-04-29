@@ -12,5 +12,24 @@
     <string name="fb_login_protocol_scheme">fb149872034703943</string>
     <string name="facebook_client_token">f10168926f4a4527cbee76f95202c66d</string>
 
+    <string-array name="exp">
+        <item>No experience</item>
+        <item>1 year</item>
+        <item>2 years</item>
+        <item>3 years</item>
+        <item>4 years</item>
+        <item>5 years</item>
+        <item>over 5 years</item>
+    </string-array>
 
+    <string-array name="salary">
+        <item>under $ 500</item>
+        <item>$ 500 - $ 1000</item>
+        <item>$ 1000 - $ 2000</item>
+        <item>over $ 2000</item>
+    </string-array>
+    <string-array name="gentle">
+        <item>Male</item>
+        <item>FeMale</item>
+    </string-array>
 </resources>

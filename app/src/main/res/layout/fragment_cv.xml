@@ -5,9 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.CVFragment"
-    android:background="@color/md_theme_dark_onPrimaryContainer"
+    android:background="@color/md_theme_dark_background"
     >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+
+        <Button
+            android:id="@+id/btnCreateCV"
+            android:layout_width="200dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="24dp"
+            android:text="Create CV"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtTitleLogin" />
+
+        <TextView
+            android:id="@+id/txtTitleLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:text="Vui lòng đăng nhập để tiếp tục"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>
 
