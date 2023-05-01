@@ -93,4 +93,10 @@ class CorpFragment : Fragment(), OnItemClickListener {
         navController.navigate(R.id.action_corpFragment_to_corporationDetail, bundle)
 
     }
+
+    override fun onItemClickUpdate(position: Int) {
+
+    }
+
+
 }

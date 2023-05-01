@@ -15,7 +15,7 @@ import com.example.nicejobapplication.authentication.Users
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.FirebaseDatabase
-
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class SignupTabFragment : Fragment() {
@@ -23,6 +23,7 @@ class SignupTabFragment : Fragment() {
     // create Firebase authentication object
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
+    private lateinit var db: FirebaseFirestore
 
     private lateinit var btn_signup: Button
     private lateinit var signup_name: EditText
@@ -42,6 +43,8 @@ class SignupTabFragment : Fragment() {
         //back end login & signup
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
+
+        db = FirebaseFirestore.getInstance()
 
         signup_name = view.findViewById(R.id.signup_name)
         signup_email = view.findViewById(R.id.signup_email)
@@ -105,24 +108,11 @@ class SignupTabFragment : Fragment() {
                     //signup success -> email verification
                       auth.currentUser?.sendEmailVerification()
                         ?.addOnSuccessListener {
-                            val userProfileChangeRequest = UserProfileChangeRequest.Builder()
-                                .setDisplayName(name)
-                                .build()
 
+                            val userId = auth.currentUser!!.uid
+                            val users = Users(userId,name,email, password)
 
-
-                            //save data in realtime database
-                                //databaseRef : reference to a location in the Firebase Realtime Database.
-                                //database.reference  : gets a reference to the ROOT NODE of the database.
-                                //child("users") : creates a child node UNDER the root node called "users".
-                                //child(auth.currentUser!!.uid) creates a child node under the "users" node with the current user's unique ID as its name.
-                                // auth appears to be an instance of Firebase Authentication that is being used to get the current user's ID.
-                                //The resulting databaseRef variable can be used to read from or write to the location in the Firebase Realtime Database that corresponds to the current user's node under the "users" node.
-                            val databaseRef = database.reference.child("users").child(auth.currentUser!!.uid)
-                            val users :Users = Users(name,email, auth.currentUser!!.uid)
-
-                            //setValue(users) : sets the value of the location referred to by databaseRef to the value of the users object
-                            databaseRef.setValue(users).addOnCompleteListener {
+                            db.collection("users").document(userId).set(users).addOnCompleteListener {
                                 if (it.isSuccessful){
                                     //chuyển đến fragment login
                                     val i = Intent(activity, LoginSignup::class.java)
