@@ -4,12 +4,12 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.nicejobapplication.MainActivity
 import com.example.nicejobapplication.R
 import com.example.nicejobapplication.databinding.FragmentCreateCvBinding
@@ -17,7 +17,9 @@ import com.example.nicejobapplication.modal.CV
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -28,8 +30,16 @@ class CreateCVFragment : Fragment() {
     private lateinit var selectedAvt: Uri
     private lateinit var storage: FirebaseStorage
     private lateinit var database: FirebaseDatabase
+    private lateinit var db: FirebaseFirestore
+
+    //get create at
+    val calendar = Calendar.getInstance()
+   private val dateFormat = SimpleDateFormat("dd-MM-yyyy hh:mm a")
+    var dt = dateFormat.format(calendar.time)
+
 
     private var emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+    private var dayOfBirthPattern ="^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[13-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})\$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))\$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})\$"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,10 +47,15 @@ class CreateCVFragment : Fragment() {
     ): View {
         binding = FragmentCreateCvBinding.inflate(layoutInflater)
 
+
+
+//        binding.edtDateTimeCreateCV.setText(dt).toString()
+
         auth = FirebaseAuth.getInstance()
         dbRef = FirebaseDatabase.getInstance().getReference("CV")
         storage = FirebaseStorage.getInstance()
         database = FirebaseDatabase.getInstance()
+        db = FirebaseFirestore.getInstance()
 
         binding.btnContinue.setOnClickListener {
             saveCV()
@@ -50,42 +65,42 @@ class CreateCVFragment : Fragment() {
             val intent = Intent()
             intent.action = Intent.ACTION_GET_CONTENT
             intent.type = "image/*"
-            startActivityForResult(intent,1)
+            startActivityForResult(intent, 1)
         }
 
         //dropdown item
         dropdownItem()
 
         //click on Birthday
-        binding.edtBirthdayCreateCV.setOnClickListener {
-            birhday()
-        }
+//        binding.edtBirthdayCreateCV.setOnClickListener {
+//            birhday()
+//        }
 
 
 
         return binding.root
     }
 
-    private fun saveCV()
-    {
+    private fun saveCV() {
         //getting values
         val cvName = binding.edtCvName.text.toString()
         val name = binding.edtNameCreateCV.text.toString()
-        val position = binding.edtPositionCreateCV.text.toString()
+        val jobPosition = binding.edtPositionCreateCV.text.toString()
         val email = binding.edtEmailCreateCV.text.toString()
         val phone = binding.edtPhoneCreateCV.text.toString()
         val gentle = binding.autoCompleteTextViewGentle.text.toString()
         val address = binding.edtAddressCreateCV.text.toString()
-//        val birthday = binding.edtBirthdayCreateCV.text.toString()
+        val dateOfBirth = binding.edtBirthdayCreateCV.text.toString()
         val careerGoal = binding.edtcareerGoalCreateCV.text.toString()
         val salary = binding.autoCompleteTextViewSalary.text.toString()
         val introduceYourself = binding.edtIntroduceCreateCV.text.toString()
-        val exp = binding.autoCompleteTextViewExperience.text.toString()
+        val workExp = binding.autoCompleteTextViewExperience.text.toString()
         val academicLevel = binding.edtAcademicLevelCreateCV.text.toString()
 
-        if (cvName.isEmpty() &&name.isEmpty() && email.isEmpty() && position.isEmpty() && phone.isEmpty()  &&
-            salary.isEmpty()  && exp.isEmpty() && academicLevel.isEmpty()
+        if (cvName.isEmpty() && name.isEmpty() && email.isEmpty() && jobPosition.isEmpty() && phone.isEmpty() &&
+            salary.isEmpty() && workExp.isEmpty() && academicLevel.isEmpty()
 //          && gentle.isEmpty() && address.isEmpty()  && birthday.isEmpty() && careerGoal.isEmpty() && introduceYourself.isEmpty()
+            && dateOfBirth.isEmpty()
         ) {
             if (cvName.isEmpty()) {
                 binding.edtCvName.error = "Please enter CV name"
@@ -93,94 +108,92 @@ class CreateCVFragment : Fragment() {
             if (name.isEmpty()) {
                 binding.edtNameCreateCV.error = "Please enter name"
             }
-            if (position.isEmpty()) {
+            if (jobPosition.isEmpty()) {
                 binding.edtPositionCreateCV.error = "Please enter job position"
             }
             if (email.isEmpty()) {
                 binding.edtEmailCreateCV.error = "Please enter email"
             }
+            if (dateOfBirth.isEmpty()) {
+                binding.edtBirthdayCreateCV.error = "Please enter date of birth"
+            }
             if (phone.isEmpty()) {
                 binding.edtPhoneCreateCV.error = "Please enter phone"
             }
-//                if (gentle.isEmpty()) {
-//                    binding.autoCompleteTextViewGentle.error = "Please enter gentle"
-//                }
-//                if (address.isEmpty()) {
-//                    binding.edtAddressCreateCV.error = "Please enter address"
-//                }
-//                if (birthday.isEmpty()) {
-//                    binding.edtBirthdayCreateCV.error = "Please enter date of birth"
-//                }
-//                if (careerGoal.isEmpty()) {
-//                    binding.edtcareerGoalCreateCV.error = "Please enter Career Goal"
-//                }
             if (salary.isEmpty()) {
                 binding.autoCompleteTextViewSalary.error = "Please enter salary"
             }
-//                if (introduceYourself.isEmpty()) {
-//                    binding.edtIntroduceCreateCV.error = "Please enter Introduce Yourself"
-//                }
-            if (exp.isEmpty()) {
+            if (workExp.isEmpty()) {
                 binding.autoCompleteTextViewExperience.error = "Please enter experience"
             }
             if (academicLevel.isEmpty()) {
                 binding.edtAcademicLevelCreateCV.error = "Please enter Academic Level"
             }
+            Toast.makeText(
+                activity,
+                "Please enter valid details",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else if (!email.matches(emailPattern.toRegex())) {
+            binding.edtEmailCreateCV.error = "Enter valid email"
+            Toast.makeText(
+                activity,
+                "Please Enter valid email address",
+                Toast.LENGTH_SHORT
+            ).show()
+        }else if (!dateOfBirth.matches(dayOfBirthPattern.toRegex())) {
+            binding.edtBirthdayCreateCV.error = "Enter valid dates ( yyyy/mm/dd )"
+            Toast.makeText(
+                activity,
+                "Please Enter valid dates ( yyyy/mm/dd )",
+                Toast.LENGTH_SHORT
+            ).show()
         }
-        else if (!email.matches(emailPattern.toRegex())){
-            binding.edtEmailCreateCV.error = "Enter valid email address"
-        }else if (selectedAvt == null){
+        else if (selectedAvt == null) {
             Toast.makeText(activity, "Please enter Your Avatar !", Toast.LENGTH_SHORT).show()
-        }else{
+        } else {
             uploadData()
         }
-
     }
 
     private fun uploadData() {
         val reference = storage.reference.child("CV_Avt").child(Date().time.toString())
-        reference.putFile(selectedAvt).addOnCompleteListener{
-            if (it.isSuccessful){
-                reference.downloadUrl.addOnSuccessListener {task->
+        reference.putFile(selectedAvt).addOnCompleteListener {
+            if (it.isSuccessful) {
+                reference.downloadUrl.addOnSuccessListener { task ->
                     uploadInfo(task.toString())
                 }
-            }
-            else{
+            } else {
                 Toast.makeText(activity, "Something went wrong !", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun uploadInfo(avtUrl: String) {
+        val date = dateToMilliseconds(dt.toString(),dateFormat)
         val cvId = dbRef.push().key!!
-        val cv = CV(
-//            auth.currentUser!!.uid,binding.edtCvName.text.toString(),avtUrl,binding.edtNameCreateCV.text.toString(),
-            cvId,binding.edtCvName.text.toString(),avtUrl,binding.edtNameCreateCV.text.toString(),
-            binding.edtPositionCreateCV.text.toString(),binding.edtEmailCreateCV.text.toString(),binding.edtEmailCreateCV.text.toString(),
-            binding.edtPhoneCreateCV.text.toString(),binding.autoCompleteTextViewGentle.text.toString(), binding.edtBirthdayCreateCV.text.toString()
-            , binding.edtcareerGoalCreateCV.text.toString(),//here
-            binding.autoCompleteTextViewSalary.text.toString(),binding.edtIntroduceCreateCV.text.toString(),binding.autoCompleteTextViewExperience.text.toString(),
-            binding.edtAcademicLevelCreateCV.text.toString())
 
-//        dbRef.child("cv")
-        database.reference.child("create_cv")
-//            .child(auth.uid.toString())
-            //open
-//            .child(auth.currentUser!!.uid)
-            .child(auth.currentUser!!.uid)
-//            .child(auth.uid.toString())
-            //open
-            .child(cvId)
-            .setValue(cv)
-            .addOnSuccessListener {
+//        val userId = auth.currentUser!!.uid
+        val userEmail = auth.currentUser!!.email
+        val cv = CV(
+            cvId,binding.edtCvName.text.toString(),avtUrl,binding.edtNameCreateCV.text.toString(),
+            binding.edtPositionCreateCV.text.toString(),binding.edtEmailCreateCV.text.toString(),
+            binding.edtPhoneCreateCV.text.toString(), binding.autoCompleteTextViewGentle.text.toString(),
+            binding.edtAddressCreateCV.text.toString(), binding.edtBirthdayCreateCV.text.toString()
+            ,binding.edtcareerGoalCreateCV.text.toString(), binding.autoCompleteTextViewSalary.text.toString(),
+            binding.edtIntroduceCreateCV.text.toString(), binding.autoCompleteTextViewExperience.text.toString(),
+            binding.edtAcademicLevelCreateCV.text.toString(),date
+        )
+
+        db.collection("create_cv").document(userEmail!!).collection(userEmail).document(binding.edtCvName.text.toString())
+            .set(cv).addOnCompleteListener {
                 Toast.makeText(activity, "Create CV success !", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(activity, MainActivity::class.java))
             }
             .addOnFailureListener {
                 Toast.makeText(activity, it.message.toString(), Toast.LENGTH_SHORT).show()
             }
-    }
-
+}
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -230,5 +243,13 @@ class CreateCVFragment : Fragment() {
         binding.autoCompleteTextViewGentle.setAdapter(arrAdapterGen)
     }
 
+    private fun dateToMilliseconds(date:String,dateFormat: SimpleDateFormat):Long{
+        val mDate = dateFormat.parse(date)
+        return mDate.time
+    }
+//    private fun millisecondsToDate(milliseconds:String,dateFormat: SimpleDateFormat):String{
+//        val millis:Long = milliseconds.toLong()
+//        return dateFormat.format(millis)
+//    }
 
 }

@@ -31,7 +31,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
                 android:paddingTop="8dp"
-                android:text="Xin Chào {Tên User}"
+                android:layout_margin="10dp"
+                android:text="please login to continue "
                 android:textColor="@color/md_theme_dark_onPrimary"
                 android:textSize="15sp" />
 
@@ -39,9 +40,10 @@
                 android:id="@+id/btn_Account_Login"
                 android:layout_width="100dp"
                 android:layout_height="66dp"
+
                 android:layout_gravity="center"
                 android:layout_toRightOf="@id/emailTest1"
-                android:text="Đăng nhập" />
+                android:text="Login" />
 
         </RelativeLayout>
 

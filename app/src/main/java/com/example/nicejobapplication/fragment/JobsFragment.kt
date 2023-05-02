@@ -40,8 +40,7 @@ class JobsFragment : Fragment(), OnItemClickListener {
     private lateinit var navController: NavController
     private lateinit var bundle: Bundle
     private lateinit var newestJobList: ArrayList<Jobs>
-
-
+    private lateinit var db: FirebaseFirestore
 
     @SuppressLint("MissingInflatedId")
 
@@ -86,13 +85,13 @@ class JobsFragment : Fragment(), OnItemClickListener {
 
             if (firebaseUser!=null){
 
+                db = FirebaseFirestore.getInstance()
                 //logged in , get and show user info
-                val userId = firebaseUser!!.uid
-                dbRef.child("users").child(userId).get().addOnSuccessListener {
+                val userId = firebaseUser.uid
+                db.collection("users").document(userId).get().addOnSuccessListener {
 
-                    val name = it.child("name").value.toString()
-                    //here
-                    val img = it.child("imgUrl").value.toString()
+                    val name = it.data?.get("name").toString()
+                    val img =  it.data?.get("img").toString()
 
                     binding.txtNameHome.text = "Xin chào, $name"
 
@@ -151,6 +150,10 @@ class JobsFragment : Fragment(), OnItemClickListener {
         navController = findNavController()
 
         navController.navigate(R.id.action_jobsFragment_to_jobDetail, bundle)
+    }
+
+    override fun onItemClickUpdate(position: Int) {
+        TODO("Not yet implemented")
     }
 
 

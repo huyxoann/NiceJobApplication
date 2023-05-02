@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import java.util.*
@@ -29,6 +30,7 @@ import java.util.*
 class LoginProfileFragment : Fragment() {
     private lateinit var binding:FragmentLoginProfileBinding
     private lateinit var dbRef:DatabaseReference
+    private lateinit var db: FirebaseFirestore
     //Select image from gallery
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
@@ -47,6 +49,26 @@ class LoginProfileFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         storage = FirebaseStorage.getInstance()
         database = FirebaseDatabase.getInstance()
+        db = FirebaseFirestore.getInstance()
+
+        val userId = auth.currentUser!!.uid
+
+        db.collection("users").document(userId).get().addOnSuccessListener {
+
+            val name = it.data?.get("name").toString()
+            val email =  it.data?.get("email").toString()
+            val img =  it.data?.get("img").toString()
+
+            binding.txtName.text = name
+            binding.txtEmail.text = "Email:$email"
+
+
+            //view image
+            Glide.with(requireActivity()).load(img).into(binding.profileButton)
+
+        }.addOnFailureListener {
+            Toast.makeText(activity,it.toString(), Toast.LENGTH_SHORT).show()
+        }
 
         //update
         binding.btnUpdate.setOnClickListener {
@@ -58,8 +80,11 @@ class LoginProfileFragment : Fragment() {
             imgUpdate = view.findViewById(R.id.imgUpdate)
             edtNameUpdate = view.findViewById(R.id.edtNameUpdate)
 
+            //view screen update
             builder.setView(view)
             val dialog = builder.create()
+
+            setName()
 
             //select image
             imgUpdate.setOnClickListener {
@@ -90,32 +115,8 @@ class LoginProfileFragment : Fragment() {
             startActivity(Intent(activity, MainActivity::class.java))
         }
 
-        dbRef = Firebase.database.reference
-
-        val userId = auth.currentUser!!.uid
-
-        dbRef.child("users").child(userId).get().addOnSuccessListener {
-
-            val name = it.child("name").value.toString()
-            //here
-            val img = it.child("imgUrl").value.toString()
-            val email = it.child("email").value.toString()
-
-            binding.txtName.text = name
-
-            //view image
-            Glide.with(requireActivity()).load(img).into(binding.profileButton)
-
-
-            binding.txtEmail.text = "Email:$email"
-
-        }.addOnFailureListener {
-            Toast.makeText(activity,it.toString(), Toast.LENGTH_SHORT).show()
-        }
-
         return binding.root
     }
-
 
     private fun uploadData() {
         val reference = storage.reference.child("Profile").child(Date().time.toString())
@@ -123,7 +124,6 @@ class LoginProfileFragment : Fragment() {
             if (it.isSuccessful){
                 reference.downloadUrl.addOnSuccessListener {task->
                     uploadInfo(task.toString())
-//                    Toast.makeText(activity, "Add Image successful", Toast.LENGTH_SHORT).show()
                 }
             }
             else{
@@ -133,13 +133,15 @@ class LoginProfileFragment : Fragment() {
     }
 
     private fun uploadInfo(imgUrl: String) {
-//        val user = Users(auth.currentUser?.displayName.toString(), auth.currentUser?.email, auth.uid.toString(), imgUrl)
-        val user = Users(edtNameUpdate.text.toString(), auth.currentUser?.email, auth.uid.toString(), imgUrl)
+        val userId = auth.currentUser!!.uid
+//        val user = Users(userId,edtNameUpdate.text.toString(), auth.currentUser?.email, imgUrl)
 
-        database.reference.child("users")
-            .child(auth.uid.toString())
-            .setValue(user)
-            .addOnSuccessListener {
+        val updateMap = mapOf(
+            "name" to edtNameUpdate.text.toString(),
+            "img" to imgUrl
+        )
+       db.collection("users").document(userId).update(updateMap)
+           .addOnSuccessListener {
                 Toast.makeText(activity, "Update Profile success !", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(activity,MainActivity::class.java))
             }
@@ -156,4 +158,17 @@ class LoginProfileFragment : Fragment() {
             }
         }
     }
+
+    private fun setName() {
+        val userId = auth.currentUser!!.uid
+
+        db.collection("users").document(userId).get().addOnSuccessListener {
+
+            val name = it.data?.get("name").toString()
+
+            edtNameUpdate.setText(name)
+
+        }
+    }
+
 }

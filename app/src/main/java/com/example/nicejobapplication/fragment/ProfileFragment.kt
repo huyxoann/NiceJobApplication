@@ -17,11 +17,11 @@ import com.example.nicejobapplication.databinding.FragmentCvBinding
 import com.example.nicejobapplication.databinding.FragmentProfileBinding
 import com.facebook.AccessToken
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class ProfileFragment : Fragment() {
-//    private lateinit var btnAccountLogin: Button
-//    private lateinit var emailTest1: TextView
+
     private lateinit var binding:FragmentProfileBinding
 
     private lateinit var firebaseAuth: FirebaseAuth
@@ -33,9 +33,6 @@ class ProfileFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentProfileBinding.inflate(layoutInflater)
-
-//        btnAccountLogin = view.findViewById(R.id.btn_Account_Login)
-//        emailTest1 = view.findViewById(R.id.emailTest1)
 
         //init firebase Auth
         firebaseAuth = FirebaseAuth.getInstance()
@@ -67,15 +64,6 @@ class ProfileFragment : Fragment() {
             }
         }
 
-
-
-//        btnAccountLogin.setOnClickListener {
-////            checkUsers()
-//            val i = Intent(activity, LoginSignup::class.java)
-//            startActivity(i)
-//        }
-
-        // Inflate the layout for this fragment
         return binding.root
     }
 
