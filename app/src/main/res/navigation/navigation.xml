@@ -9,7 +9,11 @@
         android:id="@+id/jobsFragment"
         android:name="com.example.nicejobapplication.fragment.JobsFragment"
         android:label="fragment_jobs"
-        tools:layout="@layout/fragment_jobs" />
+        tools:layout="@layout/fragment_jobs" >
+        <action
+            android:id="@+id/action_jobsFragment_to_jobDetail"
+            app:destination="@id/jobDetail" />
+    </fragment>
     <fragment
         android:id="@+id/corpFragment"
         android:name="com.example.nicejobapplication.fragment.CorpFragment"
@@ -35,5 +39,9 @@
         android:name="com.example.nicejobapplication.DetailFragment.CorporationDetail"
         android:label="fragment_corporation_detail"
         tools:layout="@layout/fragment_corporation_detail" />
+    <fragment
+        android:id="@+id/jobDetail"
+        android:name="com.example.nicejobapplication.DetailFragment.JobDetail"
+        android:label="JobDetail" />
 
 </navigation>

@@ -10,12 +10,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.nicejobapplication.R
 import com.example.nicejobapplication.modal.Jobs
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import kotlinx.coroutines.tasks.await
+import java.time.ZoneId
+import java.time.temporal.ChronoUnit
+import kotlin.collections.ArrayList
 
 class JobsAdapter(private val context: Context, private val jobsArrayList: ArrayList<Jobs>, private val listener: OnItemClickListener):RecyclerView.Adapter<JobsAdapter.JobsViewHolder>() {
-    lateinit var corpLogo :String
     inner class JobsViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
             val jobName: TextView = itemView.findViewById(R.id.jobName)
@@ -36,27 +40,35 @@ class JobsAdapter(private val context: Context, private val jobsArrayList: Array
     override fun getItemCount(): Int = jobsArrayList.size
 
     override fun onBindViewHolder(holder: JobsViewHolder, position: Int) {
-        val item: Jobs = jobsArrayList[position]
+        val item = jobsArrayList[position]
         holder.jobName.text = item.jobName
 
         val corpID = item.corpID
         var db = FirebaseFirestore.getInstance()
-//        val urlImage = getCorpUrlImage(db, corpID)
-//        val storageRef = Firebase.storage.getReferenceFromUrl(urlImage)
-//        storageRef.downloadUrl.addOnSuccessListener { uri ->
-//            Glide.with(holder.itemView.context)
-//                .load(uri)
-//                .into(holder.corpLogo)
-        }
 
+        db.collection("corporations").document(corpID).get().addOnSuccessListener {
+            val urlImage = "gs://nicejob-367709.appspot.com/corporation_image/"+it["corpLogo"].toString()
+            val storageRef = Firebase.storage.getReferenceFromUrl(urlImage)
+            storageRef.downloadUrl.addOnSuccessListener { uri ->
+                Glide.with(holder.itemView.context)
+                    .load(uri)
+                    .into(holder.corpLogo)
+            }
+        }
+        db.collection("corporations").document(corpID).get().addOnSuccessListener {
+            holder.corpName.text = it["corpName"].toString()
+        }
+        holder.address.text = item.getAddress(item.workAddress[0])
+        holder.exp.text = item.getExp(item.expId)
+        holder.salary.text = item.getSalary(item.salaryId)
+        holder.deadline.text = "Còn "+ item.getDeadline(item.expertDay as Timestamp).toInt().toString() + " ngày để ứng tuyển"
+
+        holder.itemView.setOnClickListener {
+            listener.onItemClick(position)
+        }
     }
 
-//    private fun getCorpUrlImage(db: FirebaseFirestore, corpID: String):String{
-//        db.collection("corporations").document(corpID).get()
-//            .addOnSuccessListener {document ->
-//                corpLogo = document["corpLogo"].toString()
-//            }
-//        return "gs://nicejob-367709.appspot.com/corporation_image/" + corpLogo
-//    }
 
-//}
+
+}
+

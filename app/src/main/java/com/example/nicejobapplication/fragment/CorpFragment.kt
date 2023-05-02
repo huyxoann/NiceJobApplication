@@ -58,10 +58,8 @@ class CorpFragment : Fragment(), OnItemClickListener {
 
 
                         rvCorporation = view.findViewById(R.id.rvCorp)
-//                        val linearLayoutManager = LinearLayoutManager(requireContext())
                         val linearLayoutManager = LinearLayoutManager(activity)
                         rvCorporation.layoutManager = linearLayoutManager
-//                        rvCorporation.adapter = CorpAdapter(this.requireContext(), corpArrayList, this)
                         rvCorporation.adapter =
                             activity?.let { it1 -> CorpAdapter(it1, corpArrayList, this) }
                     }else{

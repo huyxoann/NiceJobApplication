@@ -5,8 +5,9 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="10dp"
-    >
+    android:background="@color/md_theme_light_surface"
 
+    >
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,7 +25,7 @@
             android:layout_weight="1"
             android:background="@color/md_theme_light_background"
             android:scaleType="centerInside"
-            app:srcCompat="@drawable/techcombank" />
+            app:srcCompat="@drawable/person_48px" />
 
         <TextView
             android:id="@+id/jobName"
@@ -104,7 +105,7 @@
             android:id="@+id/imageFilterView3"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            app:srcCompat="@drawable/add_circle_48px" />
+            app:srcCompat="@drawable/schedule_48px" />
 
         <TextView
             android:id="@+id/deadline"

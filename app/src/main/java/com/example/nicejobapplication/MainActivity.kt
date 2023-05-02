@@ -38,12 +38,19 @@ class MainActivity : AppCompatActivity() {
 
 //        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.corporationDetail) {
-                bottomNavigation.visibility = View.GONE
-            } else {
-                bottomNavigation.visibility = View.VISIBLE
+            when (destination.id) {
+                R.id.corporationDetail -> {
+                    bottomNavigation.visibility = View.GONE
+                }
+                R.id.jobDetail -> {
+                    bottomNavigation.visibility = View.GONE
+                }
+                else -> {
+                    bottomNavigation.visibility = View.VISIBLE
+                }
             }
         }
+
 
 
 //        bottomNavigation.setOnNavigationItemSelectedListener   { menuItem ->

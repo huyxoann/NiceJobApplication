@@ -2,22 +2,25 @@ package com.example.nicejobapplication.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.nicejobapplication.R
-import com.example.nicejobapplication.adapter.CorpAdapter
 import com.example.nicejobapplication.adapter.JobsAdapter
 import com.example.nicejobapplication.adapter.OnItemClickListener
 import com.example.nicejobapplication.databinding.FragmentJobsBinding
 import com.example.nicejobapplication.modal.Jobs
 import com.facebook.AccessToken
 import com.facebook.GraphRequest
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -26,7 +29,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
-import java.util.Arrays
 
 class JobsFragment : Fragment(), OnItemClickListener {
     private lateinit var binding:FragmentJobsBinding
@@ -35,13 +37,20 @@ class JobsFragment : Fragment(), OnItemClickListener {
     private lateinit var database: FirebaseDatabase
     private lateinit var storage: FirebaseStorage
     private lateinit var rvJobs: RecyclerView
+    private lateinit var navController: NavController
+    private lateinit var bundle: Bundle
+    private lateinit var newestJobList: ArrayList<Jobs>
+
+
 
     @SuppressLint("MissingInflatedId")
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentJobsBinding.inflate(layoutInflater)
+        val view = inflater.inflate(R.layout.fragment_jobs, container, false)
 
         //init firebase Auth
         auth = FirebaseAuth.getInstance()
@@ -85,7 +94,7 @@ class JobsFragment : Fragment(), OnItemClickListener {
                     //here
                     val img = it.child("imgUrl").value.toString()
 
-                    binding.txtNameHome.text = "Xin chào $name"
+                    binding.txtNameHome.text = "Xin chào, $name"
 
                     //view image
                     activity?.let { it1 -> Glide.with(it1).load(img).into(binding.profileButtonHome) }
@@ -100,52 +109,48 @@ class JobsFragment : Fragment(), OnItemClickListener {
                 binding.txtNameHome.text = "Not logged In"
             }
         }
-        val newestJobList = ArrayList<Jobs>()
-        val address = arrayOf("HaNoi", "Hue")
-        var job = Jobs("daklsdjklasjd", "Tên Công việc 1", "đâsdasdas", 1,1, address)
-        var job2 = Jobs("daklsdjklasjd", "Tên Công việc 2", "đâsdasdas", 1,1, address)
-        newestJobList.add(job)
-        newestJobList.add(job2)
         val db = FirebaseFirestore.getInstance()
-        rvJobs = binding.rvNewestJob
-        val linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        rvJobs.layoutManager = linearLayoutManager
-        rvJobs.adapter = JobsAdapter(this.requireContext(), newestJobList, this)
 
 
+        db.collection("jobs").limit(10).get().addOnCompleteListener { task ->
+            if (task.isSuccessful){
+                newestJobList = ArrayList()
+                for (document in task.result){
+                    val jobId = document.id
+                    val jobName = document["jobTitle"].toString()
+                    val corpId = document["corpId"].toString()
+                    val expId = document["expId"].toString().toInt()
+                    val salaryId = document["salaryId"].toString().toInt()
+                    val workAddress = arrayOf(document["workAddress"].toString())
+                    val deadline = document["deadline"]
 
+                    var job = Jobs(jobId, jobName, corpId, expId, salaryId, workAddress,
+                        deadline as Timestamp
+                    )
+
+                    newestJobList.add(job)
+                }
+                rvJobs = binding.rvNewestJob
+                val linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                rvJobs.layoutManager = linearLayoutManager
+                rvJobs.adapter = JobsAdapter(this.requireContext(), newestJobList, this)
+            }
+
+        }
         return binding.root
     }
 
 
-    fun getExp(exp: Int): String{
-        return when(exp){
-            1 -> "Mới ra trường"
-            2 -> "1-2 năm"
-            3 -> "3-4 năm"
-            4 -> "5 năm trở lên"
-            else -> "Không yêu cầu"
-        }
-    }
-
-    fun getSalary(exp: Int): String{
-        return when(exp){
-            1 -> "Dưới 3 triệu"
-            2 -> "3-5 triệu"
-            3 -> "5-7 triệu"
-            4 -> "7-10 triệu"
-            5 -> "10-12 triệu"
-            6 -> "12-15 triệu"
-            7 -> "15-20 triệu"
-            8 -> "20-25 triệu"
-            9 -> "25-30 triệu"
-            10 -> "Trên 30 triệu"
-            else -> "Thỏa thuân"
-        }
-    }
 
     override fun onItemClick(position: Int) {
-        TODO("Not yet implemented")
+
+        bundle = bundleOf(
+            "documentID" to newestJobList[position].jobID
+        )
+
+        navController = findNavController()
+
+        navController.navigate(R.id.action_jobsFragment_to_jobDetail, bundle)
     }
 
 
