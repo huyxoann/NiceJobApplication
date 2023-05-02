@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
@@ -29,6 +30,7 @@ class JobsFragment : Fragment() {
     private lateinit var dbRef: DatabaseReference
     private lateinit var database: FirebaseDatabase
     private lateinit var storage: FirebaseStorage
+    private lateinit var db: FirebaseFirestore
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
@@ -71,13 +73,13 @@ class JobsFragment : Fragment() {
 
             if (firebaseUser!=null){
 
+                db = FirebaseFirestore.getInstance()
                 //logged in , get and show user info
-                val userId = firebaseUser!!.uid
-                dbRef.child("users").child(userId).get().addOnSuccessListener {
+                val userId = firebaseUser.uid
+                db.collection("users").document(userId).get().addOnSuccessListener {
 
-                    val name = it.child("name").value.toString()
-                    //here
-                    val img = it.child("imgUrl").value.toString()
+                    val name = it.data?.get("name").toString()
+                    val img =  it.data?.get("img").toString()
 
                     binding.txtNameHome.text = "Xin chào $name"
 

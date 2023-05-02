@@ -23,7 +23,14 @@
         android:id="@+id/CVFragment"
         android:name="com.example.nicejobapplication.fragment.CVFragment"
         android:label="fragment_cv"
-        tools:layout="@layout/fragment_cv" />
+        tools:layout="@layout/fragment_cv" >
+        <action
+            android:id="@+id/action_CVFragment_to_cvDetail2"
+            app:destination="@id/cvDetail2" />
+        <action
+            android:id="@+id/action_CVFragment_to_editCvFragment"
+            app:destination="@id/editCvFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.nicejobapplication.fragment.ProfileFragment"
@@ -34,5 +41,15 @@
         android:name="com.example.nicejobapplication.DetailFragment.CorporationDetail"
         android:label="fragment_corporation_detail"
         tools:layout="@layout/fragment_corporation_detail" />
+    <fragment
+        android:id="@+id/cvDetail2"
+        android:name="com.example.nicejobapplication.DetailFragment.CvDetail"
+        android:label="fragment_cv_detail"
+        tools:layout="@layout/fragment_cv_detail" />
+    <fragment
+        android:id="@+id/editCvFragment"
+        android:name="com.example.nicejobapplication.fragment.EditCvFragment"
+        android:label="fragment_edit_cv"
+        tools:layout="@layout/fragment_edit_cv" />
 
 </navigation>

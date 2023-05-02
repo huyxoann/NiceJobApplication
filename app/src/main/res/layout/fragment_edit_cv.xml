@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/md_theme_dark_background"
-    tools:context=".fragment.CreateCVFragment">
+    tools:context=".fragment.EditCvFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/background_gradient"
                     android:gravity="center"
-                    android:text="Create CV"
+                    android:text="Edit CV"
                     android:textColor="@color/white"
                     android:textSize="24sp"
                     android:textStyle="bold"
@@ -40,7 +40,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/edtCvName"
+                    android:id="@+id/edtNameCvEditCv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
@@ -66,10 +66,10 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edtCvName" />
+                    app:layout_constraintTop_toBottomOf="@+id/edtNameCvEditCv" />
 
                 <ImageButton
-                    android:id="@+id/avtCreateCV"
+                    android:id="@+id/avtEditCV"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_margin="10dp"
@@ -90,10 +90,10 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
                     android:hint="Name"
-                    app:layout_constraintTop_toBottomOf="@+id/avtCreateCV">
+                    app:layout_constraintTop_toBottomOf="@+id/avtEditCV">
 
                     <EditText
-                        android:id="@+id/edtNameCreateCV"
+                        android:id="@+id/edtNameEditCV"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textPersonName"
@@ -112,7 +112,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/txlName">
 
                     <EditText
-                        android:id="@+id/edtPositionCreateCV"
+                        android:id="@+id/edtPositionEditCV"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textPersonName"
@@ -131,7 +131,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/txlPosition">
 
                     <EditText
-                        android:id="@+id/edtEmailCreateCV"
+                        android:id="@+id/edtEmailEditCV"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textPersonName"
@@ -151,7 +151,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/txlEmail">
 
                     <EditText
-                        android:id="@+id/edtPhoneCreateCV"
+                        android:id="@+id/edtPhoneEditCV"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textPersonName"
@@ -172,7 +172,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/txlPhone">
 
                     <AutoCompleteTextView
-                        android:id="@+id/autoCompleteTextViewGentle"
+                        android:id="@+id/autoCompleteTextViewGentleEdit"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="none"
@@ -191,7 +191,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/txtInLayoutGentle">
 
                     <EditText
-                        android:id="@+id/edtAddressCreateCV"
+                        android:id="@+id/edtAddressEditCV"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textPersonName"
@@ -210,7 +210,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/txlAddress">
 
                     <EditText
-                        android:id="@+id/edtBirthdayCreateCV"
+                        android:id="@+id/edtBirthdayEditCV"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="left"
@@ -228,7 +228,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/txlBirthday">
 
                     <EditText
-                        android:id="@+id/edtcareerGoalCreateCV"
+                        android:id="@+id/edtcareerGoalEditCV"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textMultiLine"
@@ -250,7 +250,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/txlcareerGoal">
 
                     <AutoCompleteTextView
-                        android:id="@+id/autoCompleteTextViewSalary"
+                        android:id="@+id/autoCompleteTextViewSalaryEdit"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="none"
@@ -270,7 +270,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/txtInLayoutSalary">
 
                     <EditText
-                        android:id="@+id/edtIntroduceCreateCV"
+                        android:id="@+id/edtIntroduceEditCV"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textMultiLine"
@@ -293,7 +293,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/txlIntroduce">
 
                     <AutoCompleteTextView
-                        android:id="@+id/autoCompleteTextViewExperience"
+                        android:id="@+id/autoCompleteTextViewExperienceEdit"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="none"
@@ -311,7 +311,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/txtInLayoutExp">
 
                     <EditText
-                        android:id="@+id/edtAcademicLevelCreateCV"
+                        android:id="@+id/edtAcademicLevelEditCV"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textPersonName"
@@ -321,17 +321,15 @@
 
 
                 <Button
-                    android:id="@+id/btnContinue"
+                    android:id="@+id/btnUpdateCv"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="23dp"
-                    android:text="Continue"
+                    android:text="Update"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txlAcademicLevel" />
-
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

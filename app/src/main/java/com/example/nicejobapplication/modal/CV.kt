@@ -1,34 +1,20 @@
 package com.example.nicejobapplication.modal
-
 data class CV(
-    var cvId: String,
-    var cvName: String,
-    var avatar: String,
-    var employerName: String,
-    var jobPosition: String,
-    var email: String,
-    var phoneNumber: String,
-    var gentle: String,
-    var address: String,
-
-    //need edit----------------------
-//    dayOfBirth: Timestamp,
-    var dayOfBirth: String,
-
-//    skill: Array<String>,
-    var careerGoal: String,
-    var salary: String,
-    var introduceYourself: String,
-//    hobby: Array<String>, //nếu có
-//    workExperience: Array<String>,
-//    academicLevel: Array<String>,
-    var workExperience: String,
-    var academicLevel: String,
-//    activity: Array<String>, //nếu có
-
-//    careerId: Int,
-//    expId: Int,
-//    employeeId: String,
-//    createdAt: Timestamp
+   val cvId: String?=null,
+   val cvName: String?=null,
+   val avatar: String?=null,
+   val employerName: String?=null,
+   val jobPosition: String?=null,
+   val email: String?=null,
+   val phoneNumber: String?=null,
+   val gentle: String?=null,
+   val address: String?=null,
+   val dayOfBirth: String?=null,
+   val careerGoal: String?=null,
+   val salary: String?=null,
+   val introduceYourself: String?=null,
+   val workExperience: String?=null,
+   val academicLevel: String?=null,
+   val createAt:Long = 0
 ) {
 }
