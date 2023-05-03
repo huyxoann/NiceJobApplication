@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_jobsFragment_to_jobDetail"
             app:destination="@id/jobDetail" />
+        <action
+            android:id="@+id/action_jobsFragment_to_searchViewJob"
+            app:destination="@id/searchViewJob" />
     </fragment>
     <fragment
         android:id="@+id/corpFragment"
@@ -56,5 +59,15 @@
         android:name="com.example.nicejobapplication.fragment.EditCvFragment"
         android:label="fragment_edit_cv"
         tools:layout="@layout/fragment_edit_cv" />
+    <fragment
+        android:id="@+id/jobDetail"
+        android:name="com.example.nicejobapplication.DetailFragment.JobDetail"
+        android:label="fragment_job_detail"
+        tools:layout="@layout/fragment_job_detail" />
+    <fragment
+        android:id="@+id/searchViewJob"
+        android:name="com.example.nicejobapplication.fragment.SearchViewJob"
+        android:label="fragment_search_view_job"
+        tools:layout="@layout/fragment_search_view_job" />
 
 </navigation>

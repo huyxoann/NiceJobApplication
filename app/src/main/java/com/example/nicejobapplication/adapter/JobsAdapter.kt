@@ -58,7 +58,7 @@ class JobsAdapter(private val context: Context, private val jobsArrayList: Array
         db.collection("corporations").document(corpID).get().addOnSuccessListener {
             holder.corpName.text = it["corpName"].toString()
         }
-        holder.address.text = item.getAddress(item.workAddress[0])
+        holder.address.text = item.workAddress?.get(0)?.let { item.getAddress(it) }
         holder.exp.text = item.getExp(item.expId)
         holder.salary.text = item.getSalary(item.salaryId)
         holder.deadline.text = "Còn "+ item.getDeadline(item.expertDay as Timestamp).toInt().toString() + " ngày để ứng tuyển"

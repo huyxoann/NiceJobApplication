@@ -66,22 +66,6 @@
                 android:background="@drawable/background_gradient"
 
                 >
-
-                <!--                <Button-->
-<!--                    android:id="@+id/elevatedButton"-->
-<!--                    style="@style/Widget.Material3.Button.ElevatedButton.Icon"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginStart="10dp"-->
-<!--                    android:layout_marginEnd="10dp"-->
-<!--                    android:layout_marginBottom="10dp"-->
-<!--                    android:text="Từ khóa bạn đang tìm kiếm"-->
-<!--                    android:textAlignment="viewStart"-->
-<!--                    app:icon="@drawable/search_48px"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/textJobForm" />-->
                 <TextView
                     android:id="@+id/textJobForm"
                     android:layout_width="match_parent"
@@ -157,13 +141,7 @@
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-    <com.google.android.material.search.SearchView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:hint="Từ khóa bạn đang tìm kiếm..."
-        app:layout_anchor="@id/search_bar">
-        <!-- Search suggestions/results go here (ScrollView, RecyclerView, etc.). -->
-    </com.google.android.material.search.SearchView>
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

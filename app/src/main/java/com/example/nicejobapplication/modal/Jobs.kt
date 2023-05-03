@@ -10,7 +10,7 @@ class Jobs(
     var corpID: String,
     var numOfRecruit: Int,
     var genderJob: Int,
-    var workAddress: Array<String>,
+    var workAddress: Array<String>?,
     var careerId: Int,
     var expId: Int,
     var wayToWorkId: Int,

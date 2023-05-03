@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.nicejobapplication.databinding.FragmentJobDetailBinding
@@ -41,7 +40,7 @@ class JobDetail : Fragment() {
         val db = FirebaseFirestore.getInstance()
         db.collection("jobs").document(documentID).get().addOnSuccessListener {
             val job = Jobs(
-                it.data.toString(),
+                it.id,
                 it["jobTitle"].toString(),
                 it["corpId"].toString(),
                 it["numOfRecruit"].toString().toInt(),
@@ -66,7 +65,7 @@ class JobDetail : Fragment() {
             binding.genderRequire.text = job.getGenderRequire(job.genderJob)
             binding.exp.text = job.getExp(job.expId)
             binding.level.text = job.getLevel(job.levelId)
-            binding.address.text = job.displayWorkAddress(job.workAddress)
+            binding.address.text = job.workAddress?.let { it1 -> job.displayWorkAddress(it1) }
             binding.jobDescription.text = job.displayJobDescription(job.jobDescription)
             binding.recruitRequire.text = job.displayRecruitRequire(job.recruitRequire)
             binding.benefit.text = job.displayBenefit(job.benefit)
