@@ -22,6 +22,7 @@ import com.example.nicejobapplication.adapter.OnItemClickListener
 import com.example.nicejobapplication.authentication.LoginSignup
 import com.example.nicejobapplication.databinding.FragmentCvBinding
 import com.example.nicejobapplication.modal.CV
+import com.example.nicejobapplication.modal.Corporation
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat

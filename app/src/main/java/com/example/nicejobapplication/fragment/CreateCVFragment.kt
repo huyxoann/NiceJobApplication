@@ -48,7 +48,6 @@ class CreateCVFragment : Fragment() {
         binding = FragmentCreateCvBinding.inflate(layoutInflater)
 
 
-
 //        binding.edtDateTimeCreateCV.setText(dt).toString()
 
         auth = FirebaseAuth.getInstance()
@@ -71,12 +70,6 @@ class CreateCVFragment : Fragment() {
         //dropdown item
         dropdownItem()
 
-        //click on Birthday
-//        binding.edtBirthdayCreateCV.setOnClickListener {
-//            birhday()
-//        }
-
-
 
         return binding.root
     }
@@ -85,31 +78,23 @@ class CreateCVFragment : Fragment() {
         //getting values
         val cvName = binding.edtCvName.text.toString()
         val name = binding.edtNameCreateCV.text.toString()
-        val jobPosition = binding.edtPositionCreateCV.text.toString()
         val email = binding.edtEmailCreateCV.text.toString()
         val phone = binding.edtPhoneCreateCV.text.toString()
         val gentle = binding.autoCompleteTextViewGentle.text.toString()
         val address = binding.edtAddressCreateCV.text.toString()
         val dateOfBirth = binding.edtBirthdayCreateCV.text.toString()
         val careerGoal = binding.edtcareerGoalCreateCV.text.toString()
-        val salary = binding.autoCompleteTextViewSalary.text.toString()
-        val introduceYourself = binding.edtIntroduceCreateCV.text.toString()
         val workExp = binding.autoCompleteTextViewExperience.text.toString()
         val academicLevel = binding.edtAcademicLevelCreateCV.text.toString()
 
-        if (cvName.isEmpty() && name.isEmpty() && email.isEmpty() && jobPosition.isEmpty() && phone.isEmpty() &&
-            salary.isEmpty() && workExp.isEmpty() && academicLevel.isEmpty()
-//          && gentle.isEmpty() && address.isEmpty()  && birthday.isEmpty() && careerGoal.isEmpty() && introduceYourself.isEmpty()
-            && dateOfBirth.isEmpty()
-        ) {
+        if (cvName.isEmpty() && name.isEmpty() && email.isEmpty() && phone.isEmpty() && gentle.isEmpty() && address.isEmpty()
+            && workExp.isEmpty() && academicLevel.isEmpty() && dateOfBirth.isEmpty() && careerGoal.isEmpty() )
+        {
             if (cvName.isEmpty()) {
                 binding.edtCvName.error = "Please enter CV name"
             }
             if (name.isEmpty()) {
                 binding.edtNameCreateCV.error = "Please enter name"
-            }
-            if (jobPosition.isEmpty()) {
-                binding.edtPositionCreateCV.error = "Please enter job position"
             }
             if (email.isEmpty()) {
                 binding.edtEmailCreateCV.error = "Please enter email"
@@ -120,11 +105,17 @@ class CreateCVFragment : Fragment() {
             if (phone.isEmpty()) {
                 binding.edtPhoneCreateCV.error = "Please enter phone"
             }
-            if (salary.isEmpty()) {
-                binding.autoCompleteTextViewSalary.error = "Please enter salary"
+            if (gentle.isEmpty()) {
+                binding.autoCompleteTextViewGentle.error = "Please enter gentle"
+            }
+            if (address.isEmpty()) {
+                binding.edtAddressCreateCV.error = "Please enter address"
             }
             if (workExp.isEmpty()) {
                 binding.autoCompleteTextViewExperience.error = "Please enter experience"
+            }
+            if (careerGoal.isEmpty()) {
+                binding.edtcareerGoalCreateCV.error = "Please enter Career Goal"
             }
             if (academicLevel.isEmpty()) {
                 binding.edtAcademicLevelCreateCV.error = "Please enter Academic Level"
@@ -177,15 +168,15 @@ class CreateCVFragment : Fragment() {
         val userEmail = auth.currentUser!!.email
         val cv = CV(
             cvId,binding.edtCvName.text.toString(),avtUrl,binding.edtNameCreateCV.text.toString(),
-            binding.edtPositionCreateCV.text.toString(),binding.edtEmailCreateCV.text.toString(),
+            binding.edtEmailCreateCV.text.toString(),
             binding.edtPhoneCreateCV.text.toString(), binding.autoCompleteTextViewGentle.text.toString(),
             binding.edtAddressCreateCV.text.toString(), binding.edtBirthdayCreateCV.text.toString()
-            ,binding.edtcareerGoalCreateCV.text.toString(), binding.autoCompleteTextViewSalary.text.toString(),
-            binding.edtIntroduceCreateCV.text.toString(), binding.autoCompleteTextViewExperience.text.toString(),
+            ,binding.edtcareerGoalCreateCV.text.toString(),binding.autoCompleteTextViewExperience.text.toString(),
             binding.edtAcademicLevelCreateCV.text.toString(),date
         )
 
-        db.collection("cv").document(userEmail!!).collection(userEmail).document()
+//        db.collection("create_cv").document(userEmail!!).collection(userEmail).document()
+        db.collection("cv").document(userEmail!!).collection(userEmail).document(binding.edtCvName.text.toString())
             .set(cv).addOnCompleteListener {
                 Toast.makeText(activity, "Create CV success !", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(activity, MainActivity::class.java))
@@ -232,11 +223,6 @@ class CreateCVFragment : Fragment() {
         val arrAdapterExp = ArrayAdapter(requireContext(),R.layout.dropdown_item,experience)
         binding.autoCompleteTextViewExperience.setAdapter(arrAdapterExp)
 
-        //dropdown item salary
-        val salary = resources.getStringArray(R.array.salary)
-        val arrAdapterSal = ArrayAdapter(requireContext(),R.layout.dropdown_item,salary)
-        binding.autoCompleteTextViewSalary.setAdapter(arrAdapterSal)
-
         //dropdown item gentle
         val gentle = resources.getStringArray(R.array.gentle)
         val arrAdapterGen = ArrayAdapter(requireContext(),R.layout.dropdown_item,gentle)
@@ -247,9 +233,5 @@ class CreateCVFragment : Fragment() {
         val mDate = dateFormat.parse(date)
         return mDate.time
     }
-//    private fun millisecondsToDate(milliseconds:String,dateFormat: SimpleDateFormat):String{
-//        val millis:Long = milliseconds.toLong()
-//        return dateFormat.format(millis)
-//    }
 
 }

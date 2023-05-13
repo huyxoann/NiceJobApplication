@@ -35,30 +35,24 @@ class CvDetail : Fragment() {
                 val cvName = document.data?.get("cvName").toString()
                 val avatar = document.data?.get("avatar").toString()
                 val employerName = document.data?.get("employerName").toString()
-                val jobPosition = document.data?.get("jobPosition").toString()
                 val email = document.data?.get("email").toString()
                 val phoneNumber = document.data?.get("phoneNumber").toString()
                 val gentle = document.data?.get("gentle").toString()
                 val address = document.data?.get("address").toString()
                 val dayOfBirth = document.data?.get("dayOfBirth").toString()
                 val careerGoal = document.data?.get("careerGoal").toString()
-                val salary = document.data?.get("salary").toString()
-                val introduceYourself = document.data?.get("introduceYourself").toString()
                 val workExperience = document.data?.get("workExperience").toString()
                 val academicLevel = document.data?.get("academicLevel").toString()
 
                 binding.txtCvNameView.text = cvName
                 Glide.with(requireActivity()).load(avatar).into(binding.avtViewCV)
                 binding.txtViewNameEmployee.text = employerName
-                binding.txtViewPosition.text = jobPosition
                 binding.txtViewEmail.text = email
                 binding.txtViewPhone.text = phoneNumber
                 binding.txtViewGender.text = gentle
                 binding.txtViewAddress.text = address
                 binding.txtViewBirthday.text = dayOfBirth
                 binding.txtViewCareerGoal.text = careerGoal
-                binding.txtViewSalary.text = salary
-                binding.txtViewIntroduce.text = introduceYourself
                 binding.txtViewExp.text = workExperience
                 binding.txtViewAcademicLevel.text = academicLevel
             }
