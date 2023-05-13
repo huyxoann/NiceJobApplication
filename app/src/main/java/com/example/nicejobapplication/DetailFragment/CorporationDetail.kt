@@ -9,6 +9,8 @@ import androidx.constraintlayout.utils.widget.ImageFilterView
 import androidx.core.os.bundleOf
 import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
@@ -35,7 +37,7 @@ class CorporationDetail : Fragment() {
     private lateinit var corpNameTV: TextView
 
     private lateinit var bundleToTabLayout: Bundle
-    private lateinit var corp: Corporation
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +46,13 @@ class CorporationDetail : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_corporation_detail, container, false)
         binding = FragmentCorporationDetailBinding.inflate(layoutInflater)
+
+        navController = findNavController()
+
+        //Set sự kiện cho nút back
+        binding.topAppBar.setNavigationOnClickListener {
+            navController.popBackStack()
+        }
 
         val bundle = arguments
         val documentID = bundle?.getString("documentID")
@@ -60,15 +69,13 @@ class CorporationDetail : Fragment() {
                 var corpAddress = document.data?.get("corpAddress").toString()
 
 
-                corpNameTV = view.findViewById(R.id.corpName)
-                corpLogoIFV = view.findViewById(R.id.corpLogo)
 
-                corpNameTV.text = corpName
+                binding.corpName.text = corpName
                 val storageRef = Firebase.storage.getReferenceFromUrl(corpLogo)
                 storageRef.downloadUrl.addOnSuccessListener { uri ->
                     Glide.with(requireContext())
                         .load(uri)
-                        .into(corpLogoIFV)
+                        .into(binding.corpLogo)
                 }
 
                 bundleToTabLayout = bundleOf(
@@ -77,22 +84,19 @@ class CorporationDetail : Fragment() {
                     "corpWebsite" to corpWebsite
                 )
 
-                tabLayout = view.findViewById(R.id.tabLayout)
-                viewPager = view.findViewById(R.id.viewPager)
+                binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Giới thiệu"))
+                binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Tuyển dụng"))
 
-                tabLayout.addTab(tabLayout.newTab().setText("Giới thiệu"))
-                tabLayout.addTab(tabLayout.newTab().setText("Tuyển dụng"))
-
-                val adapter = CorpViewPagerAdapter(childFragmentManager, tabLayout.tabCount, bundleToTabLayout)
-                viewPager.adapter = adapter
+                val adapter = CorpViewPagerAdapter(childFragmentManager, binding.tabLayout.tabCount, bundleToTabLayout)
+                binding.viewPager.adapter = adapter
 
 
 
-                viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
+                binding.viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout))
 
-                tabLayout!!.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+                binding.tabLayout!!.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
                     override fun onTabSelected(tab: TabLayout.Tab?) {
-                        viewPager.currentItem = tab!!.position
+                        binding.viewPager.currentItem = tab!!.position
                     }
 
                     override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -107,7 +111,7 @@ class CorporationDetail : Fragment() {
 
 
 
-        return view
+        return binding.root
     }
 
     fun getCorpData(corporation: Corporation): Corporation {

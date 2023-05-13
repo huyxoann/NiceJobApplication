@@ -58,6 +58,11 @@ class ChooseCVApplication : Fragment() {
             }
         }
 
+        //Set sự kiện cho nút back
+        binding.topAppBar.setNavigationOnClickListener {
+            navController.popBackStack()
+        }
+
 
 
 
