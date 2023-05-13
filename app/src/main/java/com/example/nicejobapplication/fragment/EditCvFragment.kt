@@ -67,15 +67,12 @@ class EditCvFragment : Fragment() {
             .addOnSuccessListener {document->
                 val avatar = document.data?.get("avatar").toString()
                 val employerName = document.data?.get("employerName").toString()
-                val jobPosition = document.data?.get("jobPosition").toString()
                 val email = document.data?.get("email").toString()
                 val phoneNumber = document.data?.get("phoneNumber").toString()
                 val gentle = document.data?.get("gentle").toString()
                 val address = document.data?.get("address").toString()
                 val dayOfBirth = document.data?.get("dayOfBirth").toString()
                 val careerGoal = document.data?.get("careerGoal").toString()
-                val salary = document.data?.get("salary").toString()
-                val introduceYourself = document.data?.get("introduceYourself").toString()
                 val workExperience = document.data?.get("workExperience").toString()
                 val academicLevel = document.data?.get("academicLevel").toString()
 
@@ -83,15 +80,12 @@ class EditCvFragment : Fragment() {
                 binding.edtNameCvEditCv.setText(documentID)
                 Glide.with(requireActivity()).load(avatar).into(binding.avtEditCV)
                 binding.edtNameEditCV.setText(employerName)
-                binding.edtPositionEditCV.setText(jobPosition)
                 binding.edtEmailEditCV.setText(email)
                 binding.edtPhoneEditCV.setText(phoneNumber)
                 binding.autoCompleteTextViewGentleEdit.setText(gentle)
                 binding.edtAddressEditCV.setText(address)
                 binding.edtBirthdayEditCV.setText(dayOfBirth)
                 binding.edtcareerGoalEditCV.setText(careerGoal)
-                binding.autoCompleteTextViewSalaryEdit.setText(salary)
-                binding.edtIntroduceEditCV.setText(introduceYourself)
                 binding.autoCompleteTextViewExperienceEdit.setText(workExperience)
                 binding.edtAcademicLevelEditCV.setText(academicLevel)
                 //dropdown item
@@ -118,28 +112,19 @@ class EditCvFragment : Fragment() {
     private fun updateCV() {
         //getting values
         val name = binding.edtNameEditCV.text.toString()
-        val jobPosition = binding.edtPositionEditCV.text.toString()
         val email = binding.edtEmailEditCV.text.toString()
         val phone = binding.edtPhoneEditCV.text.toString()
         val gentle = binding.autoCompleteTextViewGentleEdit.text.toString()
         val address = binding.edtAddressEditCV.text.toString()
         val dateOfBirth = binding.edtBirthdayEditCV.text.toString()
         val careerGoal = binding.edtcareerGoalEditCV.text.toString()
-        val salary = binding.autoCompleteTextViewSalaryEdit.text.toString()
-        val introduceYourself = binding.edtIntroduceEditCV.text.toString()
         val workExp = binding.autoCompleteTextViewExperienceEdit.text.toString()
         val academicLevel = binding.edtAcademicLevelEditCV.text.toString()
 
-        if ( name.isEmpty() && email.isEmpty() && jobPosition.isEmpty() && phone.isEmpty() &&
-            salary.isEmpty() && workExp.isEmpty() && academicLevel.isEmpty()
-//          && gentle.isEmpty() && address.isEmpty()  && birthday.isEmpty() && careerGoal.isEmpty() && introduceYourself.isEmpty()
-            && dateOfBirth.isEmpty()
-        ) {
+        if ( name.isEmpty() && email.isEmpty() && phone.isEmpty() && gentle.isEmpty() && address.isEmpty()
+            && workExp.isEmpty() && academicLevel.isEmpty() && dateOfBirth.isEmpty() && careerGoal.isEmpty() ) {
             if (name.isEmpty()) {
                 binding.edtNameEditCV.error = "Please enter name"
-            }
-            if (jobPosition.isEmpty()) {
-                binding.edtPositionEditCV.error = "Please enter job position"
             }
             if (email.isEmpty()) {
                 binding.edtEmailEditCV.error = "Please enter email"
@@ -150,11 +135,17 @@ class EditCvFragment : Fragment() {
             if (phone.isEmpty()) {
                 binding.edtPhoneEditCV.error = "Please enter phone"
             }
-            if (salary.isEmpty()) {
-                binding.autoCompleteTextViewSalaryEdit.error = "Please enter salary"
-            }
             if (workExp.isEmpty()) {
                 binding.autoCompleteTextViewExperienceEdit.error = "Please enter experience"
+            }
+            if (gentle.isEmpty()) {
+                binding.autoCompleteTextViewGentleEdit.error = "Please enter gentle"
+            }
+            if (address.isEmpty()) {
+                binding.edtAddressEditCV.error = "Please enter address"
+            }
+            if (careerGoal.isEmpty()) {
+                binding.edtcareerGoalEditCV.error = "Please enter Career Goal"
             }
             if (academicLevel.isEmpty()) {
                 binding.edtAcademicLevelEditCV.error = "Please enter Academic Level"
@@ -179,9 +170,9 @@ class EditCvFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
         }
-//        else if (selectedAvt == null) {
-//            Toast.makeText(activity, "Please enter Your Avatar !", Toast.LENGTH_SHORT).show()
-//        }
+        else if (selectedAvt == null) {
+            Toast.makeText(activity, "Please enter Your Avatar !", Toast.LENGTH_SHORT).show()
+        }
         else {
             uploadData()
         }
@@ -209,17 +200,14 @@ class EditCvFragment : Fragment() {
         val userEmail = auth.currentUser!!.email
 
         val updateMap = mapOf(
-            "img" to avtUrl,
+            "avatar" to avtUrl,
             "employerName" to binding.edtNameEditCV.text.toString(),
-            "jobPosition" to binding.edtPositionEditCV.text.toString(),
             "email" to  binding.edtEmailEditCV.text.toString(),
             "phoneNumber" to binding.edtPhoneEditCV.text.toString(),
             "gentle" to  binding.autoCompleteTextViewGentleEdit.text.toString(),
             "address" to  binding.edtAddressEditCV.text.toString(),
             "dayOfBirth" to  binding.edtBirthdayEditCV.text.toString(),
            "careerGoal" to  binding.edtcareerGoalEditCV.text.toString(),
-           "salary" to binding.autoCompleteTextViewSalaryEdit.text.toString(),
-           "introduceYourself" to binding.edtIntroduceEditCV.text.toString(),
            "workExperience" to binding.autoCompleteTextViewExperienceEdit.text.toString(),
            "academicLevel" to binding.edtAcademicLevelEditCV.text.toString(),
             "createAt" to date
@@ -254,10 +242,6 @@ class EditCvFragment : Fragment() {
         val arrAdapterExp = ArrayAdapter(requireContext(),R.layout.dropdown_item,experience)
         binding.autoCompleteTextViewExperienceEdit.setAdapter(arrAdapterExp)
 
-        //dropdown item salary
-        val salary = resources.getStringArray(R.array.salary)
-        val arrAdapterSal = ArrayAdapter(requireContext(),R.layout.dropdown_item,salary)
-        binding.autoCompleteTextViewSalaryEdit.setAdapter(arrAdapterSal)
 
         //dropdown item gentle
         val gentle = resources.getStringArray(R.array.gentle)

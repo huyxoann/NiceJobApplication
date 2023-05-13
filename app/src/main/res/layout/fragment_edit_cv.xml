@@ -101,24 +101,6 @@
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txlPosition"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_margin="12dp"
-                    android:hint="Job Position"
-                    app:layout_constraintTop_toBottomOf="@+id/txlName">
-
-                    <EditText
-                        android:id="@+id/edtPositionEditCV"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:inputType="textPersonName"
-                        android:textSize="14sp"
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txlEmail"
@@ -128,7 +110,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
                     android:hint="Email"
-                    app:layout_constraintTop_toBottomOf="@+id/txlPosition">
+                    app:layout_constraintTop_toBottomOf="@+id/txlName">
 
                     <EditText
                         android:id="@+id/edtEmailEditCV"
@@ -166,7 +148,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
                     android:textSize="16sp"
-                    android:hint="Gentle (optional)"
+                    android:hint="Gentle "
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txlPhone">
@@ -187,7 +169,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
-                    android:hint="Address(optional)"
+                    android:hint="Address"
                     app:layout_constraintTop_toBottomOf="@+id/txtInLayoutGentle">
 
                     <EditText
@@ -224,7 +206,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
-                    android:hint="Career Goal (optional)"
+                    android:hint="Career Goal "
                     app:layout_constraintTop_toBottomOf="@+id/txlBirthday">
 
                     <EditText
@@ -238,49 +220,6 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txtInLayoutSalary"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="12dp"
-                    android:textSize="16sp"
-                    android:hint="Salary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txlcareerGoal">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/autoCompleteTextViewSalaryEdit"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:inputType="none"
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txlIntroduce"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_margin="12dp"
-                    android:hint="Introduce Yourself(optional)"
-                    app:layout_constraintTop_toBottomOf="@+id/txtInLayoutSalary">
-
-                    <EditText
-                        android:id="@+id/edtIntroduceEditCV"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textMultiLine"
-                        android:minLines="5"
-                        android:textSize="14sp"
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txtInLayoutExp"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
@@ -290,7 +229,7 @@
                     android:hint="Experience"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txlIntroduce">
+                    app:layout_constraintTop_toBottomOf="@+id/txlcareerGoal">
 
                     <AutoCompleteTextView
                         android:id="@+id/autoCompleteTextViewExperienceEdit"
