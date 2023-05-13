@@ -47,7 +47,7 @@ class CVFragment : Fragment(), OnItemClickListener {
     ): View {
         binding = FragmentCvBinding.inflate(layoutInflater)
 
-            auth = FirebaseAuth.getInstance()
+        auth = FirebaseAuth.getInstance()
 //        dbRef = FirebaseDatabase.getInstance().getReference("create_cv")
         val firebaseUser = auth.currentUser
 
