@@ -34,7 +34,7 @@ class CreateCVFragment : Fragment() {
 
     //get create at
     val calendar = Calendar.getInstance()
-   private val dateFormat = SimpleDateFormat("dd-MM-yyyy hh:mm a")
+    private val dateFormat = SimpleDateFormat("dd-MM-yyyy hh:mm a")
     var dt = dateFormat.format(calendar.time)
 
 
@@ -193,7 +193,7 @@ class CreateCVFragment : Fragment() {
             .addOnFailureListener {
                 Toast.makeText(activity, it.message.toString(), Toast.LENGTH_SHORT).show()
             }
-}
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

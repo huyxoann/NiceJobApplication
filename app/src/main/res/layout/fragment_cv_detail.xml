@@ -78,7 +78,7 @@
                     android:text="Name Employee"
                     android:drawableLeft="@drawable/ic_person"
                     android:drawablePadding="8dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     app:layout_constraintTop_toBottomOf="@+id/avtViewCV"
                     android:textSize="14sp"
                     />
@@ -95,7 +95,7 @@
                     android:drawableLeft="@drawable/ic_find"
                     android:drawablePadding="8dp"
                     android:text="Job Position"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewNameEmployee"
                     android:textSize="14sp"
                     />
@@ -112,7 +112,7 @@
                     android:drawableLeft="@drawable/ic_email"
                     android:drawablePadding="8dp"
                     android:text="Email"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewPosition"
                     android:textSize="14sp"
                     />
@@ -127,7 +127,7 @@
                     android:background="@drawable/edittext_bkg"
                     android:paddingStart="16dp"
                     android:text="Phone number"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:drawableLeft="@drawable/ic_phone"
                     android:drawablePadding="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewEmail"
@@ -145,7 +145,7 @@
                     android:text="Gender"
                     android:drawableLeft="@drawable/ic_transgender"
                     android:drawablePadding="8dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewPhone"
                     android:textSize="14sp"
                     />
@@ -161,7 +161,7 @@
                     android:drawableLeft="@drawable/ic_address"
                     android:drawablePadding="8dp"
                     android:text="Address"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewGender"
                     android:textSize="14sp"
                     />
@@ -177,7 +177,7 @@
                     android:text="Day of birth"
                     android:drawableLeft="@drawable/ic_birthday"
                     android:drawablePadding="8dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewAddress"
                     android:textSize="14sp"
                     />
@@ -194,7 +194,7 @@
                     android:text="Career Goal"
                     android:drawableLeft="@drawable/career"
                     android:drawablePadding="8dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewBirthday"
                     android:textSize="14sp"
                     />
@@ -211,7 +211,7 @@
                     android:text="Salary"
                     android:drawableLeft="@drawable/ic_salary"
                     android:drawablePadding="8dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewCareerGoal"
                     android:textSize="14sp"
                     />
@@ -225,7 +225,7 @@
                     android:background="@drawable/edittext_bkg"
                     android:paddingStart="16dp"
                     android:text="Introduce Yourself"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:drawableLeft="@drawable/intro"
                     android:drawablePadding="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewSalary"
@@ -244,7 +244,7 @@
                     android:text="Experience"
                     android:drawableLeft="@drawable/exp"
                     android:drawablePadding="8dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewIntroduce"
                     android:textSize="14sp"
                     />
@@ -261,7 +261,7 @@
                     android:text="Academic Level"
                     android:drawableLeft="@drawable/aca"
                     android:drawablePadding="8dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewExp"
                     android:textSize="14sp"
                     />
