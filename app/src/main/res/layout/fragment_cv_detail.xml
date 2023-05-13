@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_theme_dark_background"
+    android:background="@color/md_theme_light_background"
     tools:context=".DetailFragment.CvDetail">
 
     <ScrollView
@@ -73,7 +73,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
                     android:gravity="left|center"
-                    android:background="@drawable/edittext_bkg"
+                    android:background="@color/md_theme_light_primary"
                     android:paddingStart="16dp"
                     android:text="Name Employee"
                     android:drawableLeft="@drawable/ic_person"
@@ -84,7 +84,6 @@
                     />
 
 
-
                 <TextView
                     android:id="@+id/txtViewEmail"
                     android:layout_width="match_parent"
@@ -92,7 +91,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
                     android:gravity="left|center"
-                    android:background="@drawable/edittext_bkg"
+                    android:background="@color/md_theme_light_primary"
                     android:paddingStart="16dp"
                     android:drawableLeft="@drawable/ic_email"
                     android:drawablePadding="8dp"
@@ -109,7 +108,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
                     android:gravity="left|center"
-                    android:background="@drawable/edittext_bkg"
+                    android:background="@color/md_theme_light_primary"
                     android:paddingStart="16dp"
                     android:text="Phone number"
                     android:textColor="@color/black"
@@ -125,7 +124,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
                     android:gravity="left|center"
-                    android:background="@drawable/edittext_bkg"
+                    android:background="@color/md_theme_light_primary"
                     android:paddingStart="16dp"
                     android:text="Gender"
                     android:drawableLeft="@drawable/ic_transgender"
@@ -141,7 +140,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
                     android:gravity="left|center"
-                    android:background="@drawable/edittext_bkg"
+                    android:background="@color/md_theme_light_primary"
                     android:paddingStart="16dp"
                     android:drawableLeft="@drawable/ic_address"
                     android:drawablePadding="8dp"
@@ -157,7 +156,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
                     android:gravity="left|center"
-                    android:background="@drawable/edittext_bkg"
+                    android:background="@color/md_theme_light_primary"
                     android:paddingStart="16dp"
                     android:text="Day of birth"
                     android:drawableLeft="@drawable/ic_birthday"
@@ -174,7 +173,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
                     android:gravity="left|center"
-                    android:background="@drawable/edittext_bkg"
+                    android:background="@color/md_theme_light_primary"
                     android:paddingStart="16dp"
                     android:text="Career Goal"
                     android:drawableLeft="@drawable/career"
@@ -191,7 +190,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
                     android:gravity="left|center"
-                    android:background="@drawable/edittext_bkg"
+                    android:background="@color/md_theme_light_primary"
                     android:paddingStart="16dp"
                     android:text="Experience"
                     android:drawableLeft="@drawable/exp"
@@ -208,7 +207,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
                     android:gravity="left|center"
-                    android:background="@drawable/edittext_bkg"
+                    android:background="@color/md_theme_light_primary"
                     android:paddingStart="16dp"
                     android:text="Academic Level"
                     android:drawableLeft="@drawable/aca"

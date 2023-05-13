@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">NiceJobApplication</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="viec_lam">Việc Làm</string>
     <string name="cong_ty">Công ty</string>
@@ -11,6 +10,7 @@
     <string name="facebook_app_id">149872034703943</string>
     <string name="fb_login_protocol_scheme">fb149872034703943</string>
     <string name="facebook_client_token">f10168926f4a4527cbee76f95202c66d</string>
+    <string name="noneCVChosenError">Không có CV nào được chọn! Vui lòng chọn một CV để tiếp tục.</string>
 
     <string-array name="exp">
         <item>No experience</item>

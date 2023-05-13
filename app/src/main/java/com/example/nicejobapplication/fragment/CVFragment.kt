@@ -72,7 +72,7 @@ class CVFragment : Fragment(), OnItemClickListener {
             //view cv
             val userEmail = auth.currentUser!!.email
             db = FirebaseFirestore.getInstance()
-            db.collection("create_cv").document(userEmail!!).collection(userEmail)
+            db.collection("cv").document(userEmail!!).collection(userEmail)
                 .get()
                 .addOnSuccessListener {
                     if (!it.isEmpty) {

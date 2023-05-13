@@ -176,7 +176,7 @@ class CreateCVFragment : Fragment() {
         )
 
 //        db.collection("create_cv").document(userEmail!!).collection(userEmail).document()
-        db.collection("create_cv").document(userEmail!!).collection(userEmail).document(binding.edtCvName.text.toString())
+        db.collection("cv").document(userEmail!!).collection(userEmail).document(binding.edtCvName.text.toString())
             .set(cv).addOnCompleteListener {
                 Toast.makeText(activity, "Create CV success !", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(activity, MainActivity::class.java))

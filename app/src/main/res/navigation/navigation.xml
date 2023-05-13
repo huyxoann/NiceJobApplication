@@ -63,11 +63,23 @@
         android:id="@+id/jobDetail"
         android:name="com.example.nicejobapplication.DetailFragment.JobDetail"
         android:label="fragment_job_detail"
-        tools:layout="@layout/fragment_job_detail" />
+        tools:layout="@layout/fragment_job_detail" >
+        <action
+            android:id="@+id/action_jobDetail_to_chooseCVApplication"
+            app:destination="@id/chooseCVApplication" />
+        <action
+            android:id="@+id/action_jobDetail_to_corporationDetail"
+            app:destination="@id/corporationDetail" />
+    </fragment>
     <fragment
         android:id="@+id/searchViewJob"
         android:name="com.example.nicejobapplication.fragment.SearchViewJob"
         android:label="fragment_search_view_job"
         tools:layout="@layout/fragment_search_view_job" />
+    <fragment
+        android:id="@+id/chooseCVApplication"
+        android:name="com.example.nicejobapplication.fragment.apply.ChooseCVApplication"
+        android:label="fragment_choose_c_v_application"
+        tools:layout="@layout/fragment_choose_c_v_application" />
 
 </navigation>
