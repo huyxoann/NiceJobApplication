@@ -1,6 +1,7 @@
 package com.example.nicejobapplication.fragment
 
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,8 @@ import com.example.nicejobapplication.databinding.FragmentJobsBinding
 import com.example.nicejobapplication.modal.Jobs
 import com.facebook.AccessToken
 import com.facebook.GraphRequest
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -49,6 +52,7 @@ class JobsFragment : Fragment(), OnItemClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         binding = FragmentJobsBinding.inflate(layoutInflater)
         val view = inflater.inflate(R.layout.fragment_jobs, container, false)
 

@@ -49,7 +49,7 @@ class CvAdapter(private val context: Context, private val cvArrayList: ArrayList
         val item: CV = cvArrayList[position]
 
         holder.name.text = item.cvName
-        holder.createAt.text = millisecondsToDate(item.createAt.toString(), dateFormat)
+//        holder.createAt.text = millisecondsToDate(item.createAt.toString(), dateFormat)
 
         holder.itemView.setOnClickListener {
             listener.onItemClick(position)

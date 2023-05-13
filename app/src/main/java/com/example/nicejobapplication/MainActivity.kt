@@ -34,15 +34,15 @@ class MainActivity : AppCompatActivity() {
 
         val firebaseUser = firebaseAuth.currentUser
 
-
-
-//        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.corporationDetail -> {
                     bottomNavigation.visibility = View.GONE
                 }
                 R.id.jobDetail -> {
+                    bottomNavigation.visibility = View.GONE
+                }
+                R.id.chooseCVApplication -> {
                     bottomNavigation.visibility = View.GONE
                 }
                 else -> {
@@ -53,56 +53,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-//        bottomNavigation.setOnNavigationItemSelectedListener   { menuItem ->
-//            when (menuItem.itemId) {
-//                R.id.home_navigation -> {
-//                    supportFragmentManager.beginTransaction().replace(
-//                        R.id.fragment_container,
-//                        JobsFragment()
-//                    ).commit()
-//                    true
-//
-//                }
-//                R.id.search_navigation -> {
-//                    supportFragmentManager.beginTransaction().replace(
-//                        R.id.fragment_container,
-//                        CorpFragment()
-//                    ).commit()
-//                    true
-//                }
-//                R.id.notification_navigation -> {
-//                    supportFragmentManager.beginTransaction().replace(
-//                        R.id.fragment_container,
-//                        CorporationDetail()
-//                    ).commit()
-//                    true
-//                }
-//                R.id.personal_navigation -> {
-//
-//                    if (accessToken != null && !accessToken.isExpired) {
-//                        supportFragmentManager.beginTransaction().replace(
-//                            R.id.fragment_container, LoginFacbookProfileFragment()
-//                        ).commit()
-//                    } else {
-//                        if (firebaseUser == null) {
-//                            supportFragmentManager.beginTransaction().replace(
-//                                R.id.fragment_container, ProfileFragment()
-//                            ).commit()
-//                        } else {
-//                            supportFragmentManager.beginTransaction().replace(
-//                                R.id.fragment_container, LoginProfileFragment()
-//                            ).commit()
-//                        }
-//                    }
-//
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
     }
-//    override fun onSupportNavigateUp(): Boolean {
-//        return navController.navigateUp() || super.onSupportNavigateUp()
-//    }
 
 }
