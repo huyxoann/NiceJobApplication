@@ -62,7 +62,7 @@ class EditCvFragment : Fragment() {
 
         val userEmail = auth.currentUser!!.email
 
-        db.collection("create_cv").document(userEmail!!).collection(userEmail).document(documentID!!)
+        db.collection("created_cv").document(userEmail!!).collection(userEmail).document(documentID!!)
             .get()
             .addOnSuccessListener {document->
                 val avatar = document.data?.get("avatar").toString()

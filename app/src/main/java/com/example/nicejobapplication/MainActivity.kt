@@ -32,19 +32,17 @@ class MainActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        val firebaseUser = firebaseAuth.currentUser
+//        val firebaseUser = firebaseAuth.currentUser
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.corporationDetail -> {
-                    bottomNavigation.visibility = View.GONE
-                }
-                R.id.jobDetail -> {
-                    bottomNavigation.visibility = View.GONE
-                }
-                R.id.chooseCVApplication -> {
-                    bottomNavigation.visibility = View.GONE
-                }
+                R.id.corporationDetail -> bottomNavigation.visibility = View.GONE
+                R.id.jobDetail -> bottomNavigation.visibility = View.GONE
+                R.id.chooseCVApplication -> bottomNavigation.visibility = View.GONE
+                R.id.createCVFragment -> bottomNavigation.visibility = View.GONE
+                R.id.editCvFragment -> bottomNavigation.visibility = View.GONE
+                R.id.cvDetail2 -> bottomNavigation.visibility = View.GONE
+                R.id.searchViewJob -> bottomNavigation.visibility = View.GONE
                 else -> {
                     bottomNavigation.visibility = View.VISIBLE
                 }

@@ -45,11 +45,11 @@ class CvAdapter(private val context: Context, private val cvArrayList: ArrayList
 
     override fun onBindViewHolder(holder: CvAdapter.CvViewHolder, position: Int) {
         val dateFormat = SimpleDateFormat("dd-MM-yyyy hh:mm a")
-        //
+
         val item: CV = cvArrayList[position]
 
         holder.name.text = item.cvName
-//        holder.createAt.text = millisecondsToDate(item.createAt.toString(), dateFormat)
+        holder.createAt.text = millisecondsToDate(item.createAt.toString(), dateFormat)
 
         holder.itemView.setOnClickListener {
             listener.onItemClick(position)

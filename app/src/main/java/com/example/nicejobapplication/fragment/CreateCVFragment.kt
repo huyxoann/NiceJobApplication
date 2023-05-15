@@ -33,9 +33,9 @@ class CreateCVFragment : Fragment() {
     private lateinit var db: FirebaseFirestore
 
     //get create at
-    val calendar = Calendar.getInstance()
+    private val calendar: Calendar = Calendar.getInstance()
     private val dateFormat = SimpleDateFormat("dd-MM-yyyy hh:mm a")
-    var dt = dateFormat.format(calendar.time)
+    var dt: String = dateFormat.format(calendar.time)
 
 
     private var emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
@@ -46,9 +46,6 @@ class CreateCVFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCreateCvBinding.inflate(layoutInflater)
-
-
-//        binding.edtDateTimeCreateCV.setText(dt).toString()
 
         auth = FirebaseAuth.getInstance()
         dbRef = FirebaseDatabase.getInstance().getReference("CV")
@@ -161,7 +158,7 @@ class CreateCVFragment : Fragment() {
     }
 
     private fun uploadInfo(avtUrl: String) {
-        val date = dateToMilliseconds(dt.toString(),dateFormat)
+        val date = dateToMilliseconds(dt,dateFormat)
         val cvId = dbRef.push().key!!
 
 //        val userId = auth.currentUser!!.uid
@@ -176,7 +173,7 @@ class CreateCVFragment : Fragment() {
         )
 
 //        db.collection("create_cv").document(userEmail!!).collection(userEmail).document()
-        db.collection("cv").document(userEmail!!).collection(userEmail).document(binding.edtCvName.text.toString())
+        db.collection("created_cv").document(userEmail!!).collection(userEmail).document()
             .set(cv).addOnCompleteListener {
                 Toast.makeText(activity, "Create CV success !", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(activity, MainActivity::class.java))

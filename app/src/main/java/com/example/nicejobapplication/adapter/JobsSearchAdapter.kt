@@ -31,16 +31,15 @@ class JobsSearchAdapter(private val jobArrayList: ArrayList<Jobs>, private val l
 
     override fun onBindViewHolder(holder: JobsSearchViewHolder, position: Int) {
         val item = jobArrayList[position]
-        val corpID = item.corpID
         var db = FirebaseFirestore.getInstance()
 
         holder.jobName.text = item.jobName
 
-        db.collection("corporations").document(corpID).get().addOnSuccessListener {
+        db.collection("corporations").document(item.corpID).get().addOnSuccessListener {
             holder.corpName.text = it["corpName"].toString()
         }
 
-        db.collection("corporations").document(corpID).get().addOnSuccessListener {
+        db.collection("corporations").document(item.corpID).get().addOnSuccessListener {
             val urlImage = "gs://nicejob-367709.appspot.com/corporation_image/"+it["corpLogo"].toString()
             val storageRef = Firebase.storage.getReferenceFromUrl(urlImage)
             storageRef.downloadUrl.addOnSuccessListener { uri ->

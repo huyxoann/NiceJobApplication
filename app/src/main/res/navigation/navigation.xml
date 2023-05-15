@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_CVFragment_to_editCvFragment"
             app:destination="@id/editCvFragment" />
+        <action
+            android:id="@+id/action_CVFragment_to_createCVFragment"
+            app:destination="@id/createCVFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -48,7 +51,11 @@
         android:id="@+id/corporationDetail"
         android:name="com.example.nicejobapplication.DetailFragment.CorporationDetail"
         android:label="fragment_corporation_detail"
-        tools:layout="@layout/fragment_corporation_detail" />
+        tools:layout="@layout/fragment_corporation_detail" >
+        <action
+            android:id="@+id/action_corporationDetail_to_jobDetail"
+            app:destination="@id/jobDetail" />
+    </fragment>
     <fragment
         android:id="@+id/cvDetail2"
         android:name="com.example.nicejobapplication.DetailFragment.CvDetail"
@@ -81,5 +88,10 @@
         android:name="com.example.nicejobapplication.fragment.apply.ChooseCVApplication"
         android:label="fragment_choose_c_v_application"
         tools:layout="@layout/fragment_choose_c_v_application" />
+    <fragment
+        android:id="@+id/createCVFragment"
+        android:name="com.example.nicejobapplication.fragment.CreateCVFragment"
+        android:label="fragment_create_cv"
+        tools:layout="@layout/fragment_create_cv" />
 
 </navigation>

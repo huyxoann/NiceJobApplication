@@ -69,7 +69,7 @@ class ChooseCVApplication : Fragment() {
         //Xử lý phần chọn CV online
         var cvArray = HashMap<String, String>()
         if (userEmail != null) {
-            db.collection("cv").document(userEmail).collection(userEmail).get().addOnSuccessListener {
+            db.collection("created_cv").document(userEmail).collection(userEmail).get().addOnSuccessListener {
                 for (document in it.documents){
                     cvArray[document["cvName"].toString()] = document.id
                 }

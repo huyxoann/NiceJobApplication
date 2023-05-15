@@ -79,6 +79,7 @@ class CorporationDetail : Fragment() {
                 }
 
                 bundleToTabLayout = bundleOf(
+                    "corpId" to documentID,
                     "corpDescription" to corpDescription,
                     "corpAddress" to corpAddress,
                     "corpWebsite" to corpWebsite

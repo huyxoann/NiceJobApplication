@@ -28,8 +28,9 @@
                 <ImageButton
                     android:id="@+id/profileButtonHome"
                     style="@style/AppTheme"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:background="@color/md_theme_light_surface"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/avatar_1" />
 
@@ -117,7 +118,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Việc làm đề xuất" />
+                        android:text="Việc làm mới nhất" />
 
                     <TextView
                         android:id="@+id/textView3"

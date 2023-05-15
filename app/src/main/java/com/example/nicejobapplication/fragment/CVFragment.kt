@@ -50,6 +50,7 @@ class CVFragment : Fragment(), OnItemClickListener {
 
         auth = FirebaseAuth.getInstance()
 //        dbRef = FirebaseDatabase.getInstance().getReference("create_cv")
+        navController = findNavController()
         val firebaseUser = auth.currentUser
 
         if (firebaseUser == null) {
@@ -60,10 +61,12 @@ class CVFragment : Fragment(), OnItemClickListener {
         } else {
             binding.txtTitleLogin.text = ""
             binding.btnCreateCV.setOnClickListener {
-                val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
-                transaction.replace(
-                    R.id.fragment_container, CreateCVFragment()
-                ).commit()
+//                val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
+//                transaction.replace(
+//                    R.id.fragment_container, CreateCVFragment()
+//                ).commit()
+                navController.navigate(R.id.action_CVFragment_to_createCVFragment)
+
             }
 
             rvCv = binding.rvCv
@@ -72,7 +75,7 @@ class CVFragment : Fragment(), OnItemClickListener {
             //view cv
             val userEmail = auth.currentUser!!.email
             db = FirebaseFirestore.getInstance()
-            db.collection("cv").document(userEmail!!).collection(userEmail)
+            db.collection("created_cv").document(userEmail!!).collection(userEmail)
                 .get()
                 .addOnSuccessListener {
                     if (!it.isEmpty) {

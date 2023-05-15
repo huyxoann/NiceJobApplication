@@ -30,6 +30,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
@@ -115,8 +116,22 @@ class JobsFragment : Fragment(), OnItemClickListener {
         }
         val db = FirebaseFirestore.getInstance()
 
+        val currentTimestamp = Timestamp.now()
 
-        db.collection("jobs").limit(10).get().addOnCompleteListener { task ->
+        displayJobsByDay(currentTimestamp)
+
+
+
+
+        binding.searchBar.setOnClickListener{
+            navController = findNavController()
+
+            navController.navigate(R.id.action_jobsFragment_to_searchViewJob)
+        }
+        return binding.root
+    }
+    private fun displayJobsByDay(currentTimestamp: Timestamp){
+        db.collection("jobs").whereGreaterThan("deadline", currentTimestamp).orderBy("deadline", Query.Direction.DESCENDING).limit(10).get().addOnCompleteListener { task ->
             if (task.isSuccessful){
                 newestJobList = ArrayList()
                 for (document in task.result){
@@ -125,13 +140,12 @@ class JobsFragment : Fragment(), OnItemClickListener {
                     val corpId = document["corpId"].toString()
                     val expId = document["expId"].toString().toInt()
                     val salaryId = document["salaryId"].toString().toInt()
-                    val workAddress = arrayOf(document["workAddress"].toString())
+                    val workAddress = arrayOf(document["workAddress"].toString().replace("[", "").replace("]", ""))
                     val deadline = document["deadline"]
 
                     var job = Jobs(jobId, jobName, corpId, expId, salaryId, workAddress,
                         deadline as Timestamp
                     )
-
                     newestJobList.add(job)
                 }
                 rvJobs = binding.rvNewestJob
@@ -141,19 +155,7 @@ class JobsFragment : Fragment(), OnItemClickListener {
             }
         }
 
-        binding.searchBar.setOnClickListener{
-            navController = findNavController()
-
-            navController.navigate(R.id.action_jobsFragment_to_searchViewJob)
-        }
-
-
-
-        return binding.root
     }
-
-
-
     override fun onItemClick(position: Int) {
 
         bundle = bundleOf(
@@ -164,12 +166,9 @@ class JobsFragment : Fragment(), OnItemClickListener {
 
         navController.navigate(R.id.action_jobsFragment_to_jobDetail, bundle)
     }
-
     override fun onItemClickUpdate(position: Int) {
         TODO("Not yet implemented")
     }
-
-
 }
 
 

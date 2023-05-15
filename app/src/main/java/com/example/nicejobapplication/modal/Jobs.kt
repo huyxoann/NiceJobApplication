@@ -26,7 +26,8 @@ class Jobs(
 {
     constructor(jobID: String, jobName: String, corpID: String, expId: Int, salaryId: Int, workAddress: Array<String>, deadline: Timestamp) :
             this(jobID, jobName, corpID, 0, 0, workAddress, 0, expId, 0, salaryId, 0, 0 , null, deadline, null, null,null)
-
+    constructor(jobID: String, jobName: String, corpID: String):
+            this(jobID, jobName, corpID, 0, 0, null, 0, 0, 0, 0, 0, 0, null, null, null, null, null)
     fun displayJobDescription(jobDescription: Array<String>?):String{
         var string = ""
         if (jobDescription != null) {

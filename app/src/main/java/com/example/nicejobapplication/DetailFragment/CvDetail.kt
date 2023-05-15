@@ -29,7 +29,7 @@ class CvDetail : Fragment() {
         val documentID = bundle?.getString("cvName")
         val userEmail = auth.currentUser!!.email
         db = FirebaseFirestore.getInstance()
-        db.collection("create_cv").document(userEmail!!).collection(userEmail).document(documentID!!)
+        db.collection("created_cv").document(userEmail!!).collection(userEmail).document(documentID!!)
             .get()
             .addOnSuccessListener { document ->
                 val cvName = document.data?.get("cvName").toString()
