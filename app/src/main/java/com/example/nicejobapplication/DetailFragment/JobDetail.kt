@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.nicejobapplication.R
 import com.example.nicejobapplication.databinding.FragmentJobDetailBinding
-import com.example.nicejobapplication.modal.Employee
 import com.example.nicejobapplication.modal.Jobs
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Timestamp
@@ -19,6 +18,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class JobDetail : Fragment() {
     private lateinit var db: FirebaseFirestore
@@ -35,16 +36,18 @@ class JobDetail : Fragment() {
         binding = FragmentJobDetailBinding.inflate(layoutInflater)
         auth = FirebaseAuth.getInstance()
 
-        val userEmail = auth.currentUser!!.email
-
-
-
+        val userEmail = auth.currentUser?.email
         val bundle = arguments
         val documentID = bundle?.getString("documentID")
-        if (documentID != null) {
 
+        if (documentID != null) {
             //Kiểm tra xem đã nộp CV cho công việc này hay chưa
-            isApplied(userEmail!!, documentID)
+            if (userEmail != null) {
+                isApplied(userEmail, documentID)
+
+            }else{
+                binding.extendedFab.visibility = View.INVISIBLE
+            }
 
             getDataFromFireStore(documentID, binding)
             binding.extendedFab.setOnClickListener {
@@ -70,69 +73,77 @@ class JobDetail : Fragment() {
             navController.popBackStack()
         }
 
+
+
         return binding.root
     }
 
     private fun isApplied(employeeEmail: String, jobId: String){
-        db = FirebaseFirestore.getInstance()
-        val search = db.collection("applications").whereEqualTo("employeeId", employeeEmail).whereEqualTo("jobId", jobId).get()
-        search.addOnSuccessListener {
-            binding.extendedFab.isEnabled = it.isEmpty
+        if(employeeEmail != null){
+            db = FirebaseFirestore.getInstance()
+            val search = db.collection("applications").whereEqualTo("employeeId", employeeEmail).whereEqualTo("jobId", jobId).get()
+            search.addOnSuccessListener {
+                binding.extendedFab.isEnabled = it.isEmpty
+            }
         }
+
     }
 
     private fun getDataFromFireStore(documentID: String, binding: FragmentJobDetailBinding) {
-        db = FirebaseFirestore.getInstance()
-        db.collection("jobs").document(documentID).get().addOnSuccessListener {
-            val job = Jobs(
-                it.id,
-                it["jobTitle"].toString(),
-                it["corpId"].toString(),
-                it["numOfRecruit"].toString().toInt(),
-                it["genderJob"].toString().toInt(),
-                arrayOf(it["workAddress"].toString()),
-                0,
-                it["expId"].toString().toInt(),
-                it["wayToWorkId"].toString().toInt(),
-                it["salaryId"].toString().toInt(),
-                it["levelId"].toString().toInt(),
-                it["state"].toString().toInt(),
-                Timestamp.now(),
-                it["deadline"] as Timestamp?,
-                arrayOf(it["jobDescription"].toString()),
-                arrayOf(it["recruitRequire"].toString()),
-                arrayOf(it["benefit"].toString())
-            )
-            binding.jobName.text = job.jobName
-            binding.salary.text = job.getSalary(job.salaryId)
-            binding.wayToWork.text = job.getWayToWork(job.wayToWorkId)
-            binding.numOfRecruit.text = job.numOfRecruit.toString()
-            binding.genderRequire.text = job.getGenderRequire(job.genderJob)
-            binding.exp.text = job.getExp(job.expId)
-            binding.level.text = job.getLevel(job.levelId)
-            binding.address.text = job.workAddress?.let { it1 -> job.displayWorkAddress(it1) }
-            binding.jobDescription.text = job.displayJobDescription(job.jobDescription)
-            binding.recruitRequire.text = job.displayRecruitRequire(job.recruitRequire)
-            binding.benefit.text = job.displayBenefit(job.benefit)
+        GlobalScope.launch{
+            db = FirebaseFirestore.getInstance()
+            db.collection("jobs").document(documentID).get().addOnSuccessListener {
+                val job = Jobs(
+                    it.id,
+                    it["jobTitle"].toString(),
+                    it["corpId"].toString(),
+                    it["numOfRecruit"].toString().toInt(),
+                    it["genderJob"].toString().toInt(),
+                    arrayOf(it["workAddress"].toString()),
+                    0,
+                    it["expId"].toString().toInt(),
+                    it["wayToWorkId"].toString().toInt(),
+                    it["salaryId"].toString().toInt(),
+                    it["levelId"].toString().toInt(),
+                    0,
+                    Timestamp.now(),
+                    it["deadline"] as Timestamp?,
+                    arrayOf(it["jobDescription"].toString()),
+                    arrayOf(it["recruitRequire"].toString()),
+                    arrayOf(it["benefit"].toString())
+                )
+                binding.jobName.text = job.jobName
+                binding.salary.text = job.getSalary(job.salaryId)
+                binding.wayToWork.text = job.getWayToWork(job.wayToWorkId)
+                binding.numOfRecruit.text = job.numOfRecruit.toString()
+                binding.genderRequire.text = job.getGenderRequire(job.genderJob)
+                binding.exp.text = job.getExp(job.expId)
+                binding.level.text = job.getLevel(job.levelId)
+                binding.address.text = job.workAddress?.let { it1 -> job.displayWorkAddress(it1) }
+                binding.jobDescription.text = job.displayJobDescription(job.jobDescription)
+                binding.recruitRequire.text = job.displayRecruitRequire(job.recruitRequire)
+                binding.benefit.text = job.displayBenefit(job.benefit)
 
 
-            val corpId = it["corpId"].toString()
-            db.collection("corporations").document(corpId).get().addOnSuccessListener { corp ->
-                val corpLogoUrl = corp["corpLogo"].toString()
-                binding.corpName.text = corp["corpName"].toString()
-                val urlImage = "gs://nicejob-367709.appspot.com/corporation_image/$corpLogoUrl"
-                val storageRef = Firebase.storage.getReferenceFromUrl(urlImage)
-                storageRef.downloadUrl.addOnSuccessListener { uri ->
-                    Glide.with(requireContext())
-                        .load(uri)
-                        .into(binding.corpLogo)
+                val corpId = it["corpId"].toString()
+                db.collection("corporations").document(corpId).get().addOnSuccessListener { corp ->
+                    val corpLogoUrl = corp["corpLogo"].toString()
+                    binding.corpName.text = corp["corpName"].toString()
+                    val urlImage = "gs://nicejob-367709.appspot.com/corporation_image/$corpLogoUrl"
+                    val storageRef = Firebase.storage.getReferenceFromUrl(urlImage)
+                    storageRef.downloadUrl.addOnSuccessListener { uri ->
+                        Glide.with(requireContext())
+                            .load(uri)
+                            .into(binding.corpLogo)
+                    }
                 }
-            }
 
-            bundleCorp = bundleOf(
-                "documentID" to corpId
-            )
+                bundleCorp = bundleOf(
+                    "documentID" to corpId
+                )
+            }
         }
+
 
     }
 

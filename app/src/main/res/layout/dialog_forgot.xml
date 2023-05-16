@@ -38,7 +38,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/textview_dialog_image_border"
-            android:backgroundTint="@color/md_theme_dark_primary"
+            android:backgroundTint="@color/md_theme_primary"
             app:layout_constraintTop_toBottomOf="@+id/forgotTitle"
             app:layout_constraintBottom_toTopOf="@+id/edtBox"
             />

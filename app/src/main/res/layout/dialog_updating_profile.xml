@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_theme_dark_background"
+    android:background="@color/md_theme_background"
     android:padding="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,7 +41,7 @@
             android:textColor="@color/black"
             android:textStyle="bold"
             android:background="@drawable/textview_dialog_image_border"
-            android:backgroundTint="@color/md_theme_dark_primary"
+            android:backgroundTint="@color/md_theme_primary"
             android:text="Select image from gallery"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/textview_dialog_image_border"
-            android:backgroundTint="@color/md_theme_dark_primary"
+            android:backgroundTint="@color/md_theme_primary"
             android:paddingStart="10dp"
             android:text="Enter your Name"
             android:textColor="@color/black"

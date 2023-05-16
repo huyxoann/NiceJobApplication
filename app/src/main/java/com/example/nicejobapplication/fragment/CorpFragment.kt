@@ -20,12 +20,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.nicejobapplication.DetailFragment.CorporationDetail
 import com.example.nicejobapplication.R
 import com.example.nicejobapplication.adapter.CorpAdapter
+import com.example.nicejobapplication.adapter.OnClickCorpListener
 import com.example.nicejobapplication.adapter.OnItemClickListener
+import com.example.nicejobapplication.databinding.FragmentCorpBinding
 import com.example.nicejobapplication.modal.Corporation
 import com.google.firebase.firestore.FirebaseFirestore
 
-class CorpFragment : Fragment(), OnItemClickListener {
+class CorpFragment : Fragment(), OnClickCorpListener {
 
+    private lateinit var binding: FragmentCorpBinding
     private lateinit var rvCorporation: RecyclerView
     private lateinit var db: FirebaseFirestore
     private lateinit var navController: NavController
@@ -36,6 +39,8 @@ class CorpFragment : Fragment(), OnItemClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        navController = findNavController()
+        binding = FragmentCorpBinding.inflate(layoutInflater)
         val view = inflater.inflate(R.layout.fragment_corp, container, false)
 
 
@@ -57,7 +62,7 @@ class CorpFragment : Fragment(), OnItemClickListener {
                         }
 
 
-                        rvCorporation = view.findViewById(R.id.rvCorp)
+                        rvCorporation = binding.rvCorp
                         val linearLayoutManager = LinearLayoutManager(activity)
                         rvCorporation.layoutManager = linearLayoutManager
                         rvCorporation.adapter =
@@ -69,7 +74,12 @@ class CorpFragment : Fragment(), OnItemClickListener {
         }else{
 
         }
-        return view
+        binding.searchBar.setOnClickListener {
+            navController.navigate(R.id.action_corpFragment_to_searchViewCorp)
+        }
+
+
+        return binding.root
     }
 
     private fun isNetworkConnected(context: Context): Boolean {
@@ -79,14 +89,14 @@ class CorpFragment : Fragment(), OnItemClickListener {
     }
 
 
-    override fun onItemClick(position: Int) {
+    override fun onItemClick(position: Int, corpArrayList: ArrayList<Corporation>) {
 
         bundle = bundleOf(
             "documentID" to corpArrayList[position].corpID
         )
 
 
-        navController = findNavController()
+
 
         navController.navigate(R.id.action_corpFragment_to_corporationDetail, bundle)
 

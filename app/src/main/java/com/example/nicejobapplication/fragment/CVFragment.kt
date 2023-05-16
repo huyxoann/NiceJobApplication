@@ -18,18 +18,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.nicejobapplication.R
 import com.example.nicejobapplication.adapter.CorpAdapter
 import com.example.nicejobapplication.adapter.CvAdapter
+import com.example.nicejobapplication.adapter.OnItemClickCVListener
 import com.example.nicejobapplication.adapter.OnItemClickListener
 import com.example.nicejobapplication.authentication.LoginSignup
 import com.example.nicejobapplication.databinding.FragmentCvBinding
 import com.example.nicejobapplication.modal.CV
 import com.example.nicejobapplication.modal.Corporation
+import com.example.nicejobapplication.modal.Jobs
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class CVFragment : Fragment(), OnItemClickListener {
+class CVFragment : Fragment(), OnItemClickCVListener {
     private lateinit var binding: FragmentCvBinding
     private lateinit var auth: FirebaseAuth
 
@@ -49,7 +51,6 @@ class CVFragment : Fragment(), OnItemClickListener {
         binding = FragmentCvBinding.inflate(layoutInflater)
 
         auth = FirebaseAuth.getInstance()
-//        dbRef = FirebaseDatabase.getInstance().getReference("create_cv")
         navController = findNavController()
         val firebaseUser = auth.currentUser
 
@@ -61,10 +62,6 @@ class CVFragment : Fragment(), OnItemClickListener {
         } else {
             binding.txtTitleLogin.text = ""
             binding.btnCreateCV.setOnClickListener {
-//                val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
-//                transaction.replace(
-//                    R.id.fragment_container, CreateCVFragment()
-//                ).commit()
                 navController.navigate(R.id.action_CVFragment_to_createCVFragment)
 
             }
@@ -82,14 +79,14 @@ class CVFragment : Fragment(), OnItemClickListener {
 //                        rvCv.adapter?.notifyDataSetChanged()
                         cvArrayList = arrayListOf()
                         for (data in it.documents) {
-                            val cv: CV? = data.toObject(CV::class.java)
+                            var cv: CV? = data.toObject(CV::class.java)
                             if (cv != null) {
+                                cv.cvId = data.id
                                 cvArrayList.add(cv)
                             }
                         }
 
-                        rvCv.adapter =
-                            activity?.let { it1 -> CvAdapter(it1, cvArrayList, this) }
+                        rvCv.adapter = activity?.let { it1 -> CvAdapter(it1, cvArrayList, this) }
                         rvCv.adapter?.notifyDataSetChanged()
                     }
                 }.addOnFailureListener {
@@ -100,7 +97,7 @@ class CVFragment : Fragment(), OnItemClickListener {
         return binding.root
     }
 
-    override fun onItemClick(position: Int) {
+    override fun onItemClick(position: Int, cvArrayList: ArrayList<CV>) {
 
         bundle = bundleOf(
             "cvName" to cvArrayList[position].cvName

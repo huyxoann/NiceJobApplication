@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.ProfileFragment"
-    android:background="@color/md_theme_light_background">
+    android:background="@color/md_theme_background">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -33,7 +33,7 @@
                 android:paddingTop="8dp"
                 android:layout_margin="10dp"
                 android:text="please login to continue "
-                android:textColor="@color/md_theme_dark_onPrimary"
+                android:textColor="@color/md_theme_onPrimary"
                 android:textSize="15sp" />
 
             <Button

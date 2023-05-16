@@ -14,9 +14,8 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import kotlinx.coroutines.tasks.await
-import java.time.ZoneId
-import java.time.temporal.ChronoUnit
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlin.collections.ArrayList
 
 class JobsAdapter(private val context: Context, private val jobsArrayList: ArrayList<Jobs>, private val listener: OnItemClickListener):RecyclerView.Adapter<JobsAdapter.JobsViewHolder>() {
@@ -64,7 +63,7 @@ class JobsAdapter(private val context: Context, private val jobsArrayList: Array
         holder.deadline.text = "Còn "+ item.getDeadline(item.expertDay as Timestamp).toInt().toString() + " ngày để ứng tuyển"
 
         holder.itemView.setOnClickListener {
-            listener.onItemClick(position)
+            listener.onItemClick(position, jobsArrayList)
         }
     }
 

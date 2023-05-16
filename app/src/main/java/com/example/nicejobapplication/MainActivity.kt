@@ -43,6 +43,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.editCvFragment -> bottomNavigation.visibility = View.GONE
                 R.id.cvDetail2 -> bottomNavigation.visibility = View.GONE
                 R.id.searchViewJob -> bottomNavigation.visibility = View.GONE
+                R.id.viewMoreJob -> bottomNavigation.visibility = View.GONE
+                R.id.searchViewCorp -> bottomNavigation.visibility = View.GONE
                 else -> {
                     bottomNavigation.visibility = View.VISIBLE
                 }

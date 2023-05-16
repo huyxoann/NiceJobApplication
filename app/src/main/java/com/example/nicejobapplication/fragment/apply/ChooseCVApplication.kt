@@ -34,7 +34,7 @@ class ChooseCVApplication : Fragment() {
 
         var bundle = arguments
 
-        val userEmail = auth.currentUser!!.email
+        val userEmail = auth.currentUser?.email
 
         navController = findNavController()
 

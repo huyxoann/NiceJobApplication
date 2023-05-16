@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.CorpFragment"
-    android:background="@color/md_theme_light_background"
+    android:background="@color/md_theme_background"
     
     >
         <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -57,16 +57,22 @@
 
 
 
-            <com.google.android.material.search.SearchView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Tìm kiếm..."
-                app:layout_anchor="@id/search_bar"
+<!--            <com.google.android.material.search.SearchView-->
+<!--                android:id="@+id/corpSearchView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="Tìm kiếm..."-->
+<!--                app:layout_anchor="@id/search_bar"-->
 
-                >
-                <!-- Search suggestions/results go here (ScrollView, RecyclerView, etc.). -->
+<!--                >-->
+<!--                <androidx.recyclerview.widget.RecyclerView-->
+<!--                    android:id="@+id/corpSearchResult"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent">-->
 
-            </com.google.android.material.search.SearchView>
+<!--                </androidx.recyclerview.widget.RecyclerView>-->
+
+<!--            </com.google.android.material.search.SearchView>-->
 
 
 

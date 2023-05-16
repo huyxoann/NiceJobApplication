@@ -48,5 +48,8 @@ class JobsSearchAdapter(private val jobArrayList: ArrayList<Jobs>, private val l
                     .into(holder.logo)
             }
         }
+        holder.itemView.setOnClickListener {
+            listener.onItemClick(position, jobArrayList)
+        }
     }
 }

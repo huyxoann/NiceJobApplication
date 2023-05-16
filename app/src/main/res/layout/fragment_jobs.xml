@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".fragment.JobsFragment"
-    android:background="@color/md_theme_light_background"
+    android:background="@color/md_theme_background"
     >
 
     <androidx.core.widget.NestedScrollView
@@ -24,26 +24,36 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="8dp">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/containLogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="45dp"
+                    android:elevation="8dp"
+                    >
+                    <ImageButton
+                        android:id="@+id/profileButtonHome"
+                        style="@style/AppTheme"
+                        android:background="@color/md_theme_background"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/avatar_1" />
+                </androidx.cardview.widget.CardView>
 
-                <ImageButton
-                    android:id="@+id/profileButtonHome"
-                    style="@style/AppTheme"
-                    android:background="@color/md_theme_light_surface"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/avatar_1" />
 
                 <TextView
                     android:id="@+id/txtName_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@id/profileButtonHome"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toEndOf="@id/containLogo"
                     android:fontFamily="@font/roboto_bold"
                     android:paddingTop="8dp"
                     android:text="Xin Chào {Tên User}"
-                    android:textColor="@color/md_theme_dark_onPrimary"
+                    android:textColor="@color/md_theme_onBackground"
                     android:textSize="15sp" />
 
                 <ImageButton
@@ -75,7 +85,7 @@
                     android:padding="10dp"
                     android:text="Hãy tìm kiếm công việc phụ hợp với bạn"
                     android:textAlignment="center"
-                    android:textColor="@color/md_theme_dark_onPrimaryContainer"
+                    android:textColor="@color/md_theme_onPrimary"
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -110,22 +120,26 @@
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
 
                     <TextView
                         android:id="@+id/textView"
-                        style=""
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        style="@style/TextAppearance.Material3.TitleMedium"
+
                         android:text="Việc làm mới nhất" />
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/newestJobMore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
+                        android:clickable="true"
+                        style="@style/TextAppearance.Material3.ActionBar.Subtitle"
                         android:text="Xem tất cả" />
 
                 </LinearLayout>
@@ -137,7 +151,55 @@
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:layout_marginTop="16dp"
+                >
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/congViecThucTap"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        style="@style/TextAppearance.Material3.TitleMedium"
+                        android:text="Việc thực tập" />
+
+                    <TextView
+                        android:id="@+id/viewMore2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:clickable="true"
+                        style="@style/TextAppearance.Material3.ActionBar.Subtitle"
+                        android:text="Xem tất cả" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/internshipRv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>

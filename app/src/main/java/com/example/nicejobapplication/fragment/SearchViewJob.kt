@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.nicejobapplication.R
 import com.example.nicejobapplication.adapter.JobsSearchAdapter
 import com.example.nicejobapplication.adapter.OnItemClickListener
 import com.example.nicejobapplication.databinding.FragmentSearchViewJobBinding
@@ -21,8 +23,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class SearchViewJob : Fragment(), OnItemClickListener {
     private lateinit var binding: FragmentSearchViewJobBinding
-    private lateinit var rvJobResult : RecyclerView
     private lateinit var navController: NavController
+    private lateinit var bundle: Bundle
+    private lateinit var searchResults: ArrayList<Jobs>
 
 
     override fun onCreateView(
@@ -64,8 +67,9 @@ class SearchViewJob : Fragment(), OnItemClickListener {
         // Thực hiện tìm kiếm dựa trên query
         // Ví dụ: truy vấn cơ sở dữ liệu, xử lý danh sách dữ liệu, vv.
         // Hiển thị kết quả tìm kiếm cho người dùng
+
         var jobItem =  arrayListOf<Jobs>()
-        var searchResults = arrayListOf<Jobs>()
+        searchResults = arrayListOf()
 
         val db = FirebaseFirestore.getInstance()
         db.collection("jobs").get().addOnSuccessListener {
@@ -81,8 +85,6 @@ class SearchViewJob : Fragment(), OnItemClickListener {
                 }
             }
 
-            Log.e("searchResults", searchResults.toString())
-            Log.e("jobItem", jobItem.toString())
             showSearchResults(searchResults)
         }
 
@@ -92,14 +94,19 @@ class SearchViewJob : Fragment(), OnItemClickListener {
     private fun showSearchResults(arrayList: ArrayList<Jobs>) {
         // Hiển thị kết quả tìm kiếm cho người dùng
         // Ví dụ: Cập nhật RecyclerView hoặc ListView với danh sách kết quả
-
         // Ví dụ: Hiển thị danh sách kết quả trong RecyclerView
         val adapter = JobsSearchAdapter(arrayList, this)
         val linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.jobResultList.layoutManager = linearLayoutManager
         binding.jobResultList.adapter = adapter
     }
-    override fun onItemClick(position: Int) {
+    override fun onItemClick(position: Int, jobsArrayList: ArrayList<Jobs>) {
+
+        bundle = bundleOf(
+            "documentID" to jobsArrayList[position].jobID
+        )
+
+        navController.navigate(R.id.action_searchViewJob_to_jobDetail, bundle)
     }
 
     override fun onItemClickUpdate(position: Int) {

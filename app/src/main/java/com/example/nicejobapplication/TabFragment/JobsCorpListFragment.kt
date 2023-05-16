@@ -15,6 +15,7 @@ import com.example.nicejobapplication.R
 import com.example.nicejobapplication.adapter.JobsAdapter
 import com.example.nicejobapplication.adapter.OnItemClickListener
 import com.example.nicejobapplication.databinding.FragmentJobsCorpListBinding
+import com.example.nicejobapplication.modal.Corporation
 import com.example.nicejobapplication.modal.Jobs
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
@@ -80,15 +81,16 @@ class JobsCorpListFragment(private var bundleCorpId: Bundle) : Fragment(), OnIte
         return binding.root
     }
 
-    override fun onItemClick(position: Int) {
+    override fun onItemClick(position: Int, jobsArrayList: ArrayList<Jobs>) {
         bundle = bundleOf(
-            "documentID" to newestJobList[position].jobID
+            "documentID" to (jobsArrayList[position].jobID)
         )
 
         navController = findNavController()
 
         navController.navigate(R.id.action_corporationDetail_to_jobDetail, bundle)
     }
+
 
     override fun onItemClickUpdate(position: Int) {
         TODO("Not yet implemented")

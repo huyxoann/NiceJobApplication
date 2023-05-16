@@ -55,7 +55,7 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:scaleType="centerCrop"
-                        android:background="@color/md_theme_light_surface"
+                        android:background="@color/md_theme_surface"
                         android:src="@drawable/apartment_48px" />
 
                     <LinearLayout

@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_jobsFragment_to_searchViewJob"
             app:destination="@id/searchViewJob" />
+        <action
+            android:id="@+id/action_jobsFragment_to_viewMoreJob"
+            app:destination="@id/viewMoreJob" />
     </fragment>
     <fragment
         android:id="@+id/corpFragment"
@@ -26,6 +29,9 @@
             android:id="@+id/action_corpFragment_to_corporationDetail"
             app:destination="@id/corporationDetail"
             app:popUpTo="@id/corpFragment" />
+        <action
+            android:id="@+id/action_corpFragment_to_searchViewCorp"
+            app:destination="@id/searchViewCorp" />
     </fragment>
     <fragment
         android:id="@+id/CVFragment"
@@ -82,7 +88,11 @@
         android:id="@+id/searchViewJob"
         android:name="com.example.nicejobapplication.fragment.SearchViewJob"
         android:label="fragment_search_view_job"
-        tools:layout="@layout/fragment_search_view_job" />
+        tools:layout="@layout/fragment_search_view_job" >
+        <action
+            android:id="@+id/action_searchViewJob_to_jobDetail"
+            app:destination="@id/jobDetail" />
+    </fragment>
     <fragment
         android:id="@+id/chooseCVApplication"
         android:name="com.example.nicejobapplication.fragment.apply.ChooseCVApplication"
@@ -93,5 +103,19 @@
         android:name="com.example.nicejobapplication.fragment.CreateCVFragment"
         android:label="fragment_create_cv"
         tools:layout="@layout/fragment_create_cv" />
+    <fragment
+        android:id="@+id/viewMoreJob"
+        android:name="com.example.nicejobapplication.fragment.ViewMoreJob"
+        android:label="fragment_view_more_job"
+        tools:layout="@layout/fragment_view_more_job" >
+        <action
+            android:id="@+id/action_viewMoreJob_to_jobDetail"
+            app:destination="@id/jobDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchViewCorp"
+        android:name="com.example.nicejobapplication.fragment.SearchViewCorp"
+        android:label="fragment_search_view_corp"
+        tools:layout="@layout/fragment_search_view_corp" />
 
 </navigation>
