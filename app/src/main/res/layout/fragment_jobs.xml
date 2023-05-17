@@ -64,7 +64,9 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/notifications_48px" />
+                    android:src="@drawable/notifications_48px"
+                    android:visibility="invisible"
+                    />
             </RelativeLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout

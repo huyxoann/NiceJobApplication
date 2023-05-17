@@ -7,7 +7,7 @@
     android:background="@color/md_theme_background"
     tools:context=".DetailFragment.CvDetail">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -19,7 +19,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:padding="10dp">
 
 
@@ -56,169 +55,205 @@
 
                 <ImageButton
                     android:id="@+id/avtViewCV"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
                     android:layout_margin="10dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/icon_camera"
+                    android:background="@color/md_theme_background"
                     app:layout_constraintTop_toBottomOf="@+id/txtCvNameView"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     />
-
                 <TextView
                     android:id="@+id/txtViewNameEmployee"
+                    style="@style/TextAppearance.AppCompat.Large"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="12dp"
+                    android:background="@color/md_theme_surface"
+                    android:padding="8dp"
                     android:gravity="left|center"
-                    android:background="@color/md_theme_primary"
-                    android:paddingStart="16dp"
                     android:text="Name Employee"
-                    android:drawableLeft="@drawable/ic_person"
-                    android:drawablePadding="8dp"
-                    android:textColor="@color/md_theme_onPrimary"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/md_theme_onSurface"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/avtViewCV"
-                    android:textSize="14sp"
+                    android:elevation="8dp"
+
                     />
-
-
                 <TextView
                     android:id="@+id/txtViewEmail"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
+                    android:padding="8dp"
                     android:gravity="left|center"
-                    android:background="@color/md_theme_primary"
+                    android:background="@color/md_theme_surface"
                     android:paddingStart="16dp"
                     android:drawableLeft="@drawable/ic_email"
                     android:drawablePadding="8dp"
                     android:text="Email"
-                    android:textColor="@color/md_theme_onPrimary"
+                    android:textColor="@color/md_theme_onSurface"
+                    style="@style/TextAppearance.AppCompat.Medium"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewNameEmployee"
-                    android:textSize="14sp"
+                    android:elevation="8dp"
                     />
 
+
+
+
+
+
+                <LinearLayout
+                    android:id="@+id/containGenderAndDOB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewEmail"
+                    >
+                    <TextView
+                        android:id="@+id/txtViewGender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_margin="12dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@color/md_theme_surface"
+                        android:drawableLeft="@drawable/ic_transgender"
+                        android:drawablePadding="8dp"
+                        android:padding="8dp"
+                        android:gravity="left|center"
+                        android:paddingStart="16dp"
+                        android:text="Gender"
+                        android:textColor="@color/md_theme_onSurface"
+                        style="@style/TextAppearance.AppCompat.Medium"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtViewPhone"
+                        android:elevation="8dp"
+                        />
+                    <TextView
+                        android:id="@+id/txtViewBirthday"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="12dp"
+                        android:layout_marginTop="12dp"
+                        android:padding="8dp"
+                        android:background="@color/md_theme_surface"
+                        android:drawableLeft="@drawable/ic_birthday"
+                        android:drawablePadding="8dp"
+                        android:gravity="left|center"
+                        android:text="Day of birth"
+                        android:textColor="@color/md_theme_onSurface"
+                        style="@style/TextAppearance.AppCompat.Medium"
+                        app:layout_constraintStart_toEndOf="@+id/txtViewGender"
+                        app:layout_constraintTop_toBottomOf="@+id/txtViewPhone"
+                        android:elevation="8dp"
+                        />
+
+                </LinearLayout>
                 <TextView
                     android:id="@+id/txtViewPhone"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
                     android:gravity="left|center"
-                    android:background="@color/md_theme_primary"
                     android:paddingStart="16dp"
                     android:text="Phone number"
-                    android:textColor="@color/md_theme_onPrimary"
                     android:drawableLeft="@drawable/ic_phone"
                     android:drawablePadding="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/txtViewEmail"
-                    android:textSize="14sp"
-                    />
-                <TextView
-                    android:id="@+id/txtViewGender"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_margin="12dp"
-                    android:gravity="left|center"
-                    android:background="@color/md_theme_primary"
-                    android:paddingStart="16dp"
-                    android:text="Gender"
-                    android:drawableLeft="@drawable/ic_transgender"
-                    android:drawablePadding="8dp"
-                    android:textColor="@color/md_theme_onPrimary"
-                    app:layout_constraintTop_toBottomOf="@+id/txtViewPhone"
-                    android:textSize="14sp"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewAddress"
+                    android:background="@color/md_theme_surface"
+                    android:textColor="@color/md_theme_onSurface"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:padding="8dp"
+                    android:elevation="8dp"
                     />
                 <TextView
                     android:id="@+id/txtViewAddress"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
                     android:gravity="left|center"
-                    android:background="@color/md_theme_primary"
                     android:paddingStart="16dp"
                     android:drawableLeft="@drawable/ic_address"
                     android:drawablePadding="8dp"
                     android:text="Address"
-                    android:textColor="@color/md_theme_onPrimary"
-                    app:layout_constraintTop_toBottomOf="@+id/txtViewGender"
-                    android:textSize="14sp"
+                    app:layout_constraintTop_toBottomOf="@+id/containGenderAndDOB"
+                    android:background="@color/md_theme_surface"
+                    android:textColor="@color/md_theme_onSurface"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:padding="8dp"
+                    android:elevation="8dp"
                     />
-                <TextView
-                    android:id="@+id/txtViewBirthday"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_margin="12dp"
-                    android:gravity="left|center"
-                    android:background="@color/md_theme_primary"
-                    android:paddingStart="16dp"
-                    android:text="Day of birth"
-                    android:drawableLeft="@drawable/ic_birthday"
-                    android:drawablePadding="8dp"
-                    android:textColor="@color/md_theme_onPrimary"
-                    app:layout_constraintTop_toBottomOf="@+id/txtViewAddress"
-                    android:textSize="14sp"
-                    />
+
 
                 <TextView
                     android:id="@+id/txtViewCareerGoal"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
+                    android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
                     android:gravity="left|center"
-                    android:background="@color/md_theme_primary"
                     android:paddingStart="16dp"
                     android:text="Career Goal"
                     android:drawableLeft="@drawable/career"
                     android:drawablePadding="8dp"
-                    android:textColor="@color/md_theme_onPrimary"
-                    app:layout_constraintTop_toBottomOf="@+id/txtViewBirthday"
-                    android:textSize="14sp"
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewPhone"
+                    android:background="@color/md_theme_surface"
+                    android:textColor="@color/md_theme_onSurface"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:padding="8dp"
+                    android:elevation="8dp"
                     />
 
                 <TextView
                     android:id="@+id/txtViewExp"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
                     android:gravity="left|center"
-                    android:background="@color/md_theme_primary"
                     android:paddingStart="16dp"
                     android:text="Experience"
                     android:drawableLeft="@drawable/exp"
                     android:drawablePadding="8dp"
-                    android:textColor="@color/md_theme_onPrimary"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewCareerGoal"
-                    android:textSize="14sp"
+                    android:background="@color/md_theme_surface"
+                    android:textColor="@color/md_theme_onSurface"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:padding="8dp"
+                    android:elevation="8dp"
                     />
 
                 <TextView
                     android:id="@+id/txtViewAcademicLevel"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
                     android:gravity="left|center"
-                    android:background="@color/md_theme_primary"
                     android:paddingStart="16dp"
                     android:text="Academic Level"
                     android:drawableLeft="@drawable/aca"
                     android:drawablePadding="8dp"
-                    android:textColor="@color/md_theme_onPrimary"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewExp"
-                    android:textSize="14sp"
+                    android:background="@color/md_theme_surface"
+                    android:textColor="@color/md_theme_onSurface"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:padding="8dp"
+                    android:elevation="8dp"
                     />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </FrameLayout>

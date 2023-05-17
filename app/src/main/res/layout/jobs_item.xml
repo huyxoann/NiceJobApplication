@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="10dp"
-    android:background="@color/md_theme_surface"
-
-    >
     <com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/md_theme_surface"
         android:elevation="16dp"
+        android:layout_margin="8dp"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,7 +24,7 @@
                     android:id="@+id/containLogo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="30dp"
+                    app:cardCornerRadius="20dp"
                     >
                     <ImageButton
                         android:id="@+id/corpLogo"
@@ -148,8 +142,3 @@
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
-
-
-
-</LinearLayout>

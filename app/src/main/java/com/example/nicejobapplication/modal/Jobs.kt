@@ -127,7 +127,7 @@ class Jobs(
             8 -> "20-25 triệu"
             9 -> "25-30 triệu"
             10 -> "Trên 30 triệu"
-            else -> "Thỏa thuân"
+            else -> "Thỏa thuận"
         }
     }
 

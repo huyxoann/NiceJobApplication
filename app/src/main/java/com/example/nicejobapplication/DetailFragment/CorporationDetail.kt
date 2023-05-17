@@ -65,7 +65,11 @@ class CorporationDetail : Fragment() {
                 var corpLogo = "gs://nicejob-367709.appspot.com/corporation_image/" + document.data?.get("corpLogo").toString()
 
                 var corpDescription = document.data?.get("corpDescription").toString()
-                var corpWebsite = document.data?.get("website").toString()
+                var corpWebsite  = if(document.data?.get("website").toString().isEmpty()){
+                    document.data?.get("website").toString()
+                }else{
+                    "Chưa cập nhật!"
+                }
                 var corpAddress = document.data?.get("corpAddress").toString()
 
 
@@ -115,9 +119,6 @@ class CorporationDetail : Fragment() {
         return binding.root
     }
 
-    fun getCorpData(corporation: Corporation): Corporation {
-        return corporation
-    }
 
 }
 

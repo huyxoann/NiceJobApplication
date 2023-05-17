@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-//        val firebaseUser = firebaseAuth.currentUser
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
@@ -50,6 +49,9 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+
+
 
 
 

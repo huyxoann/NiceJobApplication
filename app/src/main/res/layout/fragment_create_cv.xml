@@ -7,7 +7,7 @@
     android:background="@color/md_theme_background"
     tools:context=".fragment.CreateCVFragment">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -275,6 +275,6 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </FrameLayout>
