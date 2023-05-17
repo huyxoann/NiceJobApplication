@@ -38,8 +38,7 @@ class CreateCVFragment : Fragment() {
     var dt: String = dateFormat.format(calendar.time)
 
 
-    private var emailPattern = "[a-zA-Z0-9._-]+@+"
-//    private var emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+    private var emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
     private var dayOfBirthPattern ="^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[13-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})\$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))\$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})\$"
 
     override fun onCreateView(
@@ -160,12 +159,12 @@ class CreateCVFragment : Fragment() {
 
     private fun uploadInfo(avtUrl: String) {
         val date = dateToMilliseconds(dt,dateFormat)
-        val cvId = dbRef.push().key!!
+//        val cvId = dbRef.push().key!!
 
 //        val userId = auth.currentUser!!.uid
         val userEmail = auth.currentUser!!.email
         val cv = CV(
-            cvId,binding.edtCvName.text.toString(),avtUrl,binding.edtNameCreateCV.text.toString(),
+            "",binding.edtCvName.text.toString(),avtUrl,binding.edtNameCreateCV.text.toString(),
             binding.edtEmailCreateCV.text.toString(),
             binding.edtPhoneCreateCV.text.toString(), binding.autoCompleteTextViewGentle.text.toString(),
             binding.edtAddressCreateCV.text.toString(), binding.edtBirthdayCreateCV.text.toString()
@@ -173,7 +172,6 @@ class CreateCVFragment : Fragment() {
             binding.edtAcademicLevelCreateCV.text.toString(),date
         )
 
-//        db.collection("create_cv").document(userEmail!!).collection(userEmail).document()
         db.collection("created_cv").document(userEmail!!).collection(userEmail).document()
             .set(cv).addOnCompleteListener {
                 Toast.makeText(activity, "Create CV success !", Toast.LENGTH_SHORT).show()

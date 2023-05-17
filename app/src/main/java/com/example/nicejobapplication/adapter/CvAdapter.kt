@@ -43,7 +43,6 @@ class CvAdapter(private val context: Context, private val cvArrayList: ArrayList
         val dateFormat = SimpleDateFormat("dd-MM-yyyy hh:mm a")
 
         val item: CV = cvArrayList[position]
-        val cvId = item.cvId
 
         holder.name.text = item.cvName
         holder.createAt.text = millisecondsToDate(item.createAt.toString(), dateFormat)

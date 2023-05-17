@@ -100,7 +100,7 @@ class CVFragment : Fragment(), OnItemClickCVListener {
     override fun onItemClick(position: Int, cvArrayList: ArrayList<CV>) {
 
         bundle = bundleOf(
-            "cvName" to cvArrayList[position].cvName
+            "cvName" to cvArrayList[position].cvId
         )
 
         navController = findNavController()
@@ -110,7 +110,7 @@ class CVFragment : Fragment(), OnItemClickCVListener {
 
     override fun onItemClickUpdate(position: Int) {
         bundle = bundleOf(
-            "cvName" to cvArrayList[position].cvName
+            "cvName" to cvArrayList[position].cvId
         )
 
         navController = findNavController()

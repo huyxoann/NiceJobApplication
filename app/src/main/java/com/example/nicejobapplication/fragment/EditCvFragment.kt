@@ -65,6 +65,7 @@ class EditCvFragment : Fragment() {
         db.collection("created_cv").document(userEmail!!).collection(userEmail).document(documentID!!)
             .get()
             .addOnSuccessListener {document->
+                val cvName = document.data?.get("cvName").toString()
                 val avatar = document.data?.get("avatar").toString()
                 val employerName = document.data?.get("employerName").toString()
                 val email = document.data?.get("email").toString()
@@ -77,7 +78,7 @@ class EditCvFragment : Fragment() {
                 val academicLevel = document.data?.get("academicLevel").toString()
 
 
-                binding.edtNameCvEditCv.setText(documentID)
+                binding.edtNameCvEditCv.setText(cvName)
                 Glide.with(requireActivity()).load(avatar).into(binding.avtEditCV)
                 binding.edtNameEditCV.setText(employerName)
                 binding.edtEmailEditCV.setText(email)
@@ -213,7 +214,7 @@ class EditCvFragment : Fragment() {
             "createAt" to date
         )
 
-        db.collection("create_cv").document(userEmail!!).collection(userEmail).document(documentID!!)
+        db.collection("created_cv").document(userEmail!!).collection(userEmail).document(documentID!!)
             .update(updateMap).addOnCompleteListener {
                 Toast.makeText(activity, "Create CV success !", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(activity, MainActivity::class.java))
