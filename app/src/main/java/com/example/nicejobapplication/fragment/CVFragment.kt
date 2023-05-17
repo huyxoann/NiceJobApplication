@@ -55,7 +55,7 @@ class CVFragment : Fragment(), OnItemClickCVListener {
         val firebaseUser = auth.currentUser
 
         if (firebaseUser == null) {
-            binding.btnCreateCV.text = "Login"
+            binding.btnCreateCV.text = "Đăng nhập"
             binding.btnCreateCV.setOnClickListener {
                 startActivity(Intent(activity, LoginSignup::class.java))
             }

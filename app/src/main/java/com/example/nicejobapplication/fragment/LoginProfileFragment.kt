@@ -165,9 +165,11 @@ class LoginProfileFragment : Fragment() {
         db.collection("users").document(userId).get().addOnSuccessListener {
 
             val name = it.data?.get("name").toString()
+            val img = it.data?.get("img").toString()
 
             edtNameUpdate.setText(name)
-
+            //view image
+            Glide.with(requireActivity()).load(img).into(imgUpdate)
         }
     }
 

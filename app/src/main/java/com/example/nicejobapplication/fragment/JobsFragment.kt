@@ -112,7 +112,7 @@ class JobsFragment : Fragment(), OnItemClickListener {
             }else{
 //                not logged in , user can stay in user dashboard without login too
 //                chưa đăng nhập, người dùng cũng có thể ở trong bảng điều khiển người dùng mà không cần đăng nhập
-                binding.txtNameHome.text = "Not logged In"
+                binding.txtNameHome.text = "Chưa đăng nhập"
             }
         }
 

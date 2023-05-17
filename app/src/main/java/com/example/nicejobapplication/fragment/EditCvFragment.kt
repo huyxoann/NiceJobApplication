@@ -216,7 +216,7 @@ class EditCvFragment : Fragment() {
 
         db.collection("created_cv").document(userEmail!!).collection(userEmail).document(documentID!!)
             .update(updateMap).addOnCompleteListener {
-                Toast.makeText(activity, "Create CV success !", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Update CV success !", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(activity, MainActivity::class.java))
             }
             .addOnFailureListener {
