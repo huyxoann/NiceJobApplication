@@ -383,6 +383,8 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            style="@style/TextAppearance.AppCompat.Medium"
+                            android:textStyle="bold"
                             android:text="Mô tả công việc" />
 
                         <TextView
@@ -410,6 +412,8 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            style="@style/TextAppearance.AppCompat.Medium"
+                            android:textStyle="bold"
                             android:text="Yêu cầu ứng viên" />
 
                         <TextView
@@ -437,6 +441,8 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            style="@style/TextAppearance.AppCompat.Medium"
+                            android:textStyle="bold"
                             android:text="Quyền lợi:" />
 
                         <TextView
@@ -464,6 +470,8 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            style="@style/TextAppearance.AppCompat.Medium"
+                            android:textStyle="bold"
                             android:text="Địa chỉ" />
 
                         <TextView

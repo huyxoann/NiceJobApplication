@@ -2,6 +2,7 @@ package com.example.nicejobapplication.fragment.apply
 
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -73,6 +74,7 @@ class ChooseCVApplication : Fragment() {
                 for (document in it.documents){
                     cvArray[document["cvName"].toString()] = document.id
                 }
+
             }
         }
         val keys = arrayOf(cvArray.keys)
@@ -88,7 +90,8 @@ class ChooseCVApplication : Fragment() {
             override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (position != -1){
                     selectedCV = values[position].toString()
-                    Toast.makeText(requireContext(), "Selected Item: $selectedCV", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(requireContext(), "Selected Item: $selectedCV", Toast.LENGTH_SHORT).show()
+                    Log.e("CV Selected", cvArray.toString())
                 }
             }
 
@@ -150,7 +153,7 @@ class ChooseCVApplication : Fragment() {
 
         db.collection("applications").add(application)
         .addOnSuccessListener {
-
+            navController.popBackStack()
             Snackbar.make(binding.root, "Đã ứng tuyển thành công!", Snackbar.LENGTH_SHORT)
                 .show()
         }
