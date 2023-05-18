@@ -1,13 +1,17 @@
 package com.example.nicejobapplication.adapter
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.nicejobapplication.MainActivity
 import com.example.nicejobapplication.R
 import com.example.nicejobapplication.modal.CV
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -39,6 +43,7 @@ class CvAdapter(private val context: Context, private val cvArrayList: ArrayList
         return CvViewHolder(adapterLayout)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: CvAdapter.CvViewHolder, position: Int) {
         val dateFormat = SimpleDateFormat("dd-MM-yyyy hh:mm a")
 
@@ -62,14 +67,14 @@ class CvAdapter(private val context: Context, private val cvArrayList: ArrayList
             MaterialAlertDialogBuilder(context)
                 .setTitle("Delete")
                 .setIcon(R.drawable.ic_warning)
-                .setMessage("Are you sure delete this CV?")
-                .setPositiveButton("Yes"){
+                .setMessage("Bạn có chắc muốn xóa CV này ?")
+                .setPositiveButton("Có"){
                         dialog,_->
                     position.cvId?.let { it1 ->
                         db.collection("created_cv").document(userEmail!!).collection(userEmail).document(it1).delete().addOnSuccessListener {
 
+                            Toast.makeText(context,"Đã xóa thông tin này !",Toast.LENGTH_SHORT).show()
                             notifyDataSetChanged()
-                            Toast.makeText(context,"Deleted this Information",Toast.LENGTH_SHORT).show()
                             dialog.dismiss()
                         }.addOnFailureListener {
                             Toast.makeText(context,it.toString(),Toast.LENGTH_SHORT).show()
@@ -77,7 +82,7 @@ class CvAdapter(private val context: Context, private val cvArrayList: ArrayList
                         }
                     }
                 }
-                .setNegativeButton("No"){
+                .setNegativeButton("Không"){
                         dialog,_->
                     dialog.dismiss()
                 }

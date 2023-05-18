@@ -31,7 +31,7 @@
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/background_gradient"
                     android:gravity="center"
-                    android:text="Edit CV"
+                    android:text="Cập nhật CV"
                     android:textColor="@color/white"
                     android:textSize="24sp"
                     android:textStyle="bold"
@@ -61,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
-                    android:text="Contact Information"
+                    android:text="Thông tin cơ bản"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -81,15 +81,14 @@
                     />
 
 
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txlName"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
-                    android:hint="Name"
+                    android:hint="Tên"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/avtEditCV">
 
                     <EditText
@@ -97,8 +96,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textPersonName"
-                        android:textSize="14sp"
-                        />
+                        android:textSize="14sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -127,9 +125,9 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
-                    android:hint="Phone"
+                    android:hint="số điện thoại"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txlEmail">
 
                     <EditText
@@ -137,8 +135,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textPersonName"
-                        android:textSize="14sp"
-                        />
+                        android:textSize="14sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -147,8 +144,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
+                    android:hint="Giới tính"
                     android:textSize="16sp"
-                    android:hint="Gentle "
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txlPhone">
@@ -157,8 +154,7 @@
                         android:id="@+id/autoCompleteTextViewGentleEdit"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:inputType="none"
-                        />
+                        android:inputType="none" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -167,9 +163,9 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
-                    android:hint="Address"
+                    android:hint="Địa chỉ"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txtInLayoutGentle">
 
                     <EditText
@@ -177,8 +173,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textPersonName"
-                        android:textSize="14sp"
-                        />
+                        android:textSize="14sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -186,9 +181,9 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
-                    android:hint="Date of birth (dd/MM/YYYY)"
+                    android:hint="Ngày sinh (dd/MM/YYYY)"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txlAddress">
 
                     <EditText
@@ -204,9 +199,9 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
-                    android:hint="Career Goal "
+                    android:hint="Mục tiêu sự nghiệp"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txlBirthday">
 
                     <EditText
@@ -215,8 +210,7 @@
                         android:layout_height="match_parent"
                         android:inputType="textMultiLine"
                         android:minLines="3"
-                        android:textSize="14sp"
-                        />
+                        android:textSize="14sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -225,8 +219,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
+                    android:hint="Kinh nghiệm làm việc"
                     android:textSize="16sp"
-                    android:hint="Experience"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txlcareerGoal">
@@ -235,8 +229,7 @@
                         android:id="@+id/autoCompleteTextViewExperienceEdit"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:inputType="none"
-                        />
+                        android:inputType="none" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -244,9 +237,9 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
-                    android:hint="Academic Level"
+                    android:hint="Trình độ học vấn"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txtInLayoutExp">
 
                     <EditText
@@ -254,8 +247,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textPersonName"
-                        android:textSize="14sp"
-                        />
+                        android:textSize="14sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -264,7 +256,7 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="23dp"
-                    android:text="Update"
+                    android:text="Cập nhật"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
