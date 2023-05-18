@@ -31,7 +31,7 @@
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/background_gradient"
                     android:gravity="center"
-                    android:text="Create CV"
+                    android:text="Tạo CV"
                     android:textColor="@color/white"
                     android:textSize="24sp"
                     android:textStyle="bold"
@@ -47,7 +47,7 @@
                     android:backgroundTint="@color/lavender"
                     android:ems="10"
                     android:gravity="center"
-                    android:hint="CV Name"
+                    android:hint="tên CV"
                     android:inputType="textPersonName"
                     android:maxLines="1"
                     android:textColor="@color/lavender"
@@ -61,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
-                    android:text="Contact Information"
+                    android:text="Thông tin cơ bản"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -89,7 +89,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
-                    android:hint="Name"
+                    android:hint="Tên"
                     app:layout_constraintTop_toBottomOf="@+id/avtCreateCV">
 
                     <EditText
@@ -129,7 +129,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
-                    android:hint="Phone"
+                    android:hint="Số điện thoại"
                     app:layout_constraintTop_toBottomOf="@+id/txlEmail">
 
                     <EditText
@@ -148,7 +148,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
                     android:textSize="16sp"
-                    android:hint="Gentle "
+                    android:hint="Giới tính "
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txlPhone">
@@ -169,7 +169,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
-                    android:hint="Address"
+                    android:hint="Địa chỉ"
                     app:layout_constraintTop_toBottomOf="@+id/txtInLayoutGentle">
 
                     <EditText
@@ -188,7 +188,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
-                    android:hint="Date of birth (dd/MM/YYYY)"
+                    android:hint="Ngày sinh (dd/MM/YYYY)"
                     app:layout_constraintTop_toBottomOf="@+id/txlAddress">
 
                     <EditText
@@ -206,7 +206,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
-                    android:hint="Career Goal "
+                    android:hint="Mục tiêu sự nghiệp "
                     app:layout_constraintTop_toBottomOf="@+id/txlBirthday">
 
                     <EditText
@@ -227,7 +227,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
                     android:textSize="16sp"
-                    android:hint="Experience"
+                    android:hint="Kinh nghiệm làm việc"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txlcareerGoal">
@@ -247,7 +247,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="12dp"
-                    android:hint="Academic Level"
+                    android:hint="Trình độ học vấn"
                     app:layout_constraintTop_toBottomOf="@+id/txtInLayoutExp">
 
                     <EditText
@@ -265,7 +265,7 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="23dp"
-                    android:text="Continue"
+                    android:text="Hoàn thành"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

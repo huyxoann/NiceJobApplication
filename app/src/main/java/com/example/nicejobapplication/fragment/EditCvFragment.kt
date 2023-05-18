@@ -1,9 +1,11 @@
 package com.example.nicejobapplication.fragment
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +23,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -29,10 +33,14 @@ class EditCvFragment : Fragment() {
     private lateinit var binding:FragmentEditCvBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var dbRef: DatabaseReference
-    private lateinit var selectedAvt: Uri
     private lateinit var storage: FirebaseStorage
     private lateinit var database: FirebaseDatabase
     private lateinit var db: FirebaseFirestore
+
+    private val PICK_IMAGE_REQUEST = 71
+    private var selectedAvt: Uri? = null
+    private var firebaseStore: FirebaseStorage? = null
+    private var storageReference: StorageReference? = null
 
 
     //get create at
@@ -56,6 +64,9 @@ class EditCvFragment : Fragment() {
         storage = FirebaseStorage.getInstance()
         database = FirebaseDatabase.getInstance()
         db = FirebaseFirestore.getInstance()
+
+        firebaseStore = FirebaseStorage.getInstance()
+        storageReference = FirebaseStorage.getInstance().reference
 
         val bundle = arguments
         val documentID = bundle?.getString("cvName")
@@ -101,14 +112,35 @@ class EditCvFragment : Fragment() {
         }
         //select avt
         binding.avtEditCV.setOnClickListener {
-            val intent = Intent()
-            intent.action = Intent.ACTION_GET_CONTENT
-            intent.type = "image/*"
-            startActivityForResult(intent, 1)
+            launchGallery()
         }
 
         return binding.root
     }
+
+    private fun launchGallery() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Vui lòng chọn ảnh"), PICK_IMAGE_REQUEST)
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
+            if(data == null || data.data == null){
+                return
+            }
+
+            selectedAvt = data.data
+            try {
+                val bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver,selectedAvt)
+                binding.avtEditCV.setImageBitmap(bitmap)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
 
     private fun updateCV() {
         //getting values
@@ -125,69 +157,74 @@ class EditCvFragment : Fragment() {
         if ( name.isEmpty() && email.isEmpty() && phone.isEmpty() && gentle.isEmpty() && address.isEmpty()
             && workExp.isEmpty() && academicLevel.isEmpty() && dateOfBirth.isEmpty() && careerGoal.isEmpty() ) {
             if (name.isEmpty()) {
-                binding.edtNameEditCV.error = "Please enter name"
+                binding.edtNameEditCV.error = "Vui lòng nhập tên "
             }
             if (email.isEmpty()) {
-                binding.edtEmailEditCV.error = "Please enter email"
+                binding.edtEmailEditCV.error = "Vui lòng nhập email"
             }
             if (dateOfBirth.isEmpty()) {
-                binding.edtBirthdayEditCV.error = "Please enter date of birth"
+                binding.edtBirthdayEditCV.error = "Vui lòng nhập ngày sinh"
             }
             if (phone.isEmpty()) {
-                binding.edtPhoneEditCV.error = "Please enter phone"
+                binding.edtPhoneEditCV.error = "Vui lòng nhập số điện thoại"
             }
             if (workExp.isEmpty()) {
-                binding.autoCompleteTextViewExperienceEdit.error = "Please enter experience"
+                binding.autoCompleteTextViewExperienceEdit.error = "Vui lòng nhập kinh nghiệm"
             }
             if (gentle.isEmpty()) {
-                binding.autoCompleteTextViewGentleEdit.error = "Please enter gentle"
+                binding.autoCompleteTextViewGentleEdit.error = "Vui lòng chọn giới tính"
             }
             if (address.isEmpty()) {
-                binding.edtAddressEditCV.error = "Please enter address"
+                binding.edtAddressEditCV.error = "Vui lòng nhập địa chỉ"
             }
             if (careerGoal.isEmpty()) {
-                binding.edtcareerGoalEditCV.error = "Please enter Career Goal"
+                binding.edtcareerGoalEditCV.error = "Vui lòng nhập mục tiêu sự nghiệp"
             }
             if (academicLevel.isEmpty()) {
-                binding.edtAcademicLevelEditCV.error = "Please enter Academic Level"
+                binding.edtAcademicLevelEditCV.error = "Vui lòng nhập trình độ học vấn"
             }
             Toast.makeText(
                 activity,
-                "Please enter valid details",
+                "Vui lòng nhập đầy đủ thông tin",
                 Toast.LENGTH_SHORT
             ).show()
         } else if (!email.matches(emailPattern.toRegex())) {
-            binding.edtEmailEditCV.error = "Enter valid email"
+            binding.edtEmailEditCV.error ="Vui lòng nhập email đúng cú pháp"
             Toast.makeText(
                 activity,
-                "Please Enter valid email address",
+                "Vui lòng nhập email đúng cú pháp",
                 Toast.LENGTH_SHORT
             ).show()
         }else if (!dateOfBirth.matches(dayOfBirthPattern.toRegex())) {
-            binding.edtBirthdayEditCV.error = "Enter valid dates ( yyyy/mm/dd )"
+            binding.edtBirthdayEditCV.error = "Vui lòng nhập ngày sinh ( yyyy/mm/dd )"
             Toast.makeText(
                 activity,
-                "Please Enter valid dates ( yyyy/mm/dd )",
+                "Vui lòng nhập ngày sinh ( yyyy/mm/dd )",
                 Toast.LENGTH_SHORT
             ).show()
         }
         else if (selectedAvt == null) {
-            Toast.makeText(activity, "Please enter Your Avatar !", Toast.LENGTH_SHORT).show()
+            uploadDataWithoutImage()
         }
         else {
             uploadData()
         }
     }
 
+    private fun uploadDataWithoutImage() {
+       uploadInfoWithoutImage()
+    }
+
+
     private fun uploadData() {
         val reference = storage.reference.child("CV_Avt").child(Date().time.toString())
-        reference.putFile(selectedAvt).addOnCompleteListener {
+        reference.putFile(selectedAvt!!).addOnCompleteListener {
             if (it.isSuccessful) {
                 reference.downloadUrl.addOnSuccessListener { task ->
                     uploadInfo(task.toString())
                 }
             } else {
-                Toast.makeText(activity, "Something went wrong !", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Đã xảy ra lỗi, Vui lòng thử lại !", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -216,7 +253,7 @@ class EditCvFragment : Fragment() {
 
         db.collection("created_cv").document(userEmail!!).collection(userEmail).document(documentID!!)
             .update(updateMap).addOnCompleteListener {
-                Toast.makeText(activity, "Update CV success !", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Cập nhật CV thành công !", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(activity, MainActivity::class.java))
             }
             .addOnFailureListener {
@@ -224,18 +261,36 @@ class EditCvFragment : Fragment() {
             }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    private fun uploadInfoWithoutImage() {
+        val date = dateToMilliseconds(dt.toString(),dateFormat)
 
-        if (data!=null){
-            if (data.data!=null){
-                selectedAvt = data.data!!
+        val bundle = arguments
+        val documentID = bundle?.getString("cvName")
 
-                binding.avtEditCV.setImageURI(selectedAvt)
+        val userEmail = auth.currentUser!!.email
+
+        val updateMap = mapOf(
+            "employerName" to binding.edtNameEditCV.text.toString(),
+            "email" to  binding.edtEmailEditCV.text.toString(),
+            "phoneNumber" to binding.edtPhoneEditCV.text.toString(),
+            "gentle" to  binding.autoCompleteTextViewGentleEdit.text.toString(),
+            "address" to  binding.edtAddressEditCV.text.toString(),
+            "dayOfBirth" to  binding.edtBirthdayEditCV.text.toString(),
+            "careerGoal" to  binding.edtcareerGoalEditCV.text.toString(),
+            "workExperience" to binding.autoCompleteTextViewExperienceEdit.text.toString(),
+            "academicLevel" to binding.edtAcademicLevelEditCV.text.toString(),
+            "createAt" to date
+        )
+
+        db.collection("created_cv").document(userEmail!!).collection(userEmail).document(documentID!!)
+            .update(updateMap).addOnCompleteListener {
+                Toast.makeText(activity, "Cập nhật CV thành công !", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(activity, MainActivity::class.java))
             }
-        }
+            .addOnFailureListener {
+                Toast.makeText(activity, it.message.toString(), Toast.LENGTH_SHORT).show()
+            }
     }
-
 
     private fun dropdownItem() {
         // dropdown item experience
