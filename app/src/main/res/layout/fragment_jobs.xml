@@ -51,10 +51,10 @@
                     android:layout_marginLeft="8dp"
                     android:layout_toEndOf="@id/containLogo"
                     android:fontFamily="@font/roboto_bold"
-                    android:paddingTop="8dp"
+                    android:paddingTop="16dp"
                     android:text="Xin Chào {Tên User}"
                     android:textColor="@color/md_theme_onBackground"
-                    android:textSize="15sp" />
+                    android:textSize="18sp" />
 
                 <ImageButton
                     android:id="@+id/notificationsButton"

@@ -1,9 +1,11 @@
 package com.example.nicejobapplication.fragment
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +21,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,10 +31,14 @@ class CreateCVFragment : Fragment() {
     private lateinit var binding: FragmentCreateCvBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var dbRef: DatabaseReference
-    private lateinit var selectedAvt: Uri
     private lateinit var storage: FirebaseStorage
     private lateinit var database: FirebaseDatabase
     private lateinit var db: FirebaseFirestore
+
+    private val PICK_IMAGE_REQUEST = 71
+    private var selectedAvt: Uri? = null
+    private var firebaseStore: FirebaseStorage? = null
+    private var storageReference: StorageReference? = null
 
     //get create at
     private val calendar: Calendar = Calendar.getInstance()
@@ -53,15 +61,15 @@ class CreateCVFragment : Fragment() {
         database = FirebaseDatabase.getInstance()
         db = FirebaseFirestore.getInstance()
 
+        firebaseStore = FirebaseStorage.getInstance()
+        storageReference = FirebaseStorage.getInstance().reference
+
         binding.btnContinue.setOnClickListener {
             saveCV()
         }
         //select avt
         binding.avtCreateCV.setOnClickListener {
-            val intent = Intent()
-            intent.action = Intent.ACTION_GET_CONTENT
-            intent.type = "image/*"
-            startActivityForResult(intent, 1)
+            launchGallery()
         }
 
         //dropdown item
@@ -70,6 +78,31 @@ class CreateCVFragment : Fragment() {
 
         return binding.root
     }
+
+    private fun launchGallery() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Vui lòng lựa chọn ảnh !"), PICK_IMAGE_REQUEST)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
+            if(data == null || data.data == null){
+                return
+            }
+
+            selectedAvt = data.data
+            try {
+                val bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver,selectedAvt)
+                binding.avtCreateCV.setImageBitmap(bitmap)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
 
     private fun saveCV() {
         //getting values
@@ -88,57 +121,57 @@ class CreateCVFragment : Fragment() {
             && workExp.isEmpty() && academicLevel.isEmpty() && dateOfBirth.isEmpty() && careerGoal.isEmpty() )
         {
             if (cvName.isEmpty()) {
-                binding.edtCvName.error = "Please enter CV name"
+                binding.edtCvName.error = "Vui lòng nhập tên CV"
             }
             if (name.isEmpty()) {
-                binding.edtNameCreateCV.error = "Please enter name"
+                binding.edtNameCreateCV.error = "Vui lòng nhập tên "
             }
             if (email.isEmpty()) {
-                binding.edtEmailCreateCV.error = "Please enter email"
+                binding.edtEmailCreateCV.error = "Vui lòng nhập email"
             }
             if (dateOfBirth.isEmpty()) {
-                binding.edtBirthdayCreateCV.error = "Please enter date of birth"
+                binding.edtBirthdayCreateCV.error = "Vui lòng nhập ngày sinh"
             }
             if (phone.isEmpty()) {
-                binding.edtPhoneCreateCV.error = "Please enter phone"
+                binding.edtPhoneCreateCV.error = "Vui lòng nhập số điện thoại"
             }
             if (gentle.isEmpty()) {
-                binding.autoCompleteTextViewGentle.error = "Please enter gentle"
+                binding.autoCompleteTextViewGentle.error = "Vui lòng chọn giới tính"
             }
             if (address.isEmpty()) {
-                binding.edtAddressCreateCV.error = "Please enter address"
+                binding.edtAddressCreateCV.error = "Vui lòng nhập địa chỉ"
             }
             if (workExp.isEmpty()) {
-                binding.autoCompleteTextViewExperience.error = "Please enter experience"
+                binding.autoCompleteTextViewExperience.error = "Vui lòng nhập kinh nghiệm"
             }
             if (careerGoal.isEmpty()) {
-                binding.edtcareerGoalCreateCV.error = "Please enter Career Goal"
+                binding.edtcareerGoalCreateCV.error = "Vui lòng nhập mục tiêu sự nghiệp"
             }
             if (academicLevel.isEmpty()) {
-                binding.edtAcademicLevelCreateCV.error = "Please enter Academic Level"
+                binding.edtAcademicLevelCreateCV.error = "Vui lòng nhập trình độ học vấn"
             }
             Toast.makeText(
                 activity,
-                "Please enter valid details",
+                "Vui lòng nhập đầy đủ thông tin",
                 Toast.LENGTH_SHORT
             ).show()
         } else if (!email.matches(emailPattern.toRegex())) {
-            binding.edtEmailCreateCV.error = "Enter valid email"
+            binding.edtEmailCreateCV.error = "Vui lòng nhập email đúng cú pháp"
             Toast.makeText(
                 activity,
-                "Please Enter valid email address",
+                "Vui lòng nhập email đúng cú pháp",
                 Toast.LENGTH_SHORT
             ).show()
         }else if (!dateOfBirth.matches(dayOfBirthPattern.toRegex())) {
-            binding.edtBirthdayCreateCV.error = "Enter valid dates ( yyyy/mm/dd )"
+            binding.edtBirthdayCreateCV.error = "Vui lòng nhập ngày sinh ( yyyy/mm/dd )"
             Toast.makeText(
                 activity,
-                "Please Enter valid dates ( yyyy/mm/dd )",
+                "Vui lòng nhập ngày sinh ( yyyy/mm/dd )",
                 Toast.LENGTH_SHORT
             ).show()
         }
         else if (selectedAvt == null) {
-            Toast.makeText(activity, "Please enter Your Avatar !", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Vui lòng chọn ảnh !", Toast.LENGTH_SHORT).show()
         } else {
             uploadData()
         }
@@ -146,13 +179,13 @@ class CreateCVFragment : Fragment() {
 
     private fun uploadData() {
         val reference = storage.reference.child("CV_Avt").child(Date().time.toString())
-        reference.putFile(selectedAvt).addOnCompleteListener {
+        reference.putFile(selectedAvt!!).addOnCompleteListener {
             if (it.isSuccessful) {
                 reference.downloadUrl.addOnSuccessListener { task ->
                     uploadInfo(task.toString())
                 }
             } else {
-                Toast.makeText(activity, "Something went wrong !", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Đã xảy ra lỗi, Vui lòng thử lại !", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -174,24 +207,12 @@ class CreateCVFragment : Fragment() {
 
         db.collection("created_cv").document(userEmail!!).collection(userEmail).document()
             .set(cv).addOnCompleteListener {
-                Toast.makeText(activity, "Create CV success !", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Tạo CV thành công !", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(activity, MainActivity::class.java))
             }
             .addOnFailureListener {
                 Toast.makeText(activity, it.message.toString(), Toast.LENGTH_SHORT).show()
             }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (data!=null){
-            if (data.data!=null){
-                selectedAvt = data.data!!
-
-                binding.avtCreateCV.setImageURI(selectedAvt)
-            }
-        }
     }
 
     private fun birhday() {
@@ -212,7 +233,6 @@ class CreateCVFragment : Fragment() {
         dp.show()
 
     }
-
     private fun dropdownItem() {
         // dropdown item experience
         val experience = resources.getStringArray(R.array.exp)
@@ -224,10 +244,8 @@ class CreateCVFragment : Fragment() {
         val arrAdapterGen = ArrayAdapter(requireContext(),R.layout.dropdown_item,gentle)
         binding.autoCompleteTextViewGentle.setAdapter(arrAdapterGen)
     }
-
     private fun dateToMilliseconds(date:String,dateFormat: SimpleDateFormat):Long{
         val mDate = dateFormat.parse(date)
         return mDate.time
     }
-
 }
