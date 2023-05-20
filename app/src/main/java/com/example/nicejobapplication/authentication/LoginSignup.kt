@@ -17,8 +17,8 @@ class LoginSignup : AppCompatActivity() {
         binding = ActivityLoginSignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("LOGIN"))
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("SIGNUP"))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Đăng nhập"))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Đăng kí"))
 
         val fragmentManager : FragmentManager = supportFragmentManager
         viewPagerAdapter = ViewPageAdapter(fragmentManager,lifecycle)

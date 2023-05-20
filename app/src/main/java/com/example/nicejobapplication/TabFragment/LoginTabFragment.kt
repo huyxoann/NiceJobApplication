@@ -89,7 +89,7 @@ class LoginTabFragment : Fragment() {
         }
         auth.sendPasswordResetEmail(email.text.toString()).addOnCompleteListener {
             if (it.isSuccessful){
-                Toast.makeText(activity,"Check your email", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity,"Vui lòng kiểm tra email của bạn", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -102,24 +102,24 @@ class LoginTabFragment : Fragment() {
         //validation
         if ( email.isEmpty() && password.isEmpty() ) {
             if (email.isEmpty()) {
-                binding.loginEmail.error = "Enter your email address"
+                binding.loginEmail.error = "Vui lòng nhập email"
             }
             if (password.isEmpty()) {
-                binding.loginPassword.error = "Enter your password"
+                binding.loginPassword.error = "Vui lòng nhập mật khẩu"
             }
-            Toast.makeText(activity,"Please enter valid details", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity,"Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show()
         }else if (!email.matches(emailPattern.toRegex())){
-//            binding.loginEmail.error = "Enter valid email address"
+           binding.loginEmail.error = "Sai cú pháp email"
             Toast.makeText(
                 activity,
-                "Please enter valid email address",
+                "Vui lòng nhập chính xác cú pháp email",
                 Toast.LENGTH_SHORT
             ).show()
         }else if (password.length <6){
-//            binding.loginPassword.error = "Enter password more than 6 characters"
+            binding.loginPassword.error = "Độ dài mật khẩu phải lớn hơn 6 kí tự"
             Toast.makeText(
                 activity,
-                "Please enter password more than 6 characters",
+                "Độ dài mật khẩu phải lớn hơn 6 kí tự",
                 Toast.LENGTH_SHORT
             ).show()
         } else{
@@ -132,12 +132,12 @@ class LoginTabFragment : Fragment() {
                         //chuyển đến fragment main
                         val i = Intent(activity, MainActivity::class.java)
                         startActivity(i)
-                        Toast.makeText(activity,"Login successfully !", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity,"Đăng nhập thành công !", Toast.LENGTH_SHORT).show()
                     }else{
-                        Toast.makeText(activity,"Please verify your Email !", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity,"Vui lòng xác minh Email !", Toast.LENGTH_SHORT).show()
                     }
                 }else{
-                    Toast.makeText(activity,"Something went wrong, try again", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity,"Đã xảy ra lỗi , vui lòng thử lại !", Toast.LENGTH_SHORT).show()
                 }
             }
         }
